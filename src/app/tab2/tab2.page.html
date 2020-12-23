@@ -1,18 +1,16 @@
 <ion-header [translucent]="true">
     <ion-toolbar color="primary">
-        <ion-title>
-            MSEMA
-        </ion-title>
+        <ion-title> MSEMA </ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
     <!-- <ion-card> -->
     <ion-card-header>
         <ion-item>
-            <ion-button href="/tabs/tab2/supplies">SUPPLIES CHECKLIST</ion-button>
+            <ion-button [routerLink]="['/tabs/tab2/supplies']">SUPPLIES CHECKLIST</ion-button>
         </ion-item>
         <ion-item>
-            <ion-button id="btn-contacts">EMERGENCY CONTACTS</ion-button>
+            <ion-button [routerLink]="['/tabs/tab2/contacts']">EMERGENCY CONTACTS</ion-button>
         </ion-item>
         <ion-item>
             <ion-button>EMERGENCY MEETING PLACES</ion-button>

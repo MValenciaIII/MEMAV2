@@ -13,6 +13,19 @@ const routes: Routes = [
       import("../tab2details/supplies/supplies.module").then(
         (m) => m.SuppliesPageModule
       ),
+    //supplies (or the supplies checklist button) is a child route of tab2.
+  },
+  {
+    path: "contacts",
+    loadChildren: () =>
+      import("../tab2details/contacts/contacts.module").then(
+        (m) => m.ContactsPageModule
+      ),
+  },
+  {
+    path: "",
+    redirectTo: "/tabs/tab2",
+    pathMatch: "full",
   },
 ];
 
