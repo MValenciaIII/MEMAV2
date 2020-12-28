@@ -9,8 +9,10 @@ import { Tab2Page } from "src/app/tab2/tab2.page";
 })
 export class ContactsPage {
   constructor() {}
-
+  ionViewWillEnter() {
+    console.log("I just entered contacts page");
+  }
   ngOnDestroy() {
-    console.log("Tab 2 oninit");
+    console.log("The stack for tab two 'contacts' has been destroyed");
   }
 }

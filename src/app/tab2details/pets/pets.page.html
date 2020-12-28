@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col>
+                <ion-nav-link [routerLink]="['/tabs/tab2/']">BACK</ion-nav-link>
+            </ion-col>
+        </ion-row>
+        <ion-title>YOUR PLAN</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-card-header>CHECKLIST</ion-card-header>
+    <ion-item>
+        <ion-checkbox checked="false" name="food"></ion-checkbox>
+        <ion-label> FOOD</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="water"></ion-checkbox>
+        <ion-label>WATER</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="meds"></ion-checkbox>
+        <ion-label>MEDICINES AND MEDICAL RECORDS</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="firstaid"></ion-checkbox>
+        <ion-label>FIRST AID KIT</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="leash"></ion-checkbox>
+        <ion-label>COLLOR WITH ID TAG, HARNESS OR LEASH</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="docs"></ion-checkbox>
+        <ion-label>IMPORTANT DOCUMENTS</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="carrier"></ion-checkbox>
+        <ion-label>CRATE OR OTHER PET CARRIER</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="sanitation"></ion-checkbox>
+        <ion-label>SANITATION</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="pictures"></ion-checkbox>
+        <ion-label>A PICTURE OF YOU AND YOUR PET TOGETHER</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-checkbox checked="false" name="familiar"></ion-checkbox>
+        <ion-label>FAMILIAR ITEMS</ion-label>
+    </ion-item>
+    <ion-card-header>
+        <ion-title>Your Checklist</ion-title>
+    </ion-card-header>
+    <ion-input type="text"></ion-input>
+    <ion-button style="align-content: center">ADD</ion-button>
+</ion-content>

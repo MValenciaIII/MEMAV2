@@ -1,75 +1,75 @@
 <ion-header>
     <ion-toolbar>
-        <div class="col-sm-4">
-            <a href="/tabs/tab2">Back</a>
-        </div>
-        <div class="col-sm-8">
-            <ion-title>Your Plan</ion-title>
-        </div>
+        <ion-row>
+            <ion-col>
+                <ion-nav-link [routerLink]="['/tabs/tab2/']">BACK</ion-nav-link>
+            </ion-col>
+        </ion-row>
+        <ion-title>YOUR PLAN</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card-header>CHECKLIST</ion-card-header>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="flashlight"></ion-checkbox>
         <ion-label> FLASHLIGHT</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="firstaid"></ion-checkbox>
         <ion-label>FIRST AID KIT</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="meds"></ion-checkbox>
         <ion-label>MEDICINES AND MEDICAL RECORDS</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="water"></ion-checkbox>
         <ion-label>WATER</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="food"></ion-checkbox>
         <ion-label>FOOD</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="radio"></ion-checkbox>
         <ion-label>RADIO</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="batteries"></ion-checkbox>
         <ion-label>EXTRA BATTERIES</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="canopener"></ion-checkbox>
         <ion-label>CAN OPENER</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="whistle"></ion-checkbox>
         <ion-label>WHISTLE</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="wrench"></ion-checkbox>
         <ion-label>WRENCH OR PLIES</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="map"></ion-checkbox>
         <ion-label>LOCAL MAP</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="charger"></ion-checkbox>
         <ion-label>MOBILE DEVICE EMERGENCY CHARGER</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="towels"></ion-checkbox>
         <ion-label>TOWELS, GARBAGE BAGS, AND PLASTIC TIES</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox checked="false" name="Flashlight"></ion-checkbox>
+        <ion-checkbox checked="false" name="mask"></ion-checkbox>
         <ion-label>FACE MASK</ion-label>
     </ion-item>
     <ion-card-header>
         <ion-title>Your Checklist</ion-title>
     </ion-card-header>
-    <ion-input type="text" style="border: 0ch #ffffff;"></ion-input>
-    <ion-button style="align-content: center; ">ADD</ion-button>
+    <ion-input type="text"></ion-input>
+    <ion-button style="align-content: center">ADD</ion-button>
 </ion-content>
