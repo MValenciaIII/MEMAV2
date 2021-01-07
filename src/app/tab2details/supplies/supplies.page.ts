@@ -13,79 +13,79 @@ export class SuppliesPage implements OnInit {
   data: any;
   constructor(public storage: Storage) { 
     this.data = {}
-    let emergencyItems = [
+    let emergencyItem = [
       {
-        id:0,
+        
         name: "FLASHLIGHT",
         checked: false
       },
       {
-        id:1,
+        
         name: "FIRST AID KIT",
         checked: false
       },
       {
-        id:2,
+        
         name: "MEDICINES AND MEDICAL RECORDS",
         checked: false
       },
       {
-        id:3,
+        
         name: "WATER",
         checked: false
       },
       {
-        id:4,
+        
         name: "FOOD",
         checked: false
       },
       {
-        id:5,
+        
         name: "RADIO",
         checked: false
       },
       {
-        id:6,
+        
         name: "EXTRA BATTERIES",
         checked: false
       },
       {
-        id:7,
+        
         name: "CAN OPENER",
         checked: false
       },
       {
-        id:8,
+        
         name: "WHISTLE",
         checked: false
       },
       {
-        id:9,
+        
         name: "WRENCH OR PLIES",
         checked: false
       },
       {
-        id:10,
+        
         name: "LOCAL MAP",
         checked: false
       },
       {
-        id:11,
+        
         name: "MOBILE DEVICE EMERGENCY CHARGER",
         checked: false
       },
       {
-        id:12,
+        
         name: "TOWELS,GARBAGE BAGS, AND PLASTIC TIES",
         checked: false
       },
       {
-        id:13,
+        
         name: "FACE MASK",
         checked: false
       }
     ];
-    this.setValue("items", emergencyItems);
+    this.setValue("emergencyItems", emergencyItem);
   }
 // functions under me super critical to loading data.
   ionViewWillEnter() {
@@ -98,6 +98,7 @@ export class SuppliesPage implements OnInit {
   setValue(key: string, value: any) {
     this.storage.set(key, value).then((response) => {
       console.log('set' + key + ' ', response);
+      console.log("worked")
 
       //get Value Saved in key
       this.getValue(key);
