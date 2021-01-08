@@ -113,4 +113,12 @@ export class SuppliesPage {
     console.log("Local: " + localStorage.getItem(emergencyItem.name));
     console.log(emergencyItem);
   }
+
+  /* 
+  //Create a data list inside this page
+  send the list to HTML page
+  create functions to set,get data from ionic Storage
+  
+  */
+  ngOnInit() {}
 }
