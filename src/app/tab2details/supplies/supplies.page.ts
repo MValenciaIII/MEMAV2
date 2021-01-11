@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
-import { Tab2Page } from "src/app/tab2/tab2.page";
-// import { Storage } from "@ionic/storage";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: "app-supplies",
@@ -69,56 +67,52 @@ export class SuppliesPage {
   ];
   constructor() {
     // Called first time before the ngOnInit()
-  }
-
-  ngOnInIt() {
-    //looping through the emergency list items to get the value of each item
-    //Place the emergencyItems into localStorage.
-    //The "checked" flags are "false" by default when the application is loaded. Need to set them.
-    // Called after the constructor and called  after the first
     var myArr = [];
-    for (var i = 0; i < this.emergencyItem.length; i++) {
-      localStorage.setItem(
-        this.emergencyItem[i].name,
-        this.emergencyItem[i].checked.toString()
-      );
+    console.log("constructor()... ");
+    // If localStorage has not been initialized, then initialize it by setting them all to false.
+    if (localStorage.length == 0) {
+      for (var i = 0; i < this.emergencyItem.length; i++) {
+        localStorage.setItem(
+          this.emergencyItem[i].name,
+          this.emergencyItem[i].checked.toString()
+        );
+      }
     }
     console.log("Local Storage: " + localStorage.length);
   }
 
   ionViewWillEnter() {
     //Load the emergencyItems from localStorage
+    console.log("I just entered the supplies page");
+    // console.log(this.emergencyItem);
+    // Iterating through the localStorage to get the "true"/"false" boolean.
+    for (var i = 0; i < this.emergencyItem.length; i++) {
+      // When true, set emergency items to true. If false, set emergency items to false. Has to use "startsWith", because the value in localStorage is actually a string. Couldn't find a "toBoolean()" method.
+      this.emergencyItem[i].checked = localStorage
+        .getItem(this.emergencyItem[i].name)
+        .startsWith("t");
+    }
+    // console.log(localStorage);
   }
 
   ionViewWillLeave() {
     //Set the emergencyItems into localStorage
-    //
     // The "checked" flags could have changed from "false". Need to set them if so.
     for (var i = 0; i < this.emergencyItem.length; i++) {
       localStorage.getItem(this.emergencyItem[i].name);
     }
     console.log("I just left the supplies page");
-    console.log(this.emergencyItem);
+    // console.log(this.emergencyItem);
+    console.log(localStorage);
   }
-
-  // ngOnDestroy() {
-  // When cycle is destroy it reloads the page to root. Problem is when page/window reloads, there is no actual value being stored in the localStorage.
-  // }
 
   onClick(emergencyItem) {
     // Clicking an emergencyItem changes the "checked" flag. Need to change it in storage.
-    if (localStorage.getItem(emergencyItem.name) == "false")
-      localStorage.setItem(emergencyItem.name, "true");
-    else localStorage.setItem(emergencyItem.name, "false");
-    console.log("Local: " + localStorage.getItem(emergencyItem.name));
+    // if (localStorage.getItem(emergencyItem.name) == "false")
+    // localStorage.setItem(emergencyItem.name, "true");
+    // else localStorage.setItem(emergencyItem.name, "false");
+    localStorage.setItem(emergencyItem.name, emergencyItem.checked);
+    // console.log("Local: " + localStorage.getItem(emergencyItem.name));
     console.log(emergencyItem);
   }
-
-  /* 
-  //Create a data list inside this page
-  send the list to HTML page
-  create functions to set,get data from ionic Storage
-  
-  */
-  ngOnInit() {}
 }
