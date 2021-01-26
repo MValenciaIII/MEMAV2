@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FlashlightPageRoutingModule } from './flashlight-routing.module';
-
+import { Flashlight } from '@ionic-native/flashlight'
 import { FlashlightPage } from './flashlight.page';
 
 @NgModule({

@@ -4,6 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <ion-button expand="block" color="success" (click)="onFlashlight()">
+    Turn on
+  </ion-button>
+  <ion-button expand="block" color="danger" (click)="offFlashlight()">
+    Turn off
+  </ion-button>
 </ion-content>
