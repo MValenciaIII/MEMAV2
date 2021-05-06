@@ -10,14 +10,14 @@ import { Flashlight } from "@ionic-native/flashlight/ngx";
 export class FlashlightPage implements OnInit {
   isTorch = false;
 
-  constructor(private Flashlight: Flashlight) {}
+  constructor(private flashlight: Flashlight) {}
 
   ngOnInit() {}
 
   onFlashlight() {
-    if (this.Flashlight.available()) {
+    if (this.flashlight.available()) {
       this.isTorch = false;
-      this.Flashlight.switchOn();
+      this.flashlight.switchOn();
     } else {
       alert("Flashlight Not Available");
     }
@@ -25,6 +25,6 @@ export class FlashlightPage implements OnInit {
 
   offFlashlight() {
     this.isTorch = true;
-    this.Flashlight.switchOff();
+    this.flashlight.switchOff();
   }
 }
