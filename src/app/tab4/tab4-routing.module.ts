@@ -15,6 +15,13 @@ const routes: Routes = [
         (m) => m.FlashlightPageModule
       ),
   },
+  {
+    path: "whistle",
+    loadChildren: () =>
+      import("../tab4details/whistle/whistle.module").then(
+        (m) => m.WhistlePageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
