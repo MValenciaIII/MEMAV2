@@ -17,7 +17,7 @@ export class FlashlightPage implements OnInit {
   onFlashlight() {
     if (this.Flashlight.available()) {
       this.isTorch = false;
-      this.Flashlight.toggle();
+      this.Flashlight.switchOn();
     } else {
       alert("Flashlight Not Available");
     }
@@ -25,6 +25,6 @@ export class FlashlightPage implements OnInit {
 
   offFlashlight() {
     this.isTorch = true;
-    this.Flashlight.toggle();
+    this.Flashlight.switchOff();
   }
 }
