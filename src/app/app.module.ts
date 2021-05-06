@@ -20,7 +20,7 @@ import { AppComponent } from "./app.component";
     AppRoutingModule,
   ],
   providers: [
-    [Flashlight],
+    Flashlight,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
