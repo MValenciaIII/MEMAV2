@@ -7,12 +7,10 @@ import { Flashlight } from "@ionic-native/flashlight/ngx";
   templateUrl: "./flashlight.page.html",
   styleUrls: ["./flashlight.page.scss"],
 })
-export class FlashlightPage implements OnInit {
+export class FlashlightPage {
   isTorch = false;
 
   constructor(private flashlight: Flashlight) {}
-
-  ngOnInit() {}
 
   onFlashlight() {
     if (this.flashlight.available()) {
