@@ -9,6 +9,8 @@ import { IonicStorageModule } from "@ionic/storage";
 import { Flashlight } from "@ionic-native/flashlight/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +23,7 @@ import { AppComponent } from "./app.component";
   ],
   providers: [
     Flashlight,
+    NativeAudio,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

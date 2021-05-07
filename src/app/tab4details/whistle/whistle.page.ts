@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
+
 
 @Component({
   selector: 'app-whistle',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WhistlePage implements OnInit {
 
-  constructor() { }
-
+  constructor(private nativeAudio: NativeAudio) { }
   ngOnInit() {
   }
+ 
+   audio = new Audio('assets/whistle.mp3');
+    whistleButton(){
+      this.audio.play();
+
+ }
 
 }
