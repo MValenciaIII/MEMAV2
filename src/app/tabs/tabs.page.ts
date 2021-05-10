@@ -20,6 +20,11 @@ export class TabsPage {
   }
   tab3() {
     this.navCtrl.navigateRoot("tabs/tab3");
+  }
+  tab4() {
     this.navCtrl.navigateRoot("tabs/tab4");
+  }
+  tab5() {
+    this.navCtrl.navigateRoot("tabs/tab5");
   }
 }
