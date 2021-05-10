@@ -10,7 +10,7 @@ export class WhistlePage implements OnInit {
   ngOnInit() {}
 
   whistleButton() {
-    let audio = new Audio("assets/whistle.mp3");
+    let audio = new Audio("assets/human_whistle_fingers_attention.mp3");
     audio.play();
   }
 }
