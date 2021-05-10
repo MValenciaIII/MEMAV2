@@ -1,0 +1,31 @@
+.whistleContainer {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whistle_btn {
+  background: url("../../../assets/icon_whistle.png");
+  background-size: cover;
+  background-position: 8px 23px;
+  display: inline-block;
+  border: solid hsl(214, 43%, 69%);
+  padding: 20px;
+  width: 150px;
+  border-radius: 900px;
+  height: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+/* .btn:hover{
+     width: 75px; 
+     height: 75px;
+   /*   transform: scale(.8); */
+
+button:active {
+  transform: scale(1.2);
+  transition-duration: 0.1;
+  transition-property: all;
+}
