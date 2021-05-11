@@ -5,10 +5,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button expand="block" color="success" (click)="onFlashlight()">
+  <!-- <ion-button expand="block" color="success" (click)="onFlashlight()">
     Turn on
   </ion-button>
   <ion-button expand="block" color="danger" (click)="offFlashlight()">
     Turn off
-  </ion-button>
+  </ion-button> -->
+
+  <div class="container">
+    <div class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <label class="onoffswitch-label" for="myonoffswitch">
+            <div class="onoffswitch-inner" (click)="onFlashlight()"></div>
+            <div class="onoffswitch-switch" (click)="offFlashlight()"></div>
+        </label>
+    </div>
+  </div>
+  
+
+
 </ion-content>
