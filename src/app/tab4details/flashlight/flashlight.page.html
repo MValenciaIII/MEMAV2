@@ -1,14 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>flashlight</ion-title>
+    <ion-title>MSEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button expand="block" color="success" (click)="onFlashlight()">
+  <!-- <ion-button expand="block" color="success" (click)="onFlashlight()">
     Turn on
   </ion-button>
   <ion-button expand="block" color="danger" (click)="offFlashlight()">
     Turn off
-  </ion-button>
+  </ion-button> -->
+
+    <ion-card-header  style="text-align: center;">FLASHLIGHT</ion-card-header>
+    <div class="flashlight-container">
+      <input type="button" src="assets/flashlight.png" class="flashlight" (click)="onFlashlight(); offFlashlight();">
+      <!-- <button><img src="assets/flashlight.png" class="flashlight" (click)="onFlashlight(); offFlashlight();" ></button> -->
+    </div>
+  <!-- <div class="container">
+    <div class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <label class="onoffswitch-label" for="myonoffswitch">
+            <div class="onoffswitch-inner" (click)="onFlashlight()"></div>
+            <div class="onoffswitch-switch" (click)="offFlashlight()"></div>
+        </label>
+    </div>
+  </div> -->
+  
+
+
 </ion-content>
