@@ -1,7 +1,19 @@
 .content-with-full-height{
-    height: 100%;
+    // height: 100%;
+    margin-bottom: 10px;
   }
   
   .equal-sized-item{
-    height: 14.2%
+    height: 7.5%
+  }
+  
+  .btn{
+    margin: auto;
+    text-align:center;
+    width: 95%;
+    display: block;
+    background: none;
+    border: 1px solid gray;
+    padding: 10px;
+    display: block;
   }
