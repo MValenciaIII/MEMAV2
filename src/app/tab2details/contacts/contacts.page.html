@@ -1,15 +1,32 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-row>
-            <ion-col>
-                <ion-nav-link [routerLink]="['/tabs/tab2/']">BACK</ion-nav-link>
-            </ion-col>
-        </ion-row>
-        <ion-title>YOUR PLAN</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-nav-link [routerLink]="['/tabs/tab2/']">BACK</ion-nav-link>
+      </ion-col>
+    </ion-row>
+    <ion-title>YOUR PLAN</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card-header style="text-align: center; background-color:#061e3d;">EMERGENCY CONTACTS</ion-card-header>
-    <ion-button [routerLink]="['/tabs/tab2/contacts/info']">ADD NEW CONTACT</ion-button>
+  <div *ngIf="contacts">
+    <ion-card *ngFor="let contact of contacts;" style="padding: 0.25em">
+      <ion-card-header>
+        <ion-card-title
+          >{{contact.firstName}} {{contact.lastName}}</ion-card-title
+        >
+        <!-- <ion-card-title>{{contact | json}}</ion-card-title> -->
+      </ion-card-header>
+
+      <ion-card-content style="font-size: 1.125rem">
+        {{contact.phone}} <br />
+        {{contact.address}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-button [routerLink]="['/tabs/tab2/contacts/info']"
+    >ADD NEW CONTACT</ion-button
+  >
 </ion-content>
