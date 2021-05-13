@@ -12,7 +12,7 @@ import { ContactsPage } from "../contacts/contacts.page";
 export class ContactinfoPage implements OnInit {
   title = "local-storage-app";
   // # parses stringified array to a array
-  contacts = JSON.parse(localStorage.getItem('CONTACTS'));
+  contacts = JSON.parse(localStorage.getItem('CONTACTS')) || [];
   currentDisplayIndex: number = -1;
   constructor(
     private localStorageService: LocalStorageService,
@@ -33,8 +33,8 @@ export class ContactinfoPage implements OnInit {
   public addPerson() {
     event.preventDefault();
 
-    this.person.id = "contact_" + JSON.stringify(this.contacts.length + 1);
-    // this.person.id = JSON.stringify(localStorage.length + 1);
+    // this.person.id = "contact_" + JSON.stringify(this.contacts.length + 1);
+    this.person.id = JSON.stringify(localStorage.length + 1);
     this.person.firstName = this.firstname;
     this.person.phone = this.phone;
     this.person.lastName = this.lastname;
@@ -47,6 +47,7 @@ export class ContactinfoPage implements OnInit {
     });
     
     localStorage.setItem('CONTACTS', JSON.stringify(this.contacts));
+    
     // console.log(this.contacts);
     // this.navCtrl.navigateRoot("tabs/tab2/contacts");
     console.log("Local Storage length: " + localStorage.length);
