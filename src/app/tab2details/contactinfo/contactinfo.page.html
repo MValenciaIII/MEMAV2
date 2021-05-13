@@ -15,40 +15,18 @@
         <ion-input [(ngModel)]="firstname" name="firstname" type="text"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Lastname:</ion-label>
+        <ion-label position="floating">Lastname:</ion-label>
         <ion-input [(ngModel)]="lastname" name="lastname" type="text"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Age:</ion-label>
-        <ion-input [(ngModel)]="age" name="age" type="number"></ion-input>
+        <ion-label position="floating">Phone:</ion-label>
+        <ion-input [(ngModel)]="phone" name="phone" type="number"></ion-input>
     </ion-item>
     <ion-item>
-        <label></label>
-        <button (click)="addPerson()">Add</button>
+        <ion-label position="floating">Address</ion-label>
+        <ion-input [(ngModel)]="address" name="address" type="text"></ion-input>
     </ion-item>
-
-    <!-- <h4> Get person </h4>
-    <input [(ngModel)]="queryKey" name="queryKey" type="text"><br>
-    <button (click)="getPerson(queryKey)"> Get </button>
-    <h4>Result</h4>
-    {{queryResult}}
-    <h4> Delete person</h4>
-    <ion-input [(ngModel)]="removeKey" name="removeKey" type="text"></ion-input> <br>
-    <button (click)="deletePerson(removeKey)"> Delete </button> -->
-
-    <ion-label> Delete person</ion-label>
-    <ion-input [(ngModel)]="removeKey" name="removeKey" type="text"></ion-input>
-    <br />
-    <button (click)="deletePerson(removeKey)">Delete</button>
-
-    <h4>Reset store</h4>
-    <button (click)="reset()">Reset</button>
-
-    <script type="text/javascript">
-        console.log(localStorage);
-    </script>
-
-    <!-- </ion-content> -->
+        <ion-button (click)="addPerson()">Add</ion-button>
 </ion-content>
 
 
@@ -94,16 +72,6 @@
 
 
 <!-- <ion-header>
-    <ion-toolbar>
-        <ion-row>
-            <ion-col>
-                <ion-nav-link [routerLink]="['/tabs/tab2/contacts']">BACK</ion-nav-link>
-            </ion-col>
-        </ion-row>
-        <ion-title>YOUR PLAN</ion-title>
-    </ion-toolbar>
-</ion-header>
-
 <ion-content>
     <ion-item>
         <ion-label position="floating">Name</ion-label>

@@ -15,21 +15,19 @@ export class ContactinfoPage implements OnInit {
   currentDisplayIndex: number = -1;
   constructor(
     private localStorageService: LocalStorageService,
-    private navCtrl: NavController,
     private router: Router
   ) {}
   public id: string = "";
   public firstname: string = "";
   public lastname: string = "";
-  public age: number = null;
-  public queryKey: string;
-  public removeKey: string;
-  public queryResult: string;
+  public phone: number = null;
+  public address: string = "";
   public person = {
     id: this.id,
     firstName: this.firstname,
     lastName: this.lastname,
-    age: this.age,
+    phone: this.phone,
+    address: this.address
   };
   public addPerson() {
     event.preventDefault();
@@ -37,7 +35,7 @@ export class ContactinfoPage implements OnInit {
     this.person.id = "contact_" + JSON.stringify(localStorage.length + 1);
     // this.person.id = JSON.stringify(localStorage.length + 1);
     this.person.firstName = this.firstname;
-    this.person.age = this.age;
+    this.person.phone = this.phone;
     this.person.lastName = this.lastname;
     localStorage.setItem(this.person.id, JSON.stringify(this.person));
     this.localStorageService.setItem(
@@ -48,7 +46,8 @@ export class ContactinfoPage implements OnInit {
       id: this.id,
       firstName: this.firstname,
       lastName: this.lastname,
-      age: this.age,
+      phone: this.phone,
+      address: this.address,
     });
     console.log(this.contacts);
     // this.navCtrl.navigateRoot("tabs/tab2/contacts");
@@ -61,15 +60,6 @@ export class ContactinfoPage implements OnInit {
       },
     };
     this.router.navigate(["tabs/tab2/contacts"], navigationExtras);
-  }
-  public getPerson(nameToRemove: string) {
-    this.queryResult = this.localStorageService.getItem(nameToRemove);
-  }
-  public deletePerson(nameToDelete: string) {
-    this.localStorageService.removeItem(nameToDelete);
-  }
-  public reset() {
-    this.localStorageService.clear();
   }
 
   ngOnInit() {}
