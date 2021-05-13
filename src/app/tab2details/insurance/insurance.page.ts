@@ -5,11 +5,24 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './insurance.page.html',
   styleUrls: ['./insurance.page.scss'],
 })
-export class InsurancePage implements OnInit {
+export class InsurancePage {
 
-  constructor() { }
+  insurances = [];
+  constructor() {
 
-  ngOnInit() {
   }
-
+  EditContact() {
+    // todo: route to an "id" page?
+  }
+  DeleteContact() {
+    // todo: filter local storage contacts array against ID
+  }
+  ionViewWillEnter() {
+    // # If new contact is entered, before component mounts, refresh from local storage
+    this.insurances = JSON.parse(localStorage.getItem('INSURANCES'))
+    console.log("I just entered contacts page");
+  }
+  ngOnDestroy() {
+    console.log("The stack for tab two 'contacts' has been destroyed");
+  }
 }
