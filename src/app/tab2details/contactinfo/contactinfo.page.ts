@@ -38,10 +38,6 @@ export class ContactinfoPage implements OnInit {
     this.person.phone = this.phone;
     this.person.lastName = this.lastname;
     localStorage.setItem(this.person.id, JSON.stringify(this.person));
-    this.localStorageService.setItem(
-      this.person.id,
-      JSON.stringify(this.person)
-    );
     this.contacts.push({
       id: this.id,
       firstName: this.firstname,
