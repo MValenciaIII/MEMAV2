@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AgmCoreModule } from '@agm/core';
 
 import { GpsLocationPage } from './gps-location.page';
 
