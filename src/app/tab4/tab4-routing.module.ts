@@ -22,6 +22,13 @@ const routes: Routes = [
         (m) => m.WhistlePageModule
       ),
   },
+  {
+    path: "gps",
+    loadChildren: () =>
+      import("../tab4details/gps-location/gps-location.module").then(
+        (m) => m.GpsLocationPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
