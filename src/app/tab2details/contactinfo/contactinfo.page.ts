@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from "../services/local-storage.service";
+// import { LocalStorageService } from "../services/local-storage.service";
 import { NavController } from "@ionic/angular";
 import { Router, NavigationExtras } from "@angular/router";
 import { ContactsPage } from "../contacts/contacts.page";
@@ -15,7 +15,7 @@ export class ContactinfoPage implements OnInit {
   contacts = JSON.parse(localStorage.getItem('CONTACTS')) || [];
   currentDisplayIndex: number = -1;
   constructor(
-    private localStorageService: LocalStorageService,
+    // private localStorageService: LocalStorageService,
     private router: Router
   ) {}
   public id: string = "";
