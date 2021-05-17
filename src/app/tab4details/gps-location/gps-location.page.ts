@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import * as L from 'leaflet';
 import 'leaflet.locatecontrol';
 
+
 @Component({
   selector: 'app-gps-location',
   templateUrl: './gps-location.page.html',
