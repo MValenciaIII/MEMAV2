@@ -8,65 +8,79 @@
         <ion-title>YOUR PLAN</ion-title>
     </ion-toolbar>
 </ion-header>
-
-<!-- <ion-content>
-    <ion-card-header  style="text-align: center;">OTHER IMPORTANT NUMBERS</ion-card-header>
+<ion-content padding>
+    <ion-card-header  style="text-align: center; ">OTHER IMPORTANT NUMBERS</ion-card-header>
     <ion-card-content>
         <ion-header>EMERGENCY SERVICES</ion-header>
-        <ion-label>Police Phone#</ion-label>
-        <ion-input type="number"></ion-input>
-        <ion-label>Fire Phone#</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-item>
+        <ion-label position="floating">Police Phone: </ion-label>
+        <ion-input [(ngModel)]="police" name="police" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Fire Phone: </ion-label>
+        <ion-input [(ngModel)]="fire" name="fire" type="number"></ion-input>
+    </ion-item>
     </ion-card-content>
     <ion-card-content>
         <ion-header>DOCTOR</ion-header>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input [(ngModel)]="docName" name="docName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Phone: </ion-label>
+        <ion-input [(ngModel)]="doctor" name="doctor" type="number"></ion-input>
+    </ion-item>
     </ion-card-content>
     <ion-card-content>
         <ion-header>PEDIATRICIAN</ion-header>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input [(ngModel)]="pedName" name="pedName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Phone: </ion-label>
+        <ion-input [(ngModel)]="peds" name="peds" type="number"></ion-input>
+    </ion-item>
     </ion-card-content>
     <ion-card-content>
         <ion-header>VETERINARIAN</ion-header>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input [(ngModel)]="vetName" name="vetName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Phone: </ion-label>
+        <ion-input [(ngModel)]="vet" name="vet" type="number"></ion-input>
+    </ion-item>
     </ion-card-content>
     <ion-card-content>
         <ion-header>UTILITIES</ion-header>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
-        <ion-label>Name</ion-label>
-        <ion-input type="text"></ion-input>
-        <ion-label>Phone#</ion-label>
-        <ion-input type="number"></ion-input>
-    </ion-card-content>
-</ion-content> -->
-
-
-<ion-content>
-    <ion-card-header style="text-align: center;">OTHER IMPORTANT NUMBERS</ion-card-header>
-    <ion-item *ngFor="let miscNumbers of miscNumber">
-        <ion-text>{{miscNumbers.title}} <br />
-            <ion-text>{{miscNumbers.name}} </ion-text>
-            <ion-card-content>
-                <ion-label>Instructions:</ion-label>
-                <ion-input type="text" [(ngModel)]="miscNumbers.input" [inputmode]="miscNumbers.name"></ion-input>
-            </ion-card-content>
-        </ion-text>
+        <ion-item>
+        <ion-label position="floating">Electric Company</ion-label>
+        <ion-input [(ngModel)]="electName" name="electName" type="text"></ion-input>
     </ion-item>
-    <ion-button (click)="onClick(miscNumber)">SAVE</ion-button>
+    <ion-item>
+        <ion-label position="floating">Electric Company Phone: </ion-label>
+        <ion-input [(ngModel)]="electric" name="electric" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Gas Company</ion-label>
+        <ion-input [(ngModel)]="gasName" name="gasName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Gas Company Phone: </ion-label>
+        <ion-input [(ngModel)]="gas" name="gas" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Water Company</ion-label>
+        <ion-input [(ngModel)]="waterName" name="waterName" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Water Company Phone: </ion-label>
+        <ion-input [(ngModel)]="water" name="water" type="number"></ion-input>
+    </ion-item>
+    </ion-card-content>
+    <ion-button (click)="saveNumbers()">Save</ion-button>
+    
 </ion-content>

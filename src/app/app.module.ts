@@ -10,6 +10,8 @@ import { Flashlight } from "@ionic-native/flashlight/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
+import { Network } from '@ionic-native/network/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,7 +25,9 @@ import { AppComponent } from "./app.component";
     Flashlight,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Network,
+    Geolocation,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent],
 })
