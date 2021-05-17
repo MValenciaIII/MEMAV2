@@ -9,7 +9,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- <ion-content>
     <ion-card-header  style="text-align: center;">OTHER IMPORTANT NUMBERS</ion-card-header>
     <ion-card-content>
         <ion-header>EMERGENCY SERVICES</ion-header>
@@ -54,4 +54,19 @@
         <ion-label>Phone#</ion-label>
         <ion-input type="number"></ion-input>
     </ion-card-content>
+</ion-content> -->
+
+
+<ion-content>
+    <ion-card-header style="text-align: center;">OTHER IMPORTANT NUMBERS</ion-card-header>
+    <ion-item *ngFor="let miscNumbers of miscNumber">
+        <ion-text>{{miscNumbers.title}} <br />
+            <ion-text>{{miscNumbers.name}} </ion-text>
+            <ion-card-content>
+                <ion-label>Instructions:</ion-label>
+                <ion-input type="text" [(ngModel)]="miscNumbers.input" [inputmode]="miscNumbers.name"></ion-input>
+            </ion-card-content>
+        </ion-text>
+    </ion-item>
+    <ion-button (click)="onClick(miscNumber)">SAVE</ion-button>
 </ion-content>

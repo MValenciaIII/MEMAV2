@@ -6,7 +6,11 @@ const routes: Routes = [
     path: "",
     loadChildren: () =>
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
+  },  {
+    path: 'gps-location',
+    loadChildren: () => import('./gps-location/gps-location.module').then( m => m.GpsLocationPageModule)
   },
+
 ];
 @NgModule({
   imports: [
