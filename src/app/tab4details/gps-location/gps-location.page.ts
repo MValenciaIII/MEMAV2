@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-gps-location',
   templateUrl: './gps-location.page.html',
