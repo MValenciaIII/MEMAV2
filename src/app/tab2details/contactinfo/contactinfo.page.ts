@@ -15,29 +15,19 @@ export class ContactinfoPage implements OnInit {
   contacts = JSON.parse(localStorage.getItem('CONTACTS')) || [];
   currentDisplayIndex: number = -1;
   constructor(
-    // private localStorageService: LocalStorageService,
     private router: Router
   ) {}
-  public id: string = "";
+  public id: number = null ;
   public firstname: string = "";
   public lastname: string = "";
   public phone: number = null;
   public address: string = "";
-  public person = {
-    id: this.id,
-    firstName: this.firstname,
-    lastName: this.lastname,
-    phone: this.phone,
-    address: this.address
-  };
+
+  
+
   public addPerson() {
     event.preventDefault();
-
-    // this.person.id = "contact_" + JSON.stringify(this.contacts.length + 1);
-    this.person.id = JSON.stringify(localStorage.length + 1);
-    this.person.firstName = this.firstname;
-    this.person.phone = this.phone;
-    this.person.lastName = this.lastname;
+    this.id = this.contacts.length + 1
     this.contacts.push({
       id: this.id,
       firstName: this.firstname,
@@ -47,18 +37,9 @@ export class ContactinfoPage implements OnInit {
     });
     
     localStorage.setItem('CONTACTS', JSON.stringify(this.contacts));
-    
-    // console.log(this.contacts);
-    // this.navCtrl.navigateRoot("tabs/tab2/contacts");
-    console.log("Local Storage length: " + localStorage.length);
+
     console.log("LocalStorage: ", localStorage);
-    // console.log("this.person: ", this.person);
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        special: this.person,
-      },
-    };
-    this.router.navigate(["tabs/tab2/contacts"], navigationExtras);
+    this.router.navigate(["tabs/tab2/contacts"]);
   }
 
   ngOnInit() {}

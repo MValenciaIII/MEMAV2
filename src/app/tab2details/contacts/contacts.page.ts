@@ -15,9 +15,23 @@ export class ContactsPage {
   EditContact() {
     // todo: route to an "id" page?
   }
+
   DeleteContact() {
-    // todo: filter local storage contacts array against ID
+  //   // todo: filter local storage contacts array against ID
+  //   var storedNames = JSON.parse(localStorage.getItem("CONTACTS"));
+  //   console.log("Stored Names" + storedNames)
+
+  //   // here you need to make a loop to find the index of item to delete
+  //   var indexToRemove = 1;
+
+  //   //remove item selected, second parameter is the number of items to delete 
+  //   storedNames.slice(indexToRemove, 1);
+
+  //  // Put the object into storage
+  //  localStorage.setItem('CONTACTS', JSON.stringify(storedNames));
   }
+
+
   ionViewWillEnter() {
     // # If new contact is entered, before component mounts, refresh from local storage
     this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
