@@ -9,14 +9,23 @@ import { Tab2Page } from "src/app/tab2/tab2.page";
 })
 export class ContactsPage {
   contacts = [];
-  constructor() {
+   id = 0;
 
+  constructor() {
+    this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
+  }
+  ionViewWillEnter() {
+    console.log("contact", this.contacts)
+    // # If new contact is entered, before component mounts, refresh from local storage
+    this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
+    console.log("I just entered contacts page");
   }
   EditContact() {
     // todo: route to an "id" page?
   }
 
-  DeleteContact() {
+  DeleteContact(phone) {
+    
   //   // todo: filter local storage contacts array against ID
   //   var storedNames = JSON.parse(localStorage.getItem("CONTACTS"));
   //   console.log("Stored Names" + storedNames)
@@ -29,14 +38,20 @@ export class ContactsPage {
 
   //  // Put the object into storage
   //  localStorage.setItem('CONTACTS', JSON.stringify(storedNames));
+ 
+    var bookmarks = JSON.parse(localStorage.getItem("CONTACTS"));
+    // console.log(i)
+    console.clear();
+    console.log("Before splice");
+    // console.log(JSON.stringify(bookmarks));
+    console.log((bookmarks));
+    bookmarks.splice(bookmarks);
+    console.log("After splice");
+    console.log(JSON.stringify(bookmarks));
+    localStorage.setItem("CONTACTS", JSON.stringify(bookmarks));
+
   }
 
-
-  ionViewWillEnter() {
-    // # If new contact is entered, before component mounts, refresh from local storage
-    this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
-    console.log("I just entered contacts page");
-  }
   ngOnDestroy() {
     console.log("The stack for tab two 'contacts' has been destroyed");
   }

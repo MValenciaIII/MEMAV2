@@ -12,7 +12,7 @@
 <ion-content>
   <ion-card-header  style="text-align: center; background-color:#061e3d; margin-top: 0.25em; color: #ffffff;">CONTACT INFO</ion-card-header>
   <div *ngIf="contacts">
-    <ion-card *ngFor="let contact of contacts;" style="padding: 0.25em">
+    <ion-card *ngFor="let contact of contacts;" style="padding: 0.25em" id="contact-items">
       <ion-card-header>
         <ion-card-title
           >{{contact.firstName}} {{contact.lastName}}</ion-card-title
