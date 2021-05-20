@@ -10,9 +10,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-card-header  style="text-align: center; background-color:#061e3d; margin-top: 0.25em; color: #ffffff;">CONTACT INFO</ion-card-header>
+  <ion-card-header
+    style="
+      text-align: center;
+      background-color: #061e3d;
+      margin-top: 0.25em;
+      color: #ffffff;
+    "
+    >CONTACT INFO</ion-card-header
+  >
   <div *ngIf="contacts">
-    <ion-card *ngFor="let contact of contacts;" style="padding: 0.25em" id="contact-items">
+    <ion-card
+      *ngFor="let contact of contacts;"
+      style="padding: 0.25em"
+      id="contact-items"
+    >
       <ion-card-header>
         <ion-card-title
           >{{contact.firstName}} {{contact.lastName}}</ion-card-title
@@ -24,8 +36,10 @@
         Phone Number: {{contact.phone}} <br />
         Address: {{contact.address}}
       </ion-card-content>
-      <ion-button >Edit</ion-button>
-      <ion-button (click)="DeleteContact()">Delete</ion-button>
+      <ion-button>Edit</ion-button>
+      <ion-button (click)="DeleteContact($event)" [attr.data-id]="contact.id"
+        >Delete</ion-button
+      >
     </ion-card>
   </div>
 
