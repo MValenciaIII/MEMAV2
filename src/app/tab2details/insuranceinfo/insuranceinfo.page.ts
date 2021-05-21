@@ -21,10 +21,24 @@ export class InsuranceinfoPage implements OnInit {
   public company: string = "";
   public phoneNum: number = null;
   public agent: string = "";
-
+  public insurance = {
+    id: this.id,
+    Name: this.name,
+    Policy: this.policy,
+    Company: this.company,
+    Phone: this.phoneNum,
+    Agent: this.agent
+  };
   public addInsurance() {
     event.preventDefault();
-    this.id = this.insurances.length + 1
+
+    // this.person.id = "contact_" + JSON.stringify(this.contacts.length + 1);
+    this.insurance.id = JSON.stringify(localStorage.length + 1);
+    this.insurance.Name = this.name;
+    this.insurance.Policy = this.policy;
+    this.insurance.Company = this.company;
+    this.insurance.Phone = this.phoneNum;
+    this.insurance.Agent = this.agent;
     this.insurances.push({
       id: this.id,
     Name: this.name,
@@ -41,7 +55,12 @@ export class InsuranceinfoPage implements OnInit {
     console.log("Local Storage length: " + localStorage.length);
     console.log("LocalStorage: ", localStorage);
     // console.log("this.person: ", this.person);
-    this.router.navigate(["tabs/tab2/insurance"]);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: this.insurance,
+      },
+    };
+    this.router.navigate(["tabs/tab2/insurance"], navigationExtras);
   }
 
   ngOnInit() {}

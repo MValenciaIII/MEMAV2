@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 // import { NavController } from "ionic-angular";
 import { Tab2Page } from "src/app/tab2/tab2.page";
-import { Router, NavigationExtras } from "@angular/router";
 
 @Component({
   selector: "app-contacts",
@@ -10,7 +9,9 @@ import { Router, NavigationExtras } from "@angular/router";
 })
 export class ContactsPage {
   contacts = [];
-  constructor(private router: Router) {
+   id = 0;
+
+  constructor() {
     this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
   }
   ionViewWillEnter() {
@@ -19,18 +20,12 @@ export class ContactsPage {
     this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
     console.log("I just entered contacts page");
   }
-  // EditContact(event) {
-  //   // this.router.navigate(["tabs/tab2/contacts/info/"]);
-  //   // let id = event.target.dataset.id; 
-  //   // var myoBJ = JSON.parse(localStorage.getItem("CONTACTS"))
-  //   // myoBJ.id = this.contacts
-  //   // // let newArray = this.contacts.filter(contacts => contacts.id == id);
-  //   // // // localStorage.getItem('CONTACTS')
-  //   // localStorage.setItem("CONTACTS", JSON.stringify(myoBJ));
-  // }
+  EditContact() {
+    // todo: route to an "id" page?
+  }
 
   DeleteContact(event) {
-    console.clear()
+
     let id = event.target.dataset.id; 
     let newArray = this.contacts.filter(card => card.id != id);
     localStorage.setItem("CONTACTS", JSON.stringify(newArray));

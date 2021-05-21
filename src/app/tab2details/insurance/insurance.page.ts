@@ -9,17 +9,13 @@ export class InsurancePage {
 
   insurances = [];
   constructor() {
-    this.insurances = JSON.parse(localStorage.getItem('INSURANCES'))
+
   }
-  EditInsurance() {
+  EditContact() {
     // todo: route to an "id" page?
   }
-  DeleteInsurance() {
-    console.clear()
-    let id  = event.target.dataset.id; 
-    let newArray = this.insurances.filter(card => card.id != id);
-    localStorage.setItem("INSURANCES", JSON.stringify(newArray));
-    window.location.reload();
+  DeleteContact() {
+    // todo: filter local storage contacts array against ID
   }
   ionViewWillEnter() {
     // # If new contact is entered, before component mounts, refresh from local storage
