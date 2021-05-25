@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 // import { NavController } from "ionic-angular";
 import { Tab2Page } from "src/app/tab2/tab2.page";
+import { Router, NavigationExtras } from "@angular/router";
 
 @Component({
   selector: "app-contacts",
@@ -11,7 +12,7 @@ export class ContactsPage {
   contacts = [];
    id = 0;
 
-  constructor() {
+  constructor(private router: Router) {
     this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
   }
   ionViewWillEnter() {
@@ -20,9 +21,20 @@ export class ContactsPage {
     this.contacts = JSON.parse(localStorage.getItem('CONTACTS'))
     console.log("I just entered contacts page");
   }
-  EditContact() {
-    // todo: route to an "id" page?
-  }
+  // EditContact() {
+  //   // this.router.navigate(["tabs/tab2/contacts/info/${id}"]);
+  //   // // var myArr = [];
+  //   // let id = event.target.dataset.id; 
+  //   // // If localStorage has not been initialized, then initialize it by setting them all to false.
+  //   // for (var i = 0; i < this.contacts.length; i++) {
+  //   //   // When true, set emergency items to true. If false, set emergency items to false.
+  //   //   this.contacts[i].id = JSON.parse(
+  //   //     localStorage.getItem("CONTACTS")
+  //   //   );
+  //   // }
+  //   // console.log("Local Storage: " + localStorage.length);
+  //   // todo: route to an "id" page?
+  // }
 
   DeleteContact(event) {
 

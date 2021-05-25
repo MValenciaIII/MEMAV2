@@ -8,8 +8,8 @@
         <ion-title>YOUR PLAN</ion-title>
     </ion-toolbar>
 </ion-header>
-<!-- <ion-content padding>
-    <ion-card-header  style="text-align: center; ">OTHER IMPORTANT NUMBERS</ion-card-header>
+<ion-content padding>
+  <!--  <ion-card-header  style="text-align: center; ">OTHER IMPORTANT NUMBERS</ion-card-header>
     <ion-card-content>
         <ion-header>EMERGENCY SERVICES</ion-header>
         <ion-item>
@@ -81,6 +81,16 @@
         <ion-input [(ngModel)]="water" name="water" type="number"></ion-input>
     </ion-item>
     </ion-card-content>
-    <ion-button (click)="saveNumbers()">Save</ion-button>
-    
-</ion-content> -->
+    <ion-button (click)="saveNumbers()">Save</ion-button> -->
+    <ion-card-header  style="text-align: center; ">OTHER IMPORTANT NUMBERS</ion-card-header>
+    <ion-card-content *ngFor="let otherNumbers of otherNumber">
+            <!-- <ion-text>{{otherNumbers.name}} </ion-text> -->
+            <ion-item>
+                <ion-text>{{otherNumbers.title}} <br />
+                <ion-label position="floating">{{otherNumbers.name}}</ion-label>
+                <ion-input type="text" [(ngModel)]="otherNumbers.input" [inputmode]="otherNumbers.name"></ion-input>
+                </ion-text>
+            </ion-item>
+    </ion-card-content >
+    <ion-button (click)="onClick(emergencyPlace)">SAVE</ion-button>
+</ion-content> 

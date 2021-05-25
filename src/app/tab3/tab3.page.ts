@@ -1,51 +1,72 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as Leaflet from 'leaflet';
-
-
+// import * as Leaflet from 'leaflet';
+import { HttpClient } from "@angular/common/http";
+import * as L from "leaflet";
+import {
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  Polygon,
+  GeoJSON,} from 'leaflet';
+  import intersect from '@turf/intersect';
+  import circle from '@turf/circle';
+  import booleanIntersects from '@turf/boolean-intersects';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
+
+
 export class Tab3Page {
-  map: Leaflet.Map;
-  marker: Leaflet.Marker; 
-  circle: Leaflet.Circle;
-  propertyList = [];
+  constructor(private http: HttpClient) {}
+ map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
+ group = L.layerGroup().addTo(this.map);
+ 
+ 
 
-  constructor() { }
 
-  ngOnInit(){
-    if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(this.setGeoLocation.bind(this));
+ ngOnInit(){
+document.getElementById('radius').addEventListener('input', (event) => { this.changeRadius});
+ }
+changeRadius(event) {
+  var newRadius = event.target.value;
+
+  this.group.eachLayer(function(layer) {
+    if (layer instanceof L.Circle) {
+      layer.setRadius(newRadius);
     }
- }
-
- setGeoLocation(position: { coords: { latitude: any; longitude: any } }) {
-  const {
-     coords: { latitude, longitude },
-  } = position;
-
- 
-    this.map = new Leaflet.Map('mapId3').setView([latitude, longitude], 16);
-    this.marker = new Leaflet.marker([latitude, longitude]).addTo(this.map)
-    this.circle = new Leaflet.circle([latitude, longitude], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: '0.5',
-      radius: 500,
-    }).addTo(this.map)
-    Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    tileSize: 512,
-    zoomOffset: -1
-    
-    }).addTo(this.map);
-
- }
-
-   
- 
-
+  });
 }
+circle = L.circle([32.302898, -90.183487], {
+  radius: 1000,
+}).addTo(this.group);
+marker = L.marker([32.302898, -90.183487]).addTo(this.group);
+
+//MISSISSIPPI AREA
+  json;
+  options = {
+    layers: [
+      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        tileSize: 512,
+        zoomOffset: -1
+      })
+    ],
+    zoom: 7,
+    center: L.latLng(32.302898, -90.183487),
+    radius: 5
+  };
+
+//WEATHER POLOYON 
+  getAlerts(map: L.Map) {
+    let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
+      console.log(json);
+      this.json = json;
+      L.geoJSON(this.json).addTo(map);
+    });
+    }
+  }
+

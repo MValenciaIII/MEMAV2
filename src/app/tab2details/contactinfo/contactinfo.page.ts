@@ -23,8 +23,6 @@ export class ContactinfoPage implements OnInit {
   public phone: number = null;
   public address: string = "";
 
-  
-
   public addPerson() {
     event.preventDefault();
     this.id = this.contacts.length + 1
