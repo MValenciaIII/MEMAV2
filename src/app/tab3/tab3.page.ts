@@ -21,6 +21,10 @@ import {
 
 export class Tab3Page {
   constructor(private http: HttpClient) {}
+
+
+
+
  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
  group = L.layerGroup().addTo(this.map);
  
@@ -28,6 +32,21 @@ export class Tab3Page {
 
 
  ngOnInit(){
+
+
+    
+if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(this.setGeoLocation.bind(this));
+    }
+ }
+ setGeoLocation(position: { coords: { latitude: any; longitude: any } }) {
+  const {
+     coords: { latitude, longitude },
+  } = position;
+ 
+
+
+  
 document.getElementById('radius').addEventListener('input', (event) => { this.changeRadius});
  }
 changeRadius(event) {
@@ -38,6 +57,9 @@ changeRadius(event) {
       layer.setRadius(newRadius);
     }
   });
+  
+
+  
 }
 circle = L.circle([32.302898, -90.183487], {
   radius: 1000,
