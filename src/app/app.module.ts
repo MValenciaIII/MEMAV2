@@ -9,6 +9,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { Flashlight } from "@ionic-native/flashlight/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet"
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,6 +18,7 @@ import { AppComponent } from "./app.component";
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
+    LeafletModule,
   ],
   providers: [
     Flashlight,

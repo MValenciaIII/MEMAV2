@@ -2,13 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 // import * as Leaflet from 'leaflet';
 import { HttpClient } from "@angular/common/http";
 import * as L from "leaflet";
-import {
-  TileLayer,
-  Marker,
-  Popup,
-  Circle,
-  Polygon,
-  GeoJSON,} from 'leaflet';
+import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
   import intersect from '@turf/intersect';
   import circle from '@turf/circle';
   import booleanIntersects from '@turf/boolean-intersects';
@@ -17,78 +11,105 @@ import {
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-
-
+//I NEED TO GET RADIUS TO SHOW
+//NEED TO Get current location to set view in leaflet in angular
+//I have current location how do i send it as a variable outside ngOnInit or alternative
+//update noaa warnings if bad weather near by.
+//also fix puzzle pieced map on load
 export class Tab3Page {
+
+  map: Map;
+  mapOptions: MapOptions;
+  //propertyList = [];
+ 
   constructor(private http: HttpClient) {}
 
 
 
 
- map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
- group = L.layerGroup().addTo(this.map);
- 
- 
+//  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
+//  group = L.layerGroup().addTo(this.map);
 
 
- ngOnInit(){
+
+ async ngOnInit(){
+
+    
+    this.initializeMapOptions()
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.setGeoLocation.bind(this));
+        }
+        
+
+  
+    //this.map = new L.Map('map').setView([latitude, longitude], 16);
 
 
     
-if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(this.setGeoLocation.bind(this));
+        
+    }      
+
+     setGeoLocation(position: { coords: { latitude: any; longitude: any; } }) {
+      const {
+        coords: { latitude, longitude },
+      } = position;
+  
+      
     }
- }
- setGeoLocation(position: { coords: { latitude: any; longitude: any } }) {
-  const {
-     coords: { latitude, longitude },
-  } = position;
- 
-
-
   
-document.getElementById('radius').addEventListener('input', (event) => { this.changeRadius});
- }
-changeRadius(event) {
-  var newRadius = event.target.value;
-
-  this.group.eachLayer(function(layer) {
-    if (layer instanceof L.Circle) {
-      layer.setRadius(newRadius);
+    
+    onMapReady(map: Map) {
+      this.map = map;
+      this.getAlerts();
     }
-  });
+
+//document.getElementById('radius').addEventListener('input', (event) => { this.changeRadius});
+
+// changeRadius(event) {
+//   var newRadius = event.target.value;
+
+//   this.group.eachLayer(function(layer) {
+//     if (layer instanceof L.Circle) {
+//       layer.setRadius(newRadius);
+//     }
+//   });
   
 
   
-}
-circle = L.circle([32.302898, -90.183487], {
-  radius: 1000,
-}).addTo(this.group);
-marker = L.marker([32.302898, -90.183487]).addTo(this.group);
+// }
+      // circle = L.circle([32.302898, -90.183487], {
+      //   radius: 1000,
+      // }).addTo(this.group);
+      // marker = L.marker([32.302898, -90.183487]).addTo(this.group);
 
 //MISSISSIPPI AREA
-  json;
-  options = {
-    layers: [
-      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileSize: 512,
-        zoomOffset: -1
-      })
-    ],
-    zoom: 7,
-    center: L.latLng(32.302898, -90.183487),
-    radius: 5
-  };
+    private initializeMapOptions() {
+      
+      this.mapOptions = {
+        layers: [
+          tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+              maxZoom: 18,
+              attribution: 'Map data © OpenStreetMap contributors'
+            })
+        ],
+        zoom: 12,
+        center: latLng(32.302898, -90.183487),
+        
+      };
+    }
+    
+        json;
+       
 
 //WEATHER POLOYON 
-  getAlerts(map: L.Map) {
-    let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
-      console.log(json);
-      this.json = json;
-      L.geoJSON(this.json).addTo(map);
-    });
-    }
+    private async getAlerts() {
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
+          console.log(json);
+          this.json = json;
+          L.geoJSON(this.json).addTo(this.map);
+        });
+      }
   }
 

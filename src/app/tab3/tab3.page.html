@@ -10,12 +10,13 @@
     <div 
   leaflet
   style="width: 100%; height: 70%"
-  [leafletLayers]="layers"
-  [leafletOptions]="options"
-  (leafletMapReady)="getAlerts($event)"
+  
+  [leafletOptions]="mapOptions"
+  (leafletMapReady)="onMapReady($event)"
 ></div>
 <!-- <div class="App">
 </div> -->
+<app-map></app-map>
 <input id="radius" type="range" min=1609 max=160900 value=1000 />
 
 <div id="map" style="height: 160px"></div>
