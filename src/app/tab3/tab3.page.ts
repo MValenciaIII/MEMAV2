@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 // import * as Leaflet from 'leaflet';
 import { HttpClient } from "@angular/common/http";
 import * as L from "leaflet";
@@ -20,10 +20,14 @@ export class Tab3Page {
 
   map: Map;
   mapOptions: MapOptions;
-  //propertyList = [];
- 
-  constructor(private http: HttpClient) {}
 
+  
+ 
+  constructor(private http: HttpClient ) {
+
+
+    
+  }
 
 
 
@@ -32,35 +36,35 @@ export class Tab3Page {
 
 
 
- async ngOnInit(){
+  ngOnInit(){
 
-    
-    this.initializeMapOptions()
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(this.setGeoLocation.bind(this));
-        }
-        
 
+  this.getLocationService()
+  this.initializeMapOptions()
   
-    //this.map = new L.Map('map').setView([latitude, longitude], 16);
-
-
-    
         
     }      
 
-     setGeoLocation(position: { coords: { latitude: any; longitude: any; } }) {
-      const {
-        coords: { latitude, longitude },
-      } = position;
+
+    getLocationService():Promise<any>{
+      return new Promise((resolve, reject)=>{
+        navigator.geolocation.getCurrentPosition(resp=>{
+          resolve({lng: resp.coords.longitude, lat: resp.coords.latitude})
+        })
   
-      
+      })
     }
+  
   
     
     onMapReady(map: Map) {
       this.map = map;
+      this.getLocationService().then(resp=> {
+        this.map.setView(L.latLng(resp.lat, resp.lng), 18)
+      })
       this.getAlerts();
+      this.addSampleMarker();
+      this.geoRadius();
     }
 
 //document.getElementById('radius').addEventListener('input', (event) => { this.changeRadius});
@@ -73,9 +77,6 @@ export class Tab3Page {
 //       layer.setRadius(newRadius);
 //     }
 //   });
-  
-
-  
 // }
       // circle = L.circle([32.302898, -90.183487], {
       //   radius: 1000,
@@ -84,7 +85,7 @@ export class Tab3Page {
 
 //MISSISSIPPI AREA
     private initializeMapOptions() {
-      
+
       this.mapOptions = {
         layers: [
           tileLayer(
@@ -94,14 +95,48 @@ export class Tab3Page {
               attribution: 'Map data © OpenStreetMap contributors'
             })
         ],
-        zoom: 12,
-        center: latLng(32.302898, -90.183487),
+        zoom: 18,
+        //center: latLng(this.longitude, this.latitude),
         
       };
+
+    }
+
+//UPDATING A MAP RADIUS USING BUTTONS IN ANGULAR
+//ANGULAR BUTTON 
+
+    private geoRadius() {
+      this.getLocationService().then(resp=>{
+         const radius =  L.circle([resp.lat, resp.lng], 
+          {
+            radius: 200
+          }).addTo(this.map)
+      })
+      
+    }
+
+     radiusChange(value :any)  {
+       console.log(value)
+      const radius = L.circle;
+    }
+
+
+    private addSampleMarker() {
+      this.getLocationService().then(resp=> {
+        const marker = new Marker([resp.lat, resp.lng])
+        .setIcon(
+          icon({
+            iconSize: [25, 41],
+            iconAnchor: [13, 41],
+            iconUrl: 'assets/marker-icon.png'
+          }));
+      marker.addTo(this.map);
+      })
+      
     }
     
-        json;
-       
+    json;
+
 
 //WEATHER POLOYON 
     private async getAlerts() {

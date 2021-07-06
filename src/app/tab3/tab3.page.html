@@ -8,6 +8,7 @@
     <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
     <!-- <div id="mapId3" style="width: 100%; height: 70%"></div> -->
     <div 
+    id="map"
   leaflet
   style="width: 100%; height: 70%"
   
@@ -16,8 +17,11 @@
 ></div>
 <!-- <div class="App">
 </div> -->
-<app-map></app-map>
-<input id="radius" type="range" min=1609 max=160900 value=1000 />
 
-<div id="map" style="height: 160px"></div>
+<input id="radius" type="range" min=1609 max=160900 value=1000 />
+<button on-click="radiusChange(200)"  ></button>
+<button on-click="radiusChange(500)"  ></button>
+<button on-click="radiusChange(1000)" ></button>
+<button on-click="radiusChange(2000)" ></button>
+
 </ion-content>
