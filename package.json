@@ -88,7 +88,9 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-nativeaudio": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-geolocation": {}
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      }
     },
     "platforms": [
       "browser",

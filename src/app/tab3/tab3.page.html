@@ -18,10 +18,8 @@
 <!-- <div class="App">
 </div> -->
 
-<input id="radius" type="range" min=1609 max=160900 value=1000 />
-<button on-click="radiusChange(200)"  ></button>
-<button on-click="radiusChange(500)"  ></button>
-<button on-click="radiusChange(1000)" ></button>
-<button on-click="radiusChange(2000)" ></button>
+<input #ranger (input)="geoRadius(ranger.value)" type="range" min=0 max=1690000 value=200
+ />
+
 
 </ion-content>
