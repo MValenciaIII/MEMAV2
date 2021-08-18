@@ -1,30 +1,92 @@
 <ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-        <ion-title > MSEMA </ion-title>
+    <ion-toolbar color="navy">
+        <ion-title >  </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class = "content-with-full-height" padding>
+<ion-content [fullscreen]="true" class = "content-with-full-height " color="whitebackground" padding>
     <ion-card-header style="text-align:center;">
         MAKE YOUR PLAN</ion-card-header>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/supplies']" class="btn">SUPPLIES CHECKLIST</button>
-    </div >
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/contacts']" class="btn">EMERGENCY CONTACTS</button>
-    </div>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/places']" class="btn">EMERGENCY MEETING PLACES</button>
-    </div>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/insurance']" class="btn">INSURANCE INFORMATION</button>
-    </div>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/pets']" class="btn">PET CHECKLIST</button>
-    </div>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/misc']" class="btn">OTHER IMPORTANT NUMBERS</button>
-    </div>
-    <div class="equal-sized-item">
-        <button [routerLink]="['/tabs/tab2/share']" class="btn">SHARE PLAN</button>
-    </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                
+                <button [routerLink]="['/tabs/tab2/supplies']" class="btn supplies" >
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="book-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            SUPPLIES CHECKLIST
+                        </ion-col>
+                    </ion-row>
+                </button>
+                
+            </ion-col>
+            
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn contacts">
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="alert-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            EMERGENCY CONTACTS
+                        </ion-col>
+                    </ion-row>
+                </button>
+            </ion-col>
+        </ion-row>
+        
+        <ion-row>
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/misc']" class="btn">OTHER IMPORTANT NUMBERS</button>
+            </ion-col>
+            
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/insurance']" class="btn impDocuments">
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="documents-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            IMPORTANT DOCUMENTS 
+                        </ion-col>
+                    </ion-row>
+                </button>
+
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/places']" class="btn"> MEETING PLACES</button>
+            </ion-col>
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/pets']" class="btn">PET CHECKLIST</button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <button [routerLink]="['/tabs/tab2/share']" class="btn">SHARE PLAN</button>
+            </ion-col>
+            <ion-col>
+
+            </ion-col>
+        </ion-row>
+
+
+    </ion-grid>
+
+
+
+
+
+
 </ion-content>

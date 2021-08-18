@@ -1,19 +1,34 @@
 .content-with-full-height{
     // height: 100%;
-    margin-bottom: 10px;
+    //margin-bottom: 10px;
+    background-color: white;
   }
   
   .equal-sized-item{
-    height: 7.5%
+    height: 10%
   }
   
   .btn{
+    color: black;
     margin: auto;
     text-align:center;
     width: 95%;
-    display: block;
     background: none;
     border: 1px solid gray;
-    padding: 10px;
-    display: block;
+    padding: 23% 0%;
   }
+
+.supplies {
+  background-color: lightpink;
+}
+
+.contacts {
+background-color: lightblue;
+}
+
+.impDocuments {
+  background-color: lightseagreen;
+
+}
+
+
