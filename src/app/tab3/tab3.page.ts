@@ -138,7 +138,7 @@ export class Tab3Page {
 
 //WEATHER POLOYON 
     private async getAlerts() {
-        let response = this.http.get("https://api.weather.gov/alerts/active?area=TN").subscribe((json: any) => {
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
           console.log(json);
           this.json = json;
           for (let i = 0; i < this.json.features.length; i++) {
