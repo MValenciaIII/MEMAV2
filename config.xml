@@ -97,6 +97,12 @@
         <splash height="1242" src="resources/ios/splash/Default-Landscape-2688h~iphone.png" width="2688" />
         <splash height="1792" src="resources/ios/splash/Default-1792h~iphone.png" width="828" />
         <splash height="828" src="resources/ios/splash/Default-Landscape-1792h~iphone.png" width="1792" />
+        <config-file parent="NSLocationAlwaysAndWhenInUseUsageDescription" target="*-Info.plist">
+            <string>This is to keep track of your location to notify weather alerts nearby</string>
+        </config-file>
+        <config-file parent="NSLocationWhenInUseUsageDescription" target="*-Info.plist">
+            <string>cThis is to keep track of your location to notify weather alerts nearby</string>
+        </config-file>
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
@@ -104,5 +110,9 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-geolocation">
+        <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="This is to keep track of your location to notify weather alerts nearby" />
+        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This is to keep track of your location to notify weather alerts nearby" />
+    </plugin>
     <allow-navigation href="http://10.195.100.91:8100" sessionid="984da6b6" />
 </widget>

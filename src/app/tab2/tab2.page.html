@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-    <ion-toolbar color="navy">
+    <ion-toolbar color="primary">
         <ion-title >  </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -43,7 +43,18 @@
         
         <ion-row>
             <ion-col>
-                <button [routerLink]="['/tabs/tab2/misc']" class="btn">OTHER IMPORTANT NUMBERS</button>
+                <button [routerLink]="['/tabs/tab2/misc']" class="btn impNumbers">       
+                <ion-row>
+                    <ion-col>
+                        <ion-icon size="large" name="alert-outline"></ion-icon>
+                    </ion-col>
+                </ion-row>
+                <ion-row >
+                    <ion-col>
+                        OTHER IMPORTANT NUMBERS
+                    </ion-col>
+                </ion-row>
+                </button>
             </ion-col>
             
             <ion-col>
