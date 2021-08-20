@@ -76,16 +76,49 @@
 
         <ion-row>
             <ion-col>
-                <button [routerLink]="['/tabs/tab2/places']" class="btn"> MEETING PLACES</button>
+                <button [routerLink]="['/tabs/tab2/places']" class="btn meetingPlace"> 
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="map-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            MEETING PLACES
+                        </ion-col>
+                    </ion-row>
+                </button>
             </ion-col>
             <ion-col>
-                <button [routerLink]="['/tabs/tab2/pets']" class="btn">PET CHECKLIST</button>
+                <button [routerLink]="['/tabs/tab2/pets']" class="btn petCheck">
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="tennisball-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            PET CHECKLIST
+                        </ion-col>
+                    </ion-row>
+                </button>
             </ion-col>
         </ion-row>
 
         <ion-row>
             <ion-col>
-                <button [routerLink]="['/tabs/tab2/share']" class="btn">SHARE PLAN</button>
+                <button [routerLink]="['/tabs/tab2/share']" class="btn sharePlan">
+                    <ion-row>
+                        <ion-col>
+                            <ion-icon size="large" name="share-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row >
+                        <ion-col>
+                            SHARE PLAN
+                        </ion-col>
+                    </ion-row>
+                </button>
             </ion-col>
             <ion-col>
 
