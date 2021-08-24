@@ -6,12 +6,92 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class = "content-with-full-height ">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">MSEMA</ion-title>
+            <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema.png" height="35"> MEMA</ion-title>
         </ion-toolbar>
     </ion-header>
 
-    <iframe height='100%' width="100%" title="website" src="https://www.msema.org/"></iframe>
+    <!-- <iframe height='100%' width="100%" title="website" src="https://www.msema.org/"></iframe> -->
+
+    <ion-card-header class="headerText ">
+        <h1>YOUR DISASTER PLAN</h1>
+        <div class="line"></div>
+    </ion-card-header>
+
+
+    <ion-grid>
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
+                
+                <button [routerLink]="['/tabs/tab2/supplies']" class="btn iconButton" >
+                    <img class="imgDocs" src="../../assets/Homepage/Plan.png" alt="">
+                </button>
+                <p>PLAN</p>
+            </ion-col>
+            
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Homepage/Shelters.png" alt=""> 
+                </button>
+                <p>SHELTERS</p>
+            </ion-col>
+
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" alt=""> 
+                </button>
+                <p>CONTACT</p>
+            </ion-col>
+        </ion-row>
+        
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/misc']" class="btn iconButton">       
+                    <img  class="imgDocs " src="../../assets/Homepage/WeatherAlerts.png" alt="">
+                </button>
+                <p>WEATHER ALERTS</p>
+            </ion-col>
+            
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/insurance']" class="btn iconButton ">
+                    <img class="imgDocs " src="../../assets/Homepage/ReportDamage.png" alt=""> 
+                </button>
+                
+                <p>REPORT DAMAGE</p>
+            </ion-col>
+
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" alt=""> 
+                </button>
+                <p>POWER OUTAGES</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/places']" class="btn iconButton"> 
+                   <img class="imgDocs " src="../../assets/Homepage/News.png" alt="">
+                </button>
+                <p>NEWS</p>
+            </ion-col>
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/pets']" class="btn iconButton">
+                    <img src="../../assets/Homepage/COVID.png" alt="">
+                </button>
+                <p>COVID-19</p>
+            </ion-col>
+
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Homepage/Website.png" alt=""> 
+                </button>
+                <p>WEBSITE</p>
+            </ion-col>
+        </ion-row>
+
+
+    </ion-grid>
 </ion-content>

@@ -1,127 +1,64 @@
 <ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-        <ion-title >  </ion-title>
+    <ion-toolbar id="toolbarColor">
+        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema.png" height="35"> MEMA</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class = "content-with-full-height " color="whitebackground" padding>
-    <ion-card-header style="text-align:center;">
-        MAKE YOUR PLAN</ion-card-header>
+
+
+<ion-content [fullscreen]="true" class = "content-with-full-height "  padding>
+    <ion-card-header class="headerText ">
+        <h1>YOUR DISASTER PLAN</h1>
+        <div class="line"></div>
+    </ion-card-header>
+
+
     <ion-grid>
-        <ion-row>
-            <ion-col>
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
                 
-                <button [routerLink]="['/tabs/tab2/supplies']" class="btn supplies" >
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon size="large" name="book-outline"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            SUPPLIES CHECKLIST
-                        </ion-col>
-                    </ion-row>
+                <button [routerLink]="['/tabs/tab2/supplies']" class="btn iconButton" >
+                    <img class="imgDocs" src="../../assets/checklist.png" alt="">
                 </button>
-                
+                <p>SUPPLIES CHECKLIST</p>
             </ion-col>
             
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/contacts']" class="btn contacts">
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon size="large" name="alert-outline"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            EMERGENCY CONTACTS
-                        </ion-col>
-                    </ion-row>
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Contacts.png" alt=""> 
                 </button>
+                <p>EMERGENCY CONTACTS</p>
             </ion-col>
         </ion-row>
         
-        <ion-row>
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/misc']" class="btn impNumbers">       
-                <ion-row>
-                    <ion-col>
-                        <ion-icon size="large" name="alert-outline"></ion-icon>
-                    </ion-col>
-                </ion-row>
-                <ion-row >
-                    <ion-col>
-                        OTHER IMPORTANT NUMBERS
-                    </ion-col>
-                </ion-row>
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/misc']" class="btn iconButton">       
+                    <img  class="imgDocs " src="../../assets/handicap.png" alt="">
                 </button>
+                <p>DISABILITY PLANNING</p>
             </ion-col>
             
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/insurance']" class="btn impDocuments">
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon id="documentIcon" size="large" name="document-text-sharp"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            IMPORTANT DOCUMENTS 
-                        </ion-col>
-                    </ion-row>
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/insurance']" class="btn iconButton ">
+                    <img class="imgDocs " src="../../assets/importantDocs.png" alt=""> 
                 </button>
-
+                
+                <p>IMPORTANT DOCUMENTS</p>
             </ion-col>
         </ion-row>
 
-        <ion-row>
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/places']" class="btn meetingPlace"> 
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon size="large" name="map-outline"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            MEETING PLACES
-                        </ion-col>
-                    </ion-row>
+        <ion-row class="buttonText ion-align-items-center">
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/places']" class="btn iconButton"> 
+                   <img class="imgDocs " src="../../assets/meeting.png" alt="">
                 </button>
+                <p>MEETING PLACES</p>
             </ion-col>
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/pets']" class="btn petCheck">
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon size="large" name="tennisball-outline"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            PET CHECKLIST
-                        </ion-col>
-                    </ion-row>
+            <ion-col class="ion-text-center">
+                <button [routerLink]="['/tabs/tab2/pets']" class="btn iconButton">
+                    <img src="../../assets/Pet.png" alt="">
                 </button>
-            </ion-col>
-        </ion-row>
-
-        <ion-row>
-            <ion-col>
-                <button [routerLink]="['/tabs/tab2/share']" class="btn sharePlan">
-                    <ion-row>
-                        <ion-col>
-                            <ion-icon size="large" name="share-outline"></ion-icon>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row >
-                        <ion-col>
-                            SHARE PLAN
-                        </ion-col>
-                    </ion-row>
-                </button>
-            </ion-col>
-            <ion-col>
-
+                <p>PET CHECKLIST</p>
             </ion-col>
         </ion-row>
 
