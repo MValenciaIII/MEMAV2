@@ -1,8 +1,30 @@
 .headerText {
+    text-align: center;
+    background: #061e3d;
+    padding: 0%;
+    margin: 0%;
+}
+
+.headerText ion-icon {
+    margin-right: 3%;
+    float: left;
+}
+
+.headerText img{
+    width: 25% !important;
+    height: auto !important;
+    float: left;
+    margin-left: 22%;
+}
+
+.headerText h1{
 text-align: center;
 font-weight: bolder;
-color: #061e3d;
+color: white;
+font-size: 13px;
 }
+
+
 
 .content-with-full-height{
     // height: 100%;
