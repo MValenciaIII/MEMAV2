@@ -5,10 +5,89 @@
         <ion-nav-link [routerLink]="['/tabs/tab1/']">BACK</ion-nav-link>
       </ion-col>
     </ion-row>
-    <ion-title>MEMA Disasters</ion-title>
+    <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" class = "content-with-full-height "  padding>
+  <ion-card-header class="headerText ">
+      <h1>TYPES OF DISASTER</h1>
+      <div class="line"></div>
+  </ion-card-header>
+
+
+  <ion-grid>
+    <div class="iconGrid"></div>
+    <ion-row class="buttonText ion-align-items-center">
+        <ion-col class="ion-text-center">
+            
+            <button [routerLink]="['/tabs/tab2/supplies']" class="btn iconButton" >
+                <img class="imgDocs" src="../../assets/disasterPage/tornado.png" alt="">
+            </button>
+            <p>TORNADOES</p>
+        </ion-col>
+        
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
+                <img  class="imgDocs " src="../../assets/disasterPage/Hurricane.png" alt=""> 
+            </button>
+            <p>HURRICANES</p>
+        </ion-col>
+    </ion-row>
+    
+    <ion-row class="buttonText ion-align-items-center">
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/misc']" class="btn iconButton">       
+                <img  class="imgDocs " src="../../assets/disasterPage/Flooding.png" alt="">
+            </button>
+            <p>FLOODS</p>
+        </ion-col>
+        
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/insurance']" class="btn iconButton ">
+                <img class="imgDocs " src="../../assets/disasterPage/HeatAdvisor.png" alt=""> 
+            </button>
+            
+            <p>EXTREME HEAT</p>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="buttonText ion-align-items-center">
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/places']" class="btn iconButton"> 
+               <img class="imgDocs " src="../../assets/disasterPage/snow.png" alt="">
+            </button>
+            <p>WINTER WEATHER</p>
+        </ion-col>
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/pets']" class="btn iconButton">
+                <img src="../../assets/disasterPage/earthquake.png" alt="">
+            </button>
+            <p>EARTHQUAKES</p>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="buttonText ion-align-items-center">
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/places']" class="btn iconButton"> 
+               <img class="imgDocs " src="../../assets/disasterPage/Hazard.png" alt="">
+            </button>
+            <p>RADIOLOGICAL</p>
+        </ion-col>
+        <ion-col class="ion-text-center">
+            <button [routerLink]="['/tabs/tab2/pets']" class="btn iconButton">
+                <img src="../../assets/disasterPage/COVID.png" alt="">
+            </button>
+            <p>COVID-19</p>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+
+
+
+
+
+
+
 
 </ion-content>
