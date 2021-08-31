@@ -31,6 +31,22 @@
   }
   
 
+  ion-grid {
+    position: relative;
+    opacity: 1;
+    z-index: 2;
+}
+
+.iconGrid {
+    position: absolute;
+    background: url(../../assets/mema-seal.png) 50% 50% no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 100%;
+    opacity: .25;
+    z-index: 0;
+}
+
 
 
 
