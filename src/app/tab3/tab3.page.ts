@@ -20,9 +20,12 @@ export class Tab3Page {
   rangeId: any;
   map: Map;
   mapOptions: MapOptions;
-   latitudeOne: any;
-   longitudeOne: any;
-   geoRadiusLine: any;
+  latitudeOne: any;
+  longitudeOne: any;
+  geoRadiusLine: any;
+  geoJSONCircle: any;
+  polygons: any;
+  turfcircle: any;
   
  
   constructor(private http: HttpClient ) {
@@ -109,7 +112,9 @@ export class Tab3Page {
           else if (this.rangeId > 0) {
             
             this.geoRadiusLine.setRadius(this.rangeId)
-          
+            this.geoJSONCircle = this.geoRadiusLine.toGeoJSON()
+            this.turfcircle = this.geoJSONCircle
+            console.log(this.turfcircle)
           }
       })
     }
@@ -122,7 +127,7 @@ export class Tab3Page {
     private addSampleMarker() {
       this.getLocationService().then(resp=> {
         const marker = new Marker([resp.lat, resp.lng])
-        .setIcon(
+        .setIcon( 
           icon({
             iconSize: [25, 41],
             iconAnchor: [13, 41],
@@ -138,12 +143,15 @@ export class Tab3Page {
 
 //WEATHER POLOYON 
     private async getAlerts() {
-        let response = this.http.get("https://api.weather.gov/alerts/active?area=FL").subscribe((json: any) => {
+      let poly;
+      let turfCircle;
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
           console.log(json);
           this.json = json;
           for (let i = 0; i < this.json.features.length; i++) {
             const element = this.json.features[i];
             console.log(element)
+            
             
             //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
             //
