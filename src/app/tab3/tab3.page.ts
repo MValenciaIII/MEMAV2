@@ -102,8 +102,9 @@ export class Tab3Page {
       //ALSO HOW TO SAVE RADIUS VALUE.
       this.getLocationService().then(resp=>{
       
-          this.rangeId = value
-
+        this.rangeId = value
+        let milesRadius = this.rangeId / 1609;
+        
         
         if(this.rangeId === undefined) {
 
