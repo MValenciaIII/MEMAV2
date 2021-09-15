@@ -6,7 +6,20 @@ const routes: Routes = [
   {
     path: '',
     component: Tab1Page,
-  }
+  },
+  {
+    path: "disaster",
+    loadChildren: () =>
+    import("../disaster/disaster.module").then(
+      (m) => m.DisasterPageModule
+    )
+    },
+    {
+      path: "",
+      redirectTo: "tabs/tab1",
+      pathMatch: "full",
+    }
+
 ];
 
 @NgModule({

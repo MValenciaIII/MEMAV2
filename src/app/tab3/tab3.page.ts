@@ -153,7 +153,9 @@ export class Tab3Page {
             const element = this.json.features[i];
             console.log(element)
             
-            
+            poly = element.map(x => element.geometry.coordinates)
+            poly = this.polygons;
+            console.log(this.polygons)
             //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
             //
             
