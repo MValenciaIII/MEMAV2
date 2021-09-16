@@ -1,9 +1,63 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tornadoes</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">TORNADO SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
 
+    <ion-col>
+          <img src="../../../assets/Homepage/Shelters.png" alt="">
+          <ion-text>YOU ARE IN YOUR HOME DURING A TORNADO:</ion-text>
+          <ul>
+            <li>Go to the lowest level of the home, an inner hallway, or smaller inner room without windows, such as a closet or bathroom.</li>
+            <li>Get away from windows and go to the center of the room. Avoid corners, because they tend to attract debris.</li>
+            <li>Get under a sturdy piece of furniture, such as a workbench or heavy table.</li>
+          </ul>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text>IF YOU ARE IN A MOBILE HOME:</ion-text>
+      <ul>
+        <li>Evacuate the mobile home, even if it is equipped with tie-downs</li>
+        <li>Take shelter in a building with a strong foundation, or if one is not available, lie in a ditch or low-lying area a safe distance away from the mobile home. </li>
+      </ul>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text>IF YOU ARE AT WORK OR SCHOOL:</ion-text>
+      <ul>
+        <li>Go to the basement or to an inside hallway at the lowest level of the building.</li>
+        <li>Avoid places with wide-span roofs, such as auditoriums, cafeterias, large hallways or shopping malls.</li>
+        <li>Use your arms to protect your head and neck.</li>
+      </ul>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text>IF OUTDOORS:</ion-text>
+      <ul>
+        <li>If possible, get inside a sturdy building with a concrete foundation.</li>
+        <li>If shelter is not available, or there is no time to get indoors, lie in a ditch or low-lying area or crouch near a strong building.</li>
+        <li>Be aware of the potential for flooding.</li>
+      </ul>
+    </ion-col>
+  </ion-row>
 </ion-content>
