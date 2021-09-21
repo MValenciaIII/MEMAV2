@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, SimpleChange, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, SimpleChange, SimpleChanges, Input, ViewChild, AfterViewInit } from '@angular/core';
 // import * as Leaflet from 'leaflet';
 import { HttpClient } from "@angular/common/http";
 import * as L from "leaflet";
@@ -16,7 +16,7 @@ import {latLng, MapOptions, tileLayer, Map, Marker, icon} from 'leaflet';
 //I have current location how do i send it as a variable outside ngOnInit or alternative
 //update noaa warnings if bad weather near by.
 //also fix puzzle pieced map on load
-export class Tab3Page {
+export class Tab3Page implements AfterViewInit {
   rangeId: any;
   map: Map;
   mapOptions: MapOptions;
@@ -26,7 +26,7 @@ export class Tab3Page {
   geoJSONCircle: any;
   polygons: any;
   turfcircle: any;
-  
+  @ViewChild('ranger') tab3Page: Tab3Page;
  
   constructor(private http: HttpClient ) {
     var Functionone;
@@ -47,8 +47,11 @@ export class Tab3Page {
 
   }   
     
-    ngOnChange(changes: SimpleChanges){
-    }
+  ngAfterViewInit() {
+
+
+
+  }
 
 
     getLocationService():Promise<any>{
@@ -116,11 +119,27 @@ export class Tab3Page {
             this.geoJSONCircle = this.geoRadiusLine.toGeoJSON()
             this.turfcircle = this.geoJSONCircle
             console.log(this.turfcircle)
+
+
+            for (let i = 0; i < this.polygons.length; i++) {
+              const element = this.polygons[i];
+              let  doesIntersect = booleanIntersects(
+                this.polygons[i].geometry,
+                this.turfcircle.geometry
+              )
+              console.log(this.polygons[i].geometry, this.turfcircle.geometry)
+              console.log(doesIntersect)
+              if(doesIntersect == true) {
+                console.log(element + `of ID = ${i} has an intersection!`)
+              }
+            }
           }
       })
     }
 
-
+    checkAlerts() {
+      this.tab3Page
+    }
 
 
 
@@ -144,17 +163,17 @@ export class Tab3Page {
 
 //WEATHER POLOYON 
     private async getAlerts() {
-      let poly;
+      let poly = [];
       let turfCircle;
-        let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=LA").subscribe((json: any) => {
           console.log(json);
           this.json = json;
           for (let i = 0; i < this.json.features.length; i++) {
             const element = this.json.features[i];
             console.log(element)
             
-            poly = element.map(x => element.geometry.coordinates)
-            poly = this.polygons;
+            poly.push(element) ;
+            this.polygons = poly
             console.log(this.polygons)
             //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
             //
