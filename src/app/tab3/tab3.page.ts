@@ -116,6 +116,9 @@ export class Tab3Page implements AfterViewInit {
           else if (this.rangeId > 0) {
             
             this.geoRadiusLine.setRadius(this.rangeId)
+            //toGeoJSON is converting to a point instead of a POLYGON
+            //Leaflet doesn't support Polygons
+            //Need to find a plugin or replace the circle.
             this.geoJSONCircle = this.geoRadiusLine.toGeoJSON()
             this.turfcircle = this.geoJSONCircle
             console.log(this.turfcircle)
@@ -127,7 +130,7 @@ export class Tab3Page implements AfterViewInit {
                 this.polygons[i].geometry,
                 this.turfcircle.geometry
               )
-              console.log(this.polygons[i].geometry, this.turfcircle.geometry)
+              console.log(this.polygons[i], this.turfcircle)
               console.log(doesIntersect)
               if(doesIntersect == true) {
                 console.log(element + `of ID = ${i} has an intersection!`)
@@ -165,7 +168,7 @@ export class Tab3Page implements AfterViewInit {
     private async getAlerts() {
       let poly = [];
       let turfCircle;
-        let response = this.http.get("https://api.weather.gov/alerts/active?area=LA").subscribe((json: any) => {
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=TN").subscribe((json: any) => {
           console.log(json);
           this.json = json;
           for (let i = 0; i < this.json.features.length; i++) {
