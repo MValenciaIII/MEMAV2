@@ -1,9 +1,71 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>hurricanes</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">HURRICANE SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item *ngFor="let homeTopics of homeTopic">
+        <ion-text>{{homeTopics.title}} <br />
+          <ion-text>
+            <li>{{homeTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
 
+  <ion-row>
+    <ion-col>
+
+      <ion-item *ngFor="let mHomeTopics of mHomeTopic">
+        <ion-text>{{mHomeTopics.title}} <br />
+          <ion-text>
+            <li>{{mHomeTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item *ngFor="let worksTopics of workTopic">
+        <ion-text>{{worksTopics.title}} <br />
+          <ion-text>
+            <li>{{worksTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item *ngFor="let outsideTopics of outsideTopic">
+        <ion-text>{{outsideTopics.title}} <br />
+          <ion-text>
+            <li>{{outsideTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
 </ion-content>

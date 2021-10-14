@@ -8,28 +8,58 @@ import { Component, OnInit } from '@angular/core';
 export class TornadoesPage implements OnInit {
 public title: string = ""
 public name: string = ""
-emergencyPlace = [
+homeTopic = [
   {
-    title: "INDOOR",
+    title: "YOU ARE IN YOUR HOME DURING A TORNADO:",
     name:
-      "If you live in an area where tornadoes, hurricanes, or other high-wind storms can happen, make sure everyone knows where to go for protection. This could be a small, interior, windowless room, such as a closet or bathroom, on the lowest level of sturdy building, or a tornado safe room or storm shelter.",
+      "Go to the lowest level of the home, an inner hallway, or smaller inner room without windows, such as a closet or bathroom.",
+    
   },
   {
-    title: "NEIGHBORHOOD",
     name:
-      "This is a place in your neighborhood where your household members will meet if there is a fire or other emergency and you need to leave your home. The meeting place could be a big tree, a mailbox at the end of the driveway, or a neighbor's house.",
+      "Get away from windows and go to the center of the room. Avoid corners, because they tend to attract debris.",
   },
   {
-    title: "OUT-OF-NEIGHBORHOOD",
     name:
-      "This is a place where your family will meet if a diaster happens when you're not at home and you can't get back to your home. This could be a library, community center, house of worship, or family friend's home",
-  },
-  {
-    title: "OUT-OF-TOWN",
-    name:
-      "Having an out-of-town meeting place can help you reunite if a diaster happens and you cannot get home or to your out-of-neighborhood meeting place; or your family is not together and your community is instructed to evacuate the area. This meeting place could be the home of a relative or family friend. Make sure everyone knows the address of the meeting place and dicuss ways you could get there.",
-  },
+      "Get under a sturdy piece of furniture, such as a workbench or heavy table.",
+  }
 ];
+
+mHomeTopic = [
+  {
+    title:"IF YOU ARE IN A MOBILE HOME",
+    name:"Evacuate the mobile home, even if it is equipped with tie-downs"
+  },
+  {
+    name:"Take shelter in a building with a strong foundation, or if one is not available, lie in a ditch or low-lying area a safe distance away from the mobile home."
+  }
+]
+
+workTopic = [
+  {
+    title:"IF YOU ARE AT WORK OR SCHOOL:",
+    name:"Go to the basement or to an inside hallway at the lowest level of the building."
+  },
+  {
+    name:"Avoid places with wide-span roofs, such as auditoriums, cafeterias, large hallways or shopping malls."
+  },
+  {
+    name:"Use your arms to protect your head and neck."
+  }
+]
+
+outsideTopic = [
+  {
+    title:"IF OUTDOORS:",
+    name:"If possible, get inside a sturdy building with a concrete foundation."
+  },
+  {
+    name:"If shelter is not available, or there is no time to get indoors, lie in a ditch or low-lying area or crouch near a strong building."
+  },
+  {
+    name:"Be aware of the potential for flooding."
+  }
+]
   constructor() { }
 
   ngOnInit() {

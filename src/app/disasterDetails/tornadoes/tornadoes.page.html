@@ -17,47 +17,55 @@
     </ion-col>
   </ion-row>
   <ion-row>
-
     <ion-col>
-          <img src="../../../assets/Homepage/Shelters.png" alt="">
-          <ion-text>YOU ARE IN YOUR HOME DURING A TORNADO:</ion-text>
-          <ul>
-            <li>Go to the lowest level of the home, an inner hallway, or smaller inner room without windows, such as a closet or bathroom.</li>
-            <li>Get away from windows and go to the center of the room. Avoid corners, because they tend to attract debris.</li>
-            <li>Get under a sturdy piece of furniture, such as a workbench or heavy table.</li>
-          </ul>
+      <ion-item *ngFor="let homeTopics of homeTopic">
+        <ion-text>{{homeTopics.title}} <br />
+          <ion-text>
+            <li>{{homeTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-text>IF YOU ARE IN A MOBILE HOME:</ion-text>
-      <ul>
-        <li>Evacuate the mobile home, even if it is equipped with tie-downs</li>
-        <li>Take shelter in a building with a strong foundation, or if one is not available, lie in a ditch or low-lying area a safe distance away from the mobile home. </li>
-      </ul>
+
+      <ion-item *ngFor="let mHomeTopics of mHomeTopic">
+        <ion-text>{{mHomeTopics.title}} <br />
+          <ion-text>
+            <li>{{mHomeTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-text>IF YOU ARE AT WORK OR SCHOOL:</ion-text>
-      <ul>
-        <li>Go to the basement or to an inside hallway at the lowest level of the building.</li>
-        <li>Avoid places with wide-span roofs, such as auditoriums, cafeterias, large hallways or shopping malls.</li>
-        <li>Use your arms to protect your head and neck.</li>
-      </ul>
+      <ion-item *ngFor="let worksTopics of workTopic">
+        <ion-text>{{worksTopics.title}} <br />
+          <ion-text>
+            <li>{{worksTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-text>IF OUTDOORS:</ion-text>
-      <ul>
-        <li>If possible, get inside a sturdy building with a concrete foundation.</li>
-        <li>If shelter is not available, or there is no time to get indoors, lie in a ditch or low-lying area or crouch near a strong building.</li>
-        <li>Be aware of the potential for flooding.</li>
-      </ul>
+      <ion-item *ngFor="let outsideTopics of outsideTopic">
+        <ion-text>{{outsideTopics.title}} <br />
+          <ion-text>
+            <li>{{outsideTopics.name}}</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
     </ion-col>
   </ion-row>
 </ion-content>
