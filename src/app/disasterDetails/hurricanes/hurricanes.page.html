@@ -16,12 +16,41 @@
       <div class="line"></div>
     </ion-col>
   </ion-row>
+
+
   <ion-row>
     <ion-col>
-      <ion-item *ngFor="let homeTopics of homeTopic">
-        <ion-text>{{homeTopics.title}} <br />
+      <ion-item >
+        <ion-text>Before the Storm:<br />
           <ion-text>
-            <li>{{homeTopics.name}}</li>
+            <ul>
+              <li>Pack a disaster supply kit </li>
+              <ul>
+                <li>Include at least three days worth of nonperishable food and water</li>
+                <li>a full list of items can be found here</li>
+              </ul>
+              <li>Establish a primary evacuation route and know where you will seek shelter</li>
+              <ul>
+                <li>Don’t forget to include pets in your plan</li>
+              </ul>
+              <li>Create a contact list that includes at least one contact outside the potential impact area</li>
+              <li>Trim trees, cover windows and secure loose outdoor items ahead of the storm to protect your home</li>
+              <li>Sign up to receive weather warnings and emergency alerts</li>
+            </ul>
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-item>
+        <ion-text>During the Storm: <br />
+          <ion-text>
+            <li>Stay up to date with the latest weather forecast and emergency information</li>
+            <li>Shelter in place and avoid travel</li>
           </ion-text>
   
         </ion-text>
@@ -31,11 +60,16 @@
 
   <ion-row>
     <ion-col>
-
-      <ion-item *ngFor="let mHomeTopics of mHomeTopic">
-        <ion-text>{{mHomeTopics.title}} <br />
+      <ion-item >
+        <ion-text>After the Storm: <br />
           <ion-text>
-            <li>{{mHomeTopics.name}}</li>
+            <li>If you evacuated, make sure it is safe to return home</li>
+            <li>Take photos of the damage to your home and valuable items</li>
+            <li>File an insurance claim</li>
+            <li>Report damage through MEMA's self-report tool</li>
+            <li>Avoid travel unless absolutely necessary</li>
+            <li>If using a generator, keep it outside</li>
+            <li>stay away from fallen power lines</li>
           </ion-text>
   
         </ion-text>
@@ -43,29 +77,4 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col>
-      <ion-item *ngFor="let worksTopics of workTopic">
-        <ion-text>{{worksTopics.title}} <br />
-          <ion-text>
-            <li>{{worksTopics.name}}</li>
-          </ion-text>
-  
-        </ion-text>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-item *ngFor="let outsideTopics of outsideTopic">
-        <ion-text>{{outsideTopics.title}} <br />
-          <ion-text>
-            <li>{{outsideTopics.name}}</li>
-          </ion-text>
-  
-        </ion-text>
-      </ion-item>
-    </ion-col>
-  </ion-row>
 </ion-content>

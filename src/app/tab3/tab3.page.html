@@ -18,8 +18,24 @@
 <!-- <div class="App">
 </div> -->
 
-<input #ranger (input)="geoRadius(ranger.value)" type="range" min=0 max=400000 value=200
- />
+<!-- <input #ranger (input)="geoRadius(ranger.value)" type="range" min=0 max=400000 value=200
+ /> -->
+
+ <ion-item>
+     <ion-label>Select your County</ion-label>
+     <ion-select placeholder="Select County" [(ngModel)]="countySelection" (ionChange)="geoRadius()">
+        <ion-select-option value="Adams">Adams</ion-select-option>
+        <ion-select-option value="Alcorn">Alcorn</ion-select-option>
+        <ion-select-option value="AMITE">Amite</ion-select-option>
+        <ion-select-option value="Benton">Benton</ion-select-option>
+        <ion-select-option value="BOLIVAR">Bolivar</ion-select-option>
+        <ion-select-option value="CALHOUN">Calhoun</ion-select-option>
+        <ion-select-option value="CARROLL">Carroll</ion-select-option>
+        <ion-select-option value="CHICKASAW">Chickasaw</ion-select-option>
+        <ion-select-option value="CHOCTAW">Choctaw</ion-select-option>
+        <ion-select-option value="CLAIBORNE">Claiborne</ion-select-option>
+     </ion-select>
+ </ion-item>
 
 
 </ion-content>
