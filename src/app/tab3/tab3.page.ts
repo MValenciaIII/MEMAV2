@@ -5,6 +5,9 @@ import * as L from "leaflet";
 import {latLng, MapOptions, tileLayer, Map, Marker, icon, Circle} from 'leaflet';
 import * as turfcircle from '@turf/circle';
 import booleanIntersects from '@turf/boolean-intersects';
+import 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/images/marker-icon.png';
+import 'proj4leaflet';
 
 
 @Component({
@@ -21,12 +24,13 @@ export class Tab3Page implements AfterViewInit {
   rangeId: any;
   map: Map;
   mapOptions: MapOptions;
-  latitudeOne: any;
-  longitudeOne: any;
   geoRadiusLine: any;
   geoJSONCircle: any;
   polygons: any;
+  CountyPoints: any;
   turfcircle: any;
+
+  countySelection: string;
   @ViewChild('ranger') tab3Page: Tab3Page;
  
   constructor(private http: HttpClient ) {
@@ -61,8 +65,6 @@ export class Tab3Page implements AfterViewInit {
       return new Promise((resolve, reject)=>{
         navigator.geolocation.getCurrentPosition(resp=>{
           resolve({lng: resp.coords.longitude, lat: resp.coords.latitude})
-          this.latitudeOne = resp.coords.latitude
-          this.longitudeOne = resp.coords.longitude
         })
   
       })
@@ -73,10 +75,11 @@ export class Tab3Page implements AfterViewInit {
     onMapReady(map: Map) {
       this.map = map;
       this.getLocationService().then(resp=> {
-        this.map.setView(L.latLng(resp.lat, resp.lng), 18)
+        this.map.setView(L.latLng(resp.lat, resp.lng), 25)
       })
-      this.geoRadius(this.rangeId)
+      //this.geoRadius(this.rangeId)
       this.getAlerts();
+      this.setCountiesPoints();
     }
 
 
@@ -103,54 +106,80 @@ export class Tab3Page implements AfterViewInit {
 //ANGULAR BUTTON 
 
 
-    geoRadius(value) {
+    geoRadius() {
       //BUTTON RADIUS: REMOVE PREVIOUS LAYER WHEN NEW BUTTON IS PRESSED
       //SLIDER RADIUS: LEARN HOW TO UPDATE A RADIUS IMMEDIATELY WHEN RADIUS SLIDER IS MOVED
       //ALSO HOW TO SAVE RADIUS VALUE.
-      this.getLocationService().then(resp=>{
+
+      // this.getLocationService().then(resp=>{
       
-        this.rangeId = value
-        let milesRadius = this.rangeId / 1609;
+      //   this.rangeId = value
+      //   let milesRadius = this.rangeId / 1609;
         
         
-        if(this.rangeId === undefined) {
+      //   if(this.rangeId === undefined) {
 
-        this.geoRadiusLine = L.circle([resp.lat, resp.lng], { radius: 200 }).addTo(this.map);
+      //   this.geoRadiusLine = L.circle([resp.lat, resp.lng], { radius: 200 }).addTo(this.map);
 
         
-        } 
-          else if (this.rangeId > 0) {
+      //   } 
+      //     else if (this.rangeId > 0) {
             
-            this.geoRadiusLine.setRadius(this.rangeId)
+      //       this.geoRadiusLine.setRadius(this.rangeId)
 
 
-            //toGeoJSON is converting to a point instead of a POLYGON
-            //Leaflet doesn't support converting Polygons
-            //Need to find a plugin or replace the circle.
-            console.log(this.geoRadiusLine)
-            this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
-            this.turfcircle = this.geoJSONCircle.toGeoJSON()
-            console.log(this.turfcircle)
-            // TEST TO EXTRACT POLYGON AND STORE 
-            // https://medium.com/geoman-blog/how-to-handle-circles-in-geojson-d04dcd6cb2e6
-            //
+      //       //toGeoJSON is converting to a point instead of a POLYGON
+      //       //Leaflet doesn't support converting Polygons
+      //       //Need to find a plugin or replace the circle.
+      //       console.log(this.geoRadiusLine)
+      //       this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
+      //       this.turfcircle = this.geoJSONCircle.toGeoJSON()
+      //       console.log(this.turfcircle)
+      //       // TEST TO EXTRACT POLYGON AND STORE 
+      //       // https://medium.com/geoman-blog/how-to-handle-circles-in-geojson-d04dcd6cb2e6
+      //       //
 
            
-            //
-            for (let i = 0; i < this.polygons.length; i++) {
-              const element = this.polygons[i];
-              let  doesIntersect = booleanIntersects(
-                this.polygons[i].geometry,
-                this.turfcircle.geometry
-              )
-              console.log(this.polygons[i], this.turfcircle)
-              console.log(doesIntersect)
-              if(doesIntersect == true) {
-                console.log(element + `of ID = ${i} has an intersection!`)
-              }
-            }
+      //       //
+      //       for (let i = 0; i < this.polygons.length; i++) {
+      //         const element = this.polygons[i];
+      //         let  doesIntersect = booleanIntersects(
+      //           this.polygons[i].geometry,
+      //           this.turfcircle.geometry
+      //         )
+      //         console.log(this.polygons[i], this.turfcircle)
+      //         console.log(doesIntersect)
+      //         if(doesIntersect == true) {
+      //           console.log(element + `of ID = ${i} has an intersection!`)
+      //         }
+      //       }
+      //     }
+      // })
+      console.log(this.countySelection)
+      for (let i = 0; i < this.CountyPoints.length; i++){
+        const element = this.CountyPoints[i];
+
+        if (element.properties.CONAME == this.countySelection ) {
+
+          if (this.geoRadiusLine === undefined){
+            this.geoRadiusLine = L.circle([element.properties.Lat, element.properties.Lon], {radius: 16900}).addTo(this.map);
+            this.map.panTo([element.properties.Lat, element.properties.Lon])
+            var radiusNum = this.geoRadiusLine.getRadius()
+            this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
+            this.turfcircle = this.geoJSONCircle.toGeoJSON()
+            this.geoRadiusLine.getLatLng();
+          } else {
+            console.log(true)
+            this.geoRadiusLine.setLatLng([element.properties.Lat, element.properties.Lon])
+            this.map.panTo([element.properties.Lat, element.properties.Lon])
+            this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
+            this.turfcircle = this.geoJSONCircle.toGeoJSON()
+
+            this.geoRadiusLine.redraw();
           }
-      })
+          debugger
+        }
+      }
     }
 
 
@@ -178,8 +207,7 @@ export class Tab3Page implements AfterViewInit {
 //WEATHER POLOYON 
     private async getAlerts() {
       let poly = [];
-      let turfCircle;
-        let response = this.http.get("https://api.weather.gov/alerts/active?area=LA").subscribe((json: any) => {
+        let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
           console.log(json);
           this.json = json;
           for (let i = 0; i < this.json.features.length; i++) {
@@ -201,6 +229,25 @@ export class Tab3Page implements AfterViewInit {
         });
       }
 
+
+      private async setCountiesPoints() {
+        let countiesPointsArray = []
+        let countiesPoints =  this.http.get('../../assets/MississippiCountiesPointsWGS84.geojson').subscribe((json: any) => {
+          console.log(json)
+          this.json = json;
+          for (let i = 0; i < this.json.features.length; i++) {
+            const element = this.json.features[i]
+
+            countiesPointsArray.push(element);
+            this.CountyPoints = countiesPointsArray
+            var countiesList = L.geoJSON(element).addTo(this.map)
+            countiesList.bindPopup(`<p>County Name: ${element.properties.CONAME}</p>`)
+          }
+        console.log(this.CountyPoints);
+
+        })
+
+      }
 //FUNCTIONS FOR CONVERTING L.CIRCLE
 
       public destinationVincenty(lonlat, brng, dist) { // rewritten to work with leaflet

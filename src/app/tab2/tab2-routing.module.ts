@@ -47,13 +47,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: "share",
-    loadChildren: () =>
-      import("../tab2details/share/share.module").then(
-        (m) => m.SharePageModule
-      ),
-  },
-  {
     path: "",
     redirectTo: "/tabs/tab2",
     pathMatch: "full",

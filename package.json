@@ -22,6 +22,7 @@
     "@angular/router": "~10.0.0",
     "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@capacitor/core": "2.4.3",
+    "@capacitor/ios": "^2.4.3",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/flashlight": "^5.30.0",
     "@ionic-native/native-audio": "^5.32.1",
@@ -36,6 +37,7 @@
     "angular": "^1.8.2",
     "ionic": "^5.4.16",
     "leaflet": "^1.7.1",
+    "proj4leaflet": "^1.0.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
