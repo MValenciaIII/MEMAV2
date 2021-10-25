@@ -15,11 +15,7 @@ import 'proj4leaflet';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-//I NEED TO GET RADIUS TO SHOW
-//NEED TO Get current location to set view in leaflet in angular
-//I have current location how do i send it as a variable outside ngOnInit or alternative
-//update noaa warnings if bad weather near by.
-//also fix puzzle pieced map on load
+
 export class Tab3Page implements AfterViewInit {
   rangeId: any;
   map: Map;
@@ -36,14 +32,8 @@ export class Tab3Page implements AfterViewInit {
   constructor(private http: HttpClient ) {
     var Functionone;
     
-
     
   }
-
-
-
-//  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
-//  group = L.layerGroup().addTo(this.map);
 
 
 
@@ -67,10 +57,8 @@ export class Tab3Page implements AfterViewInit {
           resolve({lng: resp.coords.longitude, lat: resp.coords.latitude})
         })
   
-      })
+      }) 
     }
-  //MAYBE START STORING VALUES OF RESP.LAT/LNG AND USE FOR CHECKING LAYER THEN REMOVEING IN ONMAPREADY
-  
     
     onMapReady(map: Map) {
       this.map = map;
@@ -96,65 +84,15 @@ export class Tab3Page implements AfterViewInit {
             })
         ],
         zoom: 18,
-        //center: latLng(this.longitude, this.latitude),
         
       };
 
     }
 
-//UPDATING A MAP RADIUS USING BUTTONS IN ANGULAR
-//ANGULAR BUTTON 
 
 
     geoRadius() {
-      //BUTTON RADIUS: REMOVE PREVIOUS LAYER WHEN NEW BUTTON IS PRESSED
-      //SLIDER RADIUS: LEARN HOW TO UPDATE A RADIUS IMMEDIATELY WHEN RADIUS SLIDER IS MOVED
-      //ALSO HOW TO SAVE RADIUS VALUE.
 
-      // this.getLocationService().then(resp=>{
-      
-      //   this.rangeId = value
-      //   let milesRadius = this.rangeId / 1609;
-        
-        
-      //   if(this.rangeId === undefined) {
-
-      //   this.geoRadiusLine = L.circle([resp.lat, resp.lng], { radius: 200 }).addTo(this.map);
-
-        
-      //   } 
-      //     else if (this.rangeId > 0) {
-            
-      //       this.geoRadiusLine.setRadius(this.rangeId)
-
-
-      //       //toGeoJSON is converting to a point instead of a POLYGON
-      //       //Leaflet doesn't support converting Polygons
-      //       //Need to find a plugin or replace the circle.
-      //       console.log(this.geoRadiusLine)
-      //       this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
-      //       this.turfcircle = this.geoJSONCircle.toGeoJSON()
-      //       console.log(this.turfcircle)
-      //       // TEST TO EXTRACT POLYGON AND STORE 
-      //       // https://medium.com/geoman-blog/how-to-handle-circles-in-geojson-d04dcd6cb2e6
-      //       //
-
-           
-      //       //
-      //       for (let i = 0; i < this.polygons.length; i++) {
-      //         const element = this.polygons[i];
-      //         let  doesIntersect = booleanIntersects(
-      //           this.polygons[i].geometry,
-      //           this.turfcircle.geometry
-      //         )
-      //         console.log(this.polygons[i], this.turfcircle)
-      //         console.log(doesIntersect)
-      //         if(doesIntersect == true) {
-      //           console.log(element + `of ID = ${i} has an intersection!`)
-      //         }
-      //       }
-      //     }
-      // })
       console.log(this.countySelection)
       for (let i = 0; i < this.CountyPoints.length; i++){
         const element = this.CountyPoints[i];
@@ -217,8 +155,6 @@ export class Tab3Page implements AfterViewInit {
             poly.push(element) ;
             this.polygons = poly
             console.log(this.polygons)
-            //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
-            //
             
             var pressOne = L.geoJSON(element).addTo(this.map);
             pressOne.bindPopup(`<p>County Affected: ${element.properties.areaDesc}</p>

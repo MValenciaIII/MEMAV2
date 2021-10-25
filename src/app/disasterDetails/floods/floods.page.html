@@ -1,9 +1,79 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>floods</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">FLOOD SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Preparing Before:<br />
+          <ion-text>
+            <ul>
+              <li>Learn about your area's flood risk</li>
+              <li>If you live in a flood-prone area, purchase flood insurance</li>
+              <ul>
+                <li>Flood insurance is NOT included in yourhomeowner's insurance policy</li>
+              </ul>
+              <li>Take photos of all important possessions</li>
+              <li>Store important documents in a waterproof container</li>
+              <li>Sign up to receive weather warnings and emergency alerts</li>
+              <li>Determine a safe place to go if you must evacuate</li>
+            </ul>
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-item>
+        <ion-text>Staying Safe During: <br />
+          <ion-text>
+            <li>Heed evacuation warnings from local officials</li>
+            <li>Stay updated with the latest weather forecast</li>
+            <li>DO NOT drive, walk or swim through floodwaters</li>
+            <li>Never drive around barricades</li>
+            <li>If trapped in a building, move to the highest level, but do not seek shelter in a closed attic</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Recovering After: <br />
+          <ion-text>
+            <li>If you evacuated, make sure it is safe to return home</li>
+            <li>Take photos of your home and damaged items</li>
+            <li>File a flood insurance claim</li>
+            <li>Report damage through MEMA’s self-report tool</li>
+            <li>Prevent mold growth by removing wet contents immediately</li>
+            <li>Dry out the building’s interior using dehumidifiers</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
 
 </ion-content>
