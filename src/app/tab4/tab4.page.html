@@ -1,33 +1,9 @@
-<ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-        <ion-title> MSEMA </ion-title>
+<ion-header [translucent]="false">
+    <ion-toolbar id="toolbarColor">
+        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class = "content-with-full-height">
-    <ion-list>
-    <ion-card-header>
-        <img src="assets/tab3/tool.png" height="30" /> TOOLS</ion-card-header>
-    <ion-item class="equal-sized-item">
-        <img src="assets/tab3/light.png" height="50" />
-        <ion-nav-link [routerLink]="['/tabs/tab4/flashlight']">
-            FLASHLIGHT</ion-nav-link>
-    </ion-item>
-    <ion-item class="equal-sized-item">
-        <img src="assets/tab3/whistle.png" height="50" />
-        <ion-nav-link [routerLink]="['/tabs/tab4/whistle']">WHISTLE</ion-nav-link>
-    </ion-item >
-    <ion-item class="equal-sized-item">
-        <img src="assets/tab3/gps.png" height="50" />
-        <ion-nav-link [routerLink]="['/tabs/tab4/gps']">GPS LOCATION</ion-nav-link>
-    </ion-item >
-    <ion-item class="equal-sized-item">
-        <img src="assets/tab3/earth.png" height="50" />
-        <ion-nav-link>DAMAGE ASSESSMENT</ion-nav-link>
-    </ion-item>
-    <ion-item class="equal-sized-item">
-        <img src="assets/tab3/date.png" height="50" />
-        <ion-nav-link>CLOSING & DELAYS</ion-nav-link>
-    </ion-item>
-    </ion-list>
+<iframe height='100%' width="100%" title="website" src="https://ms-ema.maps.arcgis.com/apps/webappviewer/index.html?id=dac11ffa76a641048979128758c174a4"></iframe>
 </ion-content>
