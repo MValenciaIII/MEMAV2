@@ -26,7 +26,30 @@ export class Tab3Page implements AfterViewInit {
   CountyPoints: any;
   turfcircle: any;
 
+  countyInfo: any;
   countySelection: string;
+  countySelectionTest = [
+    {
+      countyName: "Adams",
+      value:"Adams",
+      selected: false,
+    },
+    {
+      countyName: "Alcorn",
+      value:"Alcorn",
+      selected: false,
+    },
+    {
+      countyName: "Amite",
+      value:"AMITE",
+      selected: false,
+    },
+    {
+      countyName: "Benton",
+      value:"Benton",
+      selected: false,
+    },
+  ]
   @ViewChild('ranger') tab3Page: Tab3Page;
  
   constructor(private http: HttpClient ) {
@@ -92,7 +115,8 @@ export class Tab3Page implements AfterViewInit {
 
 
     geoRadius() {
-
+      var storage = window.localStorage;
+      var value = storage.getItem(this.countyInfo)
       console.log(this.countySelection)
       for (let i = 0; i < this.CountyPoints.length; i++){
         const element = this.CountyPoints[i];
@@ -102,7 +126,6 @@ export class Tab3Page implements AfterViewInit {
           if (this.geoRadiusLine === undefined){
             this.geoRadiusLine = L.circle([element.properties.Lat, element.properties.Lon], {radius: 16900}).addTo(this.map);
             this.map.panTo([element.properties.Lat, element.properties.Lon])
-            var radiusNum = this.geoRadiusLine.getRadius()
             this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
             this.turfcircle = this.geoJSONCircle.toGeoJSON()
             this.geoRadiusLine.getLatLng();

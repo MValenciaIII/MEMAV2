@@ -1,9 +1,106 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>winterWeather</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">WINTER WEATHER SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Preparing Your Home:<br />
+          <ion-text>
+            <ul>
+              <li>Prepare for possible isolation in your home by having sufficient heating fuel; regular fuel sources may be cut off. For example, store a good supply of dry, seasoned wood for your fireplace or wood-burning stove.</li>
+              <li>Insulate walls and attics, caulk and weather-strip doors and windows and install storm windows or covering windows with plastic.</li>
+              <ul>
+                <li>Clear rain gutters, repair roof leaks and cut away tree branches that could fall on a house </li>
+              </ul>
+              <li>Insulate pipes with insulation or newspapers and plastic and allow faucets to drip </li>
+              <li>Keep fire extinguishers on hand, and make sure everyone in your house knows how to use them.</li>
+              <li>Learn how to shut off water valves, in the case of a pipe bursting.</li>
+            </ul>
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="" style="text-align: center;">Prepare Your Car: </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+
+      <ion-item>
+        <ion-text>Check the Following Items on Your Car: <br />
+          <ion-text>
+            <li>Antifreeze levels - ensure they are sufficient to avoid freezing</li>
+            <li>Battery and ignition system – they should be in top condition and battery terminals should be clean</li>
+            <li>Brakes - check for wear and fluid levels</li>
+            <li>Heater and defroster - ensure they are working properly</li>
+            <li>Lights and flashing hazard lights - ensure they are working properly</li>
+            <li>Gas tank - maintain at least a half tank of gas during the winter season</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Winter Weather Car Kit: <br />
+          <ion-text>
+            <li>Windshield scraper</li>
+            <li>Flashlight with extra batteries</li>
+            <li>Jumper cables</li>
+            <li>Blankets</li>
+            <li>Cell phone chargers</li>
+            <li>Water/snacks</li>
+            <li>Emergency flares or reflectors</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Tips for Driving in Winter Weather: <br />
+          <ion-text>
+            <li>Slow Down</li>
+            <li>Allow more space between the vehicles</li>
+            <li>Brake early and gently</li>
+            <li>Never slam on the brakes</li>
+            <li>Ditch Distractions</li>
+            <li>Stay Alert</li>
+          </ion-text>
+  
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

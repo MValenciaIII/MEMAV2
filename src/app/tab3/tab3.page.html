@@ -26,10 +26,10 @@
      <ion-select placeholder="Select County" [(ngModel)]="countySelection" (ionChange)="geoRadius()">
         <ion-select-option value="Adams">Adams</ion-select-option>
         <ion-select-option value="Alcorn">Alcorn</ion-select-option>
-        <ion-select-option value="AMITE">Amite</ion-select-option>
+        <ion-select-option value="Amite">Amite</ion-select-option>
         <ion-select-option value="Benton">Benton</ion-select-option>
-        <ion-select-option value="BOLIVAR">Bolivar</ion-select-option>
-        <ion-select-option value="CALHOUN">Calhoun</ion-select-option>
+        <ion-select-option value="Bolivar">Bolivar</ion-select-option>
+        <ion-select-option value="Calhoun">Calhoun</ion-select-option>
         <ion-select-option value="CARROLL">Carroll</ion-select-option>
         <ion-select-option value="CHICKASAW">Chickasaw</ion-select-option>
         <ion-select-option value="CHOCTAW">Choctaw</ion-select-option>
@@ -37,5 +37,16 @@
      </ion-select>
  </ion-item>
 
+<!-- 
+ <ion-item>
+    <ion-label>Select your County</ion-label>
+    <ion-select placeholder="Select County"  >
+       <ion-item *ngFor="let counties of countySelectionTest" (ionChange)="geoRadius(countySelectionTest)">
+           <ion-select-option  [(ngModel)]="counties.selected" [value]="counties.countyName">{{counties.countyName}}</ion-select-option>
+
+       </ion-item>
+
+    </ion-select>
+</ion-item> -->
 
 </ion-content>

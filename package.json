@@ -23,6 +23,7 @@
     "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@capacitor/core": "2.4.3",
     "@capacitor/ios": "^2.4.3",
+    "@capacitor/storage": "^1.2.2",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/flashlight": "^5.30.0",
     "@ionic-native/native-audio": "^5.32.1",
