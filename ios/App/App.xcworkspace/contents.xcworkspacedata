@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/mvalenciaiii/Documents/GitHub/MEMAV2/ios/App/MEMA_Emergency.xcodeproj">
+      location = "group:App.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
