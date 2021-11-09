@@ -10,6 +10,7 @@ import { Flashlight } from "@ionic-native/flashlight/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet"
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,6 +23,7 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet"
     LeafletModule,
   ],
   providers: [
+    NativeGeocoder,
     Flashlight,
     StatusBar,
     SplashScreen,

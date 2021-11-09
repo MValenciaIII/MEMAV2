@@ -8,7 +8,7 @@ import booleanIntersects from '@turf/boolean-intersects';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'proj4leaflet';
-
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 @Component({
   selector: 'app-tab3',
@@ -33,13 +33,10 @@ export class Tab3Page implements AfterViewInit {
   countySelection: string;
   @ViewChild('ranger') tab3Page: Tab3Page;
  
-  constructor(private http: HttpClient ) {
-    var Functionone;
-    
-
-    
-  }
-
+  constructor(
+    private http: HttpClient,
+    private nativeGeocoder: NativeGeocoder
+  ) {}
 
 
 //  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
