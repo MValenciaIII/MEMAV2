@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"false\">\n  <ion-toolbar id=\"toolbarColor\">\n    <ion-row>\n      <ion-col>\n          <ion-nav-link style=\"color: white;\" [routerLink]=\"['/disaster']\">BACK</ion-nav-link>\n      </ion-col>\n  </ion-row>\n      <ion-title style=\"font-size: 40px; font-weight: bolder; color: #fff;\">  <img src=\"assets/mema-seal.png\" height=\"35\"> MEMA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-row>\n    <ion-col>\n      <ion-card-header class=\"disasterHeader\" style=\"text-align: center;\">HURRICANE SAFETY </ion-card-header>\n      <div class=\"line\"></div>\n    </ion-col>\n  </ion-row>\n  <ion-row>\n    <ion-col>\n      <ion-item *ngFor=\"let homeTopics of homeTopic\">\n        <ion-text>{{homeTopics.title}} <br />\n          <ion-text>\n            <ul>\n              <li>\n                {{homeTopics.name}}\n              </li>\n            </ul>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col>\n\n      <ion-item *ngFor=\"let mHomeTopics of mHomeTopic\">\n        <ion-text>{{mHomeTopics.title}} <br />\n          <ion-text>\n            <li>{{mHomeTopics.name}}</li>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col>\n      <ion-item *ngFor=\"let worksTopics of workTopic\">\n        <ion-text>{{worksTopics.title}} <br />\n          <ion-text>\n            <li>{{worksTopics.name}}</li>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col>\n      <ion-item *ngFor=\"let outsideTopics of outsideTopic\">\n        <ion-text>{{outsideTopics.title}} <br />\n          <ion-text>\n            <li>{{outsideTopics.name}}</li>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"false\">\n  <ion-toolbar id=\"toolbarColor\">\n    <ion-row>\n      <ion-col>\n          <ion-nav-link style=\"color: white;\" [routerLink]=\"['/disaster']\">BACK</ion-nav-link>\n      </ion-col>\n  </ion-row>\n      <ion-title style=\"font-size: 40px; font-weight: bolder; color: #fff;\">  <img src=\"assets/mema-seal.png\" height=\"35\"> MEMA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-row>\n    <ion-col>\n      <ion-card-header class=\"disasterHeader\" style=\"text-align: center;\">HURRICANE SAFETY </ion-card-header>\n      <div class=\"line\"></div>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col>\n      <ion-item >\n        <ion-text>Before the Storm:<br />\n          <ion-text>\n            <ul>\n              <li>Pack a disaster supply kit </li>\n              <ul>\n                <li>Include at least three days worth of nonperishable food and water</li>\n                <li>a full list of items can be found here</li>\n              </ul>\n              <li>Establish a primary evacuation route and know where you will seek shelter</li>\n              <ul>\n                <li>Don’t forget to include pets in your plan</li>\n              </ul>\n              <li>Create a contact list that includes at least one contact outside the potential impact area</li>\n              <li>Trim trees, cover windows and secure loose outdoor items ahead of the storm to protect your home</li>\n              <li>Sign up to receive weather warnings and emergency alerts</li>\n            </ul>\n          </ion-text>\n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col>\n\n      <ion-item>\n        <ion-text>During the Storm: <br />\n          <ion-text>\n            <li>Stay up to date with the latest weather forecast and emergency information</li>\n            <li>Shelter in place and avoid travel</li>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col>\n      <ion-item >\n        <ion-text>After the Storm: <br />\n          <ion-text>\n            <li>If you evacuated, make sure it is safe to return home</li>\n            <li>Take photos of the damage to your home and valuable items</li>\n            <li>File an insurance claim</li>\n            <li>Report damage through MEMA's self-report tool</li>\n            <li>Avoid travel unless absolutely necessary</li>\n            <li>If using a generator, keep it outside</li>\n            <li>stay away from fallen power lines</li>\n          </ion-text>\n  \n        </ion-text>\n      </ion-item>\n    </ion-col>\n  </ion-row>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -126,19 +126,14 @@ let HurricanesPage = class HurricanesPage {
         this.homeTopic = [
             {
                 title: "YOU ARE IN YOUR HOME DURING A TORNADO:",
-                name: "Pack a disaster supply kit "
+                name: "Go to the lowest level of the home, an inner hallway, or smaller inner room without windows, such as a closet or bathroom.",
+                subName: ["Include at least three days worth of nonperishable food and water", "a full list of items can be found here"]
             },
             {
-                name: "Establish a primary evacuation route and know where you will seek shelter",
+                name: "Get away from windows and go to the center of the room. Avoid corners, because they tend to attract debris.",
             },
             {
-                name: "Create a contact list that includes at least one contact outside the potential impact area",
-            },
-            {
-                name: "Trim trees, cover windows and secure loose outdoor items ahead of the storm to protect your home",
-            },
-            {
-                name: "Sign up to receive weather warnings and emergency alerts",
+                name: "Get under a sturdy piece of furniture, such as a workbench or heavy table.",
             }
         ];
         this.mHomeTopic = [

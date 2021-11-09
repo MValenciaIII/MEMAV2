@@ -117,6 +117,7 @@ export class Tab3Page implements AfterViewInit {
     geoRadius() {
       var storage = window.localStorage;
       var value = storage.getItem(this.countyInfo)
+      //WHAT DO I STORE TO SHOW UP THE COUNTY
       console.log(this.countySelection)
       for (let i = 0; i < this.CountyPoints.length; i++){
         const element = this.CountyPoints[i];

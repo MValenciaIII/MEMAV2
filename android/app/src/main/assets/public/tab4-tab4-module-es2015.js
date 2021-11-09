@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n    <ion-toolbar color=\"primary\">\n        <ion-title> MSEMA </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" class = \"content-with-full-height\">\n\n\n    <iframe height='100%' width=\"100%\" title=\"website\" src=\"https://ms-ema.maps.arcgis.com/apps/webappviewer/index.html?id=dac11ffa76a641048979128758c174a4\"></iframe>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"false\">\n    <ion-toolbar id=\"toolbarColor\">\n        <ion-title style=\"font-size: 40px; font-weight: bolder; color: #fff;\">  <img src=\"assets/mema-seal.png\" height=\"35\"> MEMA</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" class = \"content-with-full-height\">\n<iframe height='100%' width=\"100%\" title=\"website\" src=\"https://ms-ema.maps.arcgis.com/apps/webappviewer/index.html?id=dac11ffa76a641048979128758c174a4\"></iframe>\n</ion-content>");
 
 /***/ }),
 
@@ -35,19 +35,7 @@ const routes = [
     {
         path: "",
         component: _tab4_page__WEBPACK_IMPORTED_MODULE_3__["Tab4Page"],
-    },
-    {
-        path: "flashlight",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-flashlight-flashlight-module */ "tab4details-flashlight-flashlight-module").then(__webpack_require__.bind(null, /*! ../tab4details/flashlight/flashlight.module */ "./src/app/tab4details/flashlight/flashlight.module.ts")).then((m) => m.FlashlightPageModule),
-    },
-    {
-        path: "whistle",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-whistle-whistle-module */ "tab4details-whistle-whistle-module").then(__webpack_require__.bind(null, /*! ../tab4details/whistle/whistle.module */ "./src/app/tab4details/whistle/whistle.module.ts")).then((m) => m.WhistlePageModule),
-    },
-    {
-        path: "gps",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-gps-location-gps-location-module */ "tab4details-gps-location-gps-location-module").then(__webpack_require__.bind(null, /*! ../tab4details/gps-location/gps-location.module */ "./src/app/tab4details/gps-location/gps-location.module.ts")).then((m) => m.GpsLocationPageModule),
-    },
+    }
 ];
 let Tab4PageRoutingModule = class Tab4PageRoutingModule {
 };

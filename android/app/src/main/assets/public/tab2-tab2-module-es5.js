@@ -158,17 +158,6 @@
           });
         }
       }, {
-        path: "share",
-        loadChildren: function loadChildren() {
-          return __webpack_require__.e(
-          /*! import() | tab2details-share-share-module */
-          "tab2details-share-share-module").then(__webpack_require__.bind(null,
-          /*! ../tab2details/share/share.module */
-          "./src/app/tab2details/share/share.module.ts")).then(function (m) {
-            return m.SharePageModule;
-          });
-        }
-      }, {
         path: "",
         redirectTo: "/tabs/tab2",
         pathMatch: "full"
