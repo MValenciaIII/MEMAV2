@@ -72,11 +72,12 @@ export class Tab3Page implements AfterViewInit {
     onMapReady(map: Map) {
       this.map = map;
       this.getLocationService().then(resp=> {
-        this.map.setView(L.latLng(resp.lat, resp.lng), 25)
+        this.map.setView(L.latLng(resp.lat, resp.lng), 10)
       })
       //this.geoRadius(this.rangeId)
       this.getAlerts();
-      this.setCountiesPoints();
+      // this.setCountiesPoints();
+      this.setCityPoints();
     }
 
 
@@ -92,8 +93,8 @@ export class Tab3Page implements AfterViewInit {
               attribution: 'Map data © OpenStreetMap contributors'
             })
         ],
-        zoom: 18,
-        //center: latLng(this.longitude, this.latitude),
+        zoom: 10,
+        center: L.latLng(0, 0)
         
       };
 
@@ -207,22 +208,23 @@ export class Tab3Page implements AfterViewInit {
         let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
           console.log(json);
           this.json = json;
-          for (let i = 0; i < this.json.features.length; i++) {
-            const element = this.json.features[i];
-            console.log(element)
-            
-            poly.push(element) ;
-            this.polygons = poly
-            console.log(this.polygons)
-            //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
-            //
-            
-            var pressOne = L.geoJSON(element).addTo(this.map);
-            pressOne.bindPopup(`<p>County Affected: ${element.properties.areaDesc}</p>
-            <p>Event: ${element.properties.event}</p>
-            `)
+          if (this.json.features) {
+            for (let i = 0; i < this.json.features.length; i++) {
+              const element = this.json.features[i];
+              console.log(element)
+              
+              poly.push(element) ;
+              this.polygons = poly
+              console.log(this.polygons)
+              //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
+              //
+              
+              var pressOne = L.geoJSON(element).addTo(this.map);
+              pressOne.bindPopup(`<p>County Affected: ${element.properties.areaDesc}</p>
+              <p>Event: ${element.properties.event}</p>
+              `)
+            }
           }
-          
         });
       }
 
@@ -246,6 +248,22 @@ export class Tab3Page implements AfterViewInit {
 
       }
 //FUNCTIONS FOR CONVERTING L.CIRCLE
+
+      private async setCityPoints() {
+        let options: NativeGeocoderOptions = {
+          useLocale: true,
+          maxResults: 5
+        };
+        MSCityNames.forEach(cityName => {
+          this.nativeGeocoder.forwardGeocode(cityName, options)
+            .then((result: NativeGeocoderResult[]) => {
+              console.log('result', JSON.stringify(result[0]));
+            })
+            .catch((error: any) => {
+              console.log('error', error);
+            });
+        });
+      }
 
       public destinationVincenty(lonlat, brng, dist) { // rewritten to work with leaflet
         const VincentyConstants = {
@@ -329,6 +347,50 @@ public circleToPolygon(circle, sides = 60) {
 }
       
   }
+
+
+const MSCityNames: string[] = [
+  'Gulfport',
+  'Wiggins',
+  'Hattiesburg',
+  'Laurel',
+  'McComb',
+  'Natchez',
+  'Brookhaven',
+  'Magee',
+  'Port Gibson',
+  'Vicksburg',
+  'Jackson',
+  'Canton',
+  'Forest',
+  'Meridian',
+  'Waynesboro',
+  'Philadelphia',
+  'Louisville',
+  'Kosciusko',
+  'Yazoo City',
+  'Rolling Fork',
+  'Greenville',
+  'Indianola',
+  'Greenwood',
+  'Winona',
+  'Starkville',
+  'Durant',
+  'Senatobia',
+  'Southaven',
+  'Columbus',
+  'Amory',
+  'Houston',
+  'Grenada',
+  'Cleveland',
+  'Oxford',
+  'Pontotoc',
+  'Tupelo',
+  'Booneville',
+  'New Albany',
+  'Corinth',
+  'Iuka'
+];
 
 
 

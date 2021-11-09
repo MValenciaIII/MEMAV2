@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n      <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<iframe height='100%' width=\"100%\" title=\"website\" src=\"https://www.msema.org/contact/crisistrack/\"></iframe>\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n      <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> MAPS</ion-card-header>\n  <ion-item>\n      <img src=\"assets/tab3/zone.png\" height=\"50\">\n      <ion-nav-link> KNOW YOUR ZONE</ion-nav-link>\n  </ion-item>\n  <ion-item>\n      <img src=\"assets/tab3/earth.png\" height=\"50\">\n      <ion-nav-link>EARTHQUAKE MAP</ion-nav-link>\n  </ion-item>\n  <ion-item>\n      <img src=\"assets/tab3/car.png\" height=\"50\">\n      <ion-nav-link>TRAFFIC</ion-nav-link>\n  </ion-item>\n  <ion-item>\n      <img src=\"assets/tab3/home.png\" height=\"50\">\n      <ion-nav-link>SHELTERS</ion-nav-link>\n  </ion-item>\n\n</ion-content>");
 
 /***/ }),
 

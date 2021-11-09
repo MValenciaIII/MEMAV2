@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n    <ion-toolbar color=\"primary\">\n        <ion-title> MSEMA </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" class = \"content-with-full-height\">\n\n\n    <iframe height='100%' width=\"100%\" title=\"website\" src=\"https://ms-ema.maps.arcgis.com/apps/webappviewer/index.html?id=dac11ffa76a641048979128758c174a4\"></iframe>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n    <ion-toolbar color=\"primary\">\n        <ion-title> MSEMA </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\" class = \"content-with-full-height\">\n    <ion-list>\n    <ion-card-header>\n        <img src=\"assets/tab3/tool.png\" height=\"30\" /> TOOLS</ion-card-header>\n    <ion-item class=\"equal-sized-item\">\n        <img src=\"assets/tab3/light.png\" height=\"50\" />\n        <ion-nav-link [routerLink]=\"['/tabs/tab4/flashlight']\">\n            FLASHLIGHT</ion-nav-link>\n    </ion-item>\n    <ion-item class=\"equal-sized-item\">\n        <img src=\"assets/tab3/whistle.png\" height=\"50\" />\n        <ion-nav-link [routerLink]=\"['/tabs/tab4/whistle']\">WHISTLE</ion-nav-link>\n    </ion-item >\n    <ion-item class=\"equal-sized-item\">\n        <img src=\"assets/tab3/gps.png\" height=\"50\" />\n        <ion-nav-link [routerLink]=\"['/tabs/tab4/gps']\">GPS LOCATION</ion-nav-link>\n    </ion-item >\n    <ion-item class=\"equal-sized-item\">\n        <img src=\"assets/tab3/earth.png\" height=\"50\" />\n        <ion-nav-link>DAMAGE ASSESSMENT</ion-nav-link>\n    </ion-item>\n    <ion-item class=\"equal-sized-item\">\n        <img src=\"assets/tab3/date.png\" height=\"50\" />\n        <ion-nav-link>CLOSING & DELAYS</ion-nav-link>\n    </ion-item>\n    </ion-list>\n</ion-content>");
 
 /***/ }),
 
@@ -35,19 +35,7 @@ const routes = [
     {
         path: "",
         component: _tab4_page__WEBPACK_IMPORTED_MODULE_3__["Tab4Page"],
-    },
-    {
-        path: "flashlight",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-flashlight-flashlight-module */ "tab4details-flashlight-flashlight-module").then(__webpack_require__.bind(null, /*! ../tab4details/flashlight/flashlight.module */ "./src/app/tab4details/flashlight/flashlight.module.ts")).then((m) => m.FlashlightPageModule),
-    },
-    {
-        path: "whistle",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-whistle-whistle-module */ "tab4details-whistle-whistle-module").then(__webpack_require__.bind(null, /*! ../tab4details/whistle/whistle.module */ "./src/app/tab4details/whistle/whistle.module.ts")).then((m) => m.WhistlePageModule),
-    },
-    {
-        path: "gps",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab4details-gps-location-gps-location-module */ "tab4details-gps-location-gps-location-module").then(__webpack_require__.bind(null, /*! ../tab4details/gps-location/gps-location.module */ "./src/app/tab4details/gps-location/gps-location.module.ts")).then((m) => m.GpsLocationPageModule),
-    },
+    }
 ];
 let Tab4PageRoutingModule = class Tab4PageRoutingModule {
 };

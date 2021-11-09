@@ -74,10 +74,6 @@ const routes = [
         loadChildren: () => __webpack_require__.e(/*! import() | tab2details-miscnumbers-miscnumbers-module */ "tab2details-miscnumbers-miscnumbers-module").then(__webpack_require__.bind(null, /*! ../tab2details/miscnumbers/miscnumbers.module */ "./src/app/tab2details/miscnumbers/miscnumbers.module.ts")).then((m) => m.MiscnumbersPageModule),
     },
     {
-        path: "share",
-        loadChildren: () => __webpack_require__.e(/*! import() | tab2details-share-share-module */ "tab2details-share-share-module").then(__webpack_require__.bind(null, /*! ../tab2details/share/share.module */ "./src/app/tab2details/share/share.module.ts")).then((m) => m.SharePageModule),
-    },
-    {
         path: "",
         redirectTo: "/tabs/tab2",
         pathMatch: "full",

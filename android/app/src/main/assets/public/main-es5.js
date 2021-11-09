@@ -438,6 +438,12 @@
       var _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @asymmetrik/ngx-leaflet */
       "./node_modules/@asymmetrik/ngx-leaflet/__ivy_ngcc__/dist/index.js");
+      /* harmony import */
+
+
+      var _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! @ionic-native/native-geocoder/ngx */
+      "./node_modules/@ionic-native/native-geocoder/__ivy_ngcc__/ngx/index.js");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -447,7 +453,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]],
         entryComponents: [],
         imports: [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["IonicStorageModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"], _asymmetrik_ngx_leaflet__WEBPACK_IMPORTED_MODULE_12__["LeafletModule"]],
-        providers: [_ionic_native_flashlight_ngx__WEBPACK_IMPORTED_MODULE_9__["Flashlight"], _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"], {
+        providers: [_ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_13__["NativeGeocoder"], _ionic_native_flashlight_ngx__WEBPACK_IMPORTED_MODULE_9__["Flashlight"], _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"]
         }],
@@ -553,7 +559,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! /Users/mvalenciaiii/Documents/GitHub/MEMAV2/src/main.ts */
+      /*! C:\code\MEMAV2\src\main.ts */
       "./src/main.ts");
       /***/
     }
