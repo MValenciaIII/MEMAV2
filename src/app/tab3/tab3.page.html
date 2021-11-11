@@ -1,41 +1,64 @@
 <ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-        <ion-title> MSEMA </ion-title>
-    </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title> MSEMA </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
-    <!-- <div id="mapId3" style="width: 100%; height: 70%"></div> -->
-    <div 
-    id="map"
-  leaflet
-  style="width: 100%; height: 70%"
-  
-  [leafletOptions]="mapOptions"
-  (leafletMapReady)="onMapReady($event)"
-></div>
-<!-- <div class="App">
-</div> -->
+  <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
 
-<!-- <input #ranger (input)="geoRadius(ranger.value)" type="range" min=0 max=400000 value=200
- /> -->
+  <ion-grid style="height: 85%; padding: 0;">
 
- <ion-item>
-     <ion-label>Select your County</ion-label>
-     <ion-select placeholder="Select County" [(ngModel)]="countySelection" (ionChange)="geoRadius()">
-        <ion-select-option value="Adams">Adams</ion-select-option>
-        <ion-select-option value="Alcorn">Alcorn</ion-select-option>
-        <ion-select-option value="AMITE">Amite</ion-select-option>
-        <ion-select-option value="Benton">Benton</ion-select-option>
-        <ion-select-option value="BOLIVAR">Bolivar</ion-select-option>
-        <ion-select-option value="CALHOUN">Calhoun</ion-select-option>
-        <ion-select-option value="CARROLL">Carroll</ion-select-option>
-        <ion-select-option value="CHICKASAW">Chickasaw</ion-select-option>
-        <ion-select-option value="CHOCTAW">Choctaw</ion-select-option>
-        <ion-select-option value="CLAIBORNE">Claiborne</ion-select-option>
-     </ion-select>
- </ion-item>
+    <ion-row style="width: 100%; height: 70%;">
+      <ion-col style="padding: 0;">
+        <div 
+          id="map"
+          leaflet
+          [leafletOptions]="mapOptions"
+          (leafletMapReady)="onMapReady($event)"
+        ></div>
+      </ion-col>
+    </ion-row>
 
+    <ion-row style="width: 100%; height: 30%;">
+      <ion-col>
+        <ion-row [hidden]="selectedCity.name">
+          <ion-col>
+            <ion-label>Select a city on the map...</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="!selectedCity.name">
+          <ion-col>
+            <ion-label>Selected city: <b>{{selectedCity.name}}</b></ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="!selectedCity.name">
+          <ion-col>
+            <ion-range
+              #alertRange
+              min="1"
+              [max]="maxAlertRange"
+              step="1"
+              snaps="true"
+              pin="true"
+              (ionChange)="alertRangeChange($event)"
+              style="padding: 0;"
+            >
+              <ion-label slot="start">1</ion-label>
+              <ion-label slot="end">{{maxAlertRange}} miles</ion-label>
+            </ion-range>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="!selectedCity.name">
+          <ion-col>
+            <ion-button expand="block" fill="solid" color="danger" (click)="cancelAlert()">Cancel</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" fill="solid" (click)="saveAlert()">Save</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

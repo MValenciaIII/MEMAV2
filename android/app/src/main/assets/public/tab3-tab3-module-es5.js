@@ -11225,7 +11225,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n    <ion-toolbar color=\"primary\">\n        <ion-title> MSEMA </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n    <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n    <!-- <div id=\"mapId3\" style=\"width: 100%; height: 70%\"></div> -->\n    <div \n    id=\"map\"\n  leaflet\n  style=\"width: 100%; height: 70%\"\n  \n  [leafletOptions]=\"mapOptions\"\n  (leafletMapReady)=\"onMapReady($event)\"\n></div>\n<!-- <div class=\"App\">\n</div> -->\n\n<!-- <input #ranger (input)=\"geoRadius(ranger.value)\" type=\"range\" min=0 max=400000 value=200\n /> -->\n\n <ion-item>\n     <ion-label>Select your County</ion-label>\n     <ion-select placeholder=\"Select County\" [(ngModel)]=\"countySelection\" (ionChange)=\"geoRadius()\">\n        <ion-select-option value=\"Adams\">Adams</ion-select-option>\n        <ion-select-option value=\"Alcorn\">Alcorn</ion-select-option>\n        <ion-select-option value=\"AMITE\">Amite</ion-select-option>\n        <ion-select-option value=\"Benton\">Benton</ion-select-option>\n        <ion-select-option value=\"BOLIVAR\">Bolivar</ion-select-option>\n        <ion-select-option value=\"CALHOUN\">Calhoun</ion-select-option>\n        <ion-select-option value=\"CARROLL\">Carroll</ion-select-option>\n        <ion-select-option value=\"CHICKASAW\">Chickasaw</ion-select-option>\n        <ion-select-option value=\"CHOCTAW\">Choctaw</ion-select-option>\n        <ion-select-option value=\"CLAIBORNE\">Claiborne</ion-select-option>\n     </ion-select>\n </ion-item>\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n    <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n\n  <div \n    id=\"map\"\n    leaflet\n    style=\"width: 100%; height: 70%\"\n    [leafletOptions]=\"mapOptions\"\n    (leafletMapReady)=\"onMapReady($event)\"\n  ></div>\n\n  <ion-item>\n    <ion-label>Select your County</ion-label>\n    <ion-select placeholder=\"Select County\" [(ngModel)]=\"countySelection\" (ionChange)=\"geoRadius()\">\n      <ion-select-option value=\"Adams\">Adams</ion-select-option>\n      <ion-select-option value=\"Alcorn\">Alcorn</ion-select-option>\n      <ion-select-option value=\"AMITE\">Amite</ion-select-option>\n      <ion-select-option value=\"Benton\">Benton</ion-select-option>\n      <ion-select-option value=\"BOLIVAR\">Bolivar</ion-select-option>\n      <ion-select-option value=\"CALHOUN\">Calhoun</ion-select-option>\n      <ion-select-option value=\"CARROLL\">Carroll</ion-select-option>\n      <ion-select-option value=\"CHICKASAW\">Chickasaw</ion-select-option>\n      <ion-select-option value=\"CHOCTAW\">Choctaw</ion-select-option>\n      <ion-select-option value=\"CLAIBORNE\">Claiborne</ion-select-option>\n    </ion-select>\n  </ion-item>\n\n</ion-content>";
       /***/
     },
 
@@ -12084,21 +12084,15 @@
       /* harmony import */
 
 
-      var proj4leaflet__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(proj4leaflet__WEBPACK_IMPORTED_MODULE_6__);
-      /* harmony import */
-
-
-      var _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! @ionic-native/native-geocoder/ngx */
-      "./node_modules/@ionic-native/native-geocoder/__ivy_ngcc__/ngx/index.js"); // import * as Leaflet from 'leaflet';
+      var proj4leaflet__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(proj4leaflet__WEBPACK_IMPORTED_MODULE_6__); // import * as Leaflet from 'leaflet';
 
 
       var Tab3Page = /*#__PURE__*/function () {
-        function Tab3Page(http, nativeGeocoder) {
+        function Tab3Page(http) {
           _classCallCheck(this, Tab3Page);
 
           this.http = http;
-          this.nativeGeocoder = nativeGeocoder;
+          var Functionone;
         } //  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
         //  group = L.layerGroup().addTo(this.map);
 
@@ -12135,9 +12129,8 @@
               _this.map.setView(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](resp.lat, resp.lng), 10);
             }); //this.geoRadius(this.rangeId)
 
-            this.getAlerts(); // this.setCountiesPoints();
-
-            this.setCityPoints();
+            this.getAlerts();
+            this.setCountiesPoints();
           } //MISSISSIPPI AREA
 
         }, {
@@ -12148,8 +12141,7 @@
                 maxZoom: 18,
                 attribution: 'Map data © OpenStreetMap contributors'
               })],
-              zoom: 10,
-              center: leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](0, 0)
+              zoom: 18
             };
           } //UPDATING A MAP RADIUS USING BUTTONS IN ANGULAR
           //ANGULAR BUTTON 
@@ -12252,18 +12244,16 @@
                         console.log(json);
                         _this3.json = json;
 
-                        if (_this3.json.features) {
-                          for (var i = 0; i < _this3.json.features.length; i++) {
-                            var element = _this3.json.features[i];
-                            console.log(element);
-                            poly.push(element);
-                            _this3.polygons = poly;
-                            console.log(_this3.polygons); //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
-                            //
+                        for (var i = 0; i < _this3.json.features.length; i++) {
+                          var element = _this3.json.features[i];
+                          console.log(element);
+                          poly.push(element);
+                          _this3.polygons = poly;
+                          console.log(_this3.polygons); //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
+                          //
 
-                            var pressOne = leaflet__WEBPACK_IMPORTED_MODULE_3__["geoJSON"](element).addTo(_this3.map);
-                            pressOne.bindPopup("<p>County Affected: ".concat(element.properties.areaDesc, "</p>\n              <p>Event: ").concat(element.properties.event, "</p>\n              "));
-                          }
+                          var pressOne = leaflet__WEBPACK_IMPORTED_MODULE_3__["geoJSON"](element).addTo(_this3.map);
+                          pressOne.bindPopup("<p>County Affected: ".concat(element.properties.areaDesc, "</p>\n            <p>Event: ").concat(element.properties.event, "</p>\n            "));
                         }
                       });
 
@@ -12311,37 +12301,6 @@
             }));
           } //FUNCTIONS FOR CONVERTING L.CIRCLE
 
-        }, {
-          key: "setCityPoints",
-          value: function setCityPoints() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this5 = this;
-
-              var options;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                      options = {
-                        useLocale: true,
-                        maxResults: 5
-                      };
-                      MSCityNames.forEach(function (cityName) {
-                        _this5.nativeGeocoder.forwardGeocode(cityName, options).then(function (result) {
-                          console.log('result', JSON.stringify(result[0]));
-                        })["catch"](function (error) {
-                          console.log('error', error);
-                        });
-                      });
-
-                    case 2:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }
-              }, _callee3);
-            }));
-          }
         }, {
           key: "destinationVincenty",
           value: function destinationVincenty(lonlat, brng, dist) {
@@ -12441,8 +12400,6 @@
       Tab3Page.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
-        }, {
-          type: _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeGeocoder"]
         }];
       };
 
@@ -12466,7 +12423,6 @@
       //update noaa warnings if bad weather near by.
       //also fix puzzle pieced map on load
       ], Tab3Page);
-      var MSCityNames = ['Gulfport', 'Wiggins', 'Hattiesburg', 'Laurel', 'McComb', 'Natchez', 'Brookhaven', 'Magee', 'Port Gibson', 'Vicksburg', 'Jackson', 'Canton', 'Forest', 'Meridian', 'Waynesboro', 'Philadelphia', 'Louisville', 'Kosciusko', 'Yazoo City', 'Rolling Fork', 'Greenville', 'Indianola', 'Greenwood', 'Winona', 'Starkville', 'Durant', 'Senatobia', 'Southaven', 'Columbus', 'Amory', 'Houston', 'Grenada', 'Cleveland', 'Oxford', 'Pontotoc', 'Tupelo', 'Booneville', 'New Albany', 'Corinth', 'Iuka'];
       /***/
     }
   }]);
