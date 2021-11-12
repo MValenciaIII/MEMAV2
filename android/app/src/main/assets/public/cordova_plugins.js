@@ -18,14 +18,6 @@
         ]
         },
       {
-          "id": "cordova-plugin-nativegeocoder.NativeGeocoder",
-          "file": "plugins/cordova-plugin-nativegeocoder/www/NativeGeocoder.js",
-          "pluginId": "cordova-plugin-nativegeocoder",
-        "clobbers": [
-          "nativegeocoder"
-        ]
-        },
-      {
           "id": "cordova-plugin-geolocation.geolocation",
           "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
           "pluginId": "cordova-plugin-geolocation",
@@ -79,7 +71,6 @@
       "cordova-plugin-device": "2.0.2",
       "cordova-plugin-geolocation": "4.1.0",
       "cordova-plugin-nativeaudio": "3.0.9",
-      "cordova-plugin-nativegeocoder": "3.4.1",
       "cordova-plugin-network-information": "2.0.2",
       "cordova-plugin-statusbar": "2.4.2",
       "cordova-plugin-whitelist": "1.3.3",

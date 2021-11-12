@@ -15,11 +15,7 @@ import 'proj4leaflet';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-//I NEED TO GET RADIUS TO SHOW
-//NEED TO Get current location to set view in leaflet in angular
-//I have current location how do i send it as a variable outside ngOnInit or alternative
-//update noaa warnings if bad weather near by.
-//also fix puzzle pieced map on load
+
 export class Tab3Page implements AfterViewInit {
   map: Map;
   mapOptions: MapOptions = LMapOptions;
@@ -31,12 +27,7 @@ export class Tab3Page implements AfterViewInit {
 
   constructor(private http: HttpClient, private cRef: ChangeDetectorRef ) {}
 
-//  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
-//  group = L.layerGroup().addTo(this.map);
-
-  ngOnInit() {
-    // this.getLocationService() 
-  }   
+  ngOnInit() {}   
     
   ngAfterViewInit() {}
 
@@ -47,7 +38,6 @@ export class Tab3Page implements AfterViewInit {
       })
     })
   }
-  //MAYBE START STORING VALUES OF RESP.LAT/LNG AND USE FOR CHECKING LAYER THEN REMOVEING IN ONMAPREADY
     
   onMapReady(map: Map) {
     this.map = map;
@@ -83,15 +73,18 @@ export class Tab3Page implements AfterViewInit {
     });
   }
 
+  // TODO:  If you cancel or select another city while editing
+  // an already saved area, it doesn't revert back to the original radius
   private cityOnClickHandler(cityName: string, e: Event): void {
     if (this.cityPoints[cityName].alert) {
       this.workingAlert = this.cityPoints[cityName].alert;
       this.alertRangeEl.value = this.cityPoints[cityName].alert.alertRadius;
+      this.map.fitBounds(this.workingAlert.circle.getBounds());
       this.cRef.detectChanges();
     }
     else {
-      this.alertRangeEl.value = this.maxAlertRange / 2;
       this.updateWorkingAlert(cityName, this.maxAlertRange / 2);
+      this.alertRangeEl.value = this.maxAlertRange / 2;
     }
   }
 
@@ -168,7 +161,6 @@ const LMapOptions: {[key: string]: any} = {
   ],
   zoom: 18
 };
-
 
 const MSCityNames: { [key: string]: number[] } = {
   'Gulfport': [30.3674, -89.0928],

@@ -1,4 +1,16 @@
 (function () {
+  function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+  function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+  function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+  function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -11225,7 +11237,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n    <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n\n  <div \n    id=\"map\"\n    leaflet\n    style=\"width: 100%; height: 70%\"\n    [leafletOptions]=\"mapOptions\"\n    (leafletMapReady)=\"onMapReady($event)\"\n  ></div>\n\n  <ion-item>\n    <ion-label>Select your County</ion-label>\n    <ion-select placeholder=\"Select County\" [(ngModel)]=\"countySelection\" (ionChange)=\"geoRadius()\">\n      <ion-select-option value=\"Adams\">Adams</ion-select-option>\n      <ion-select-option value=\"Alcorn\">Alcorn</ion-select-option>\n      <ion-select-option value=\"AMITE\">Amite</ion-select-option>\n      <ion-select-option value=\"Benton\">Benton</ion-select-option>\n      <ion-select-option value=\"BOLIVAR\">Bolivar</ion-select-option>\n      <ion-select-option value=\"CALHOUN\">Calhoun</ion-select-option>\n      <ion-select-option value=\"CARROLL\">Carroll</ion-select-option>\n      <ion-select-option value=\"CHICKASAW\">Chickasaw</ion-select-option>\n      <ion-select-option value=\"CHOCTAW\">Choctaw</ion-select-option>\n      <ion-select-option value=\"CLAIBORNE\">Claiborne</ion-select-option>\n    </ion-select>\n  </ion-item>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n    <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n\n  <ion-grid style=\"height: 85%; padding: 0;\">\n\n    <ion-row style=\"height: 70%;\">\n      <ion-col style=\"padding: 0;\">\n        <div \n          id=\"map\"\n          leaflet\n          [leafletOptions]=\"mapOptions\"\n          (leafletMapReady)=\"onMapReady($event)\"\n        ></div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"height: 30%;\">\n      <ion-col style=\"height: 100%;\">\n\n        <ion-row [hidden]=\"workingAlert\">\n          <ion-col><ion-label>Select a city...</ion-label></ion-col>\n        </ion-row>\n        <ion-row [hidden]=\"!workingAlert\">\n          <ion-col>\n            <ion-label>City: </ion-label>\n            <ion-label style=\"font-size: large\"> \n              <b>{{workingAlert? workingAlert.city : ''}}</b>\n            </ion-label>\n          </ion-col>\n          <ion-col>\n            <ion-label>Radius: </ion-label>\n            <ion-label [hidden]=\"!workingAlert\">\n              <b>{{workingAlert? workingAlert.alertRadius + ' miles' : ''}}</b>\n            </ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"workingAlert\" style=\"height: 100%; overflow: auto;\">\n          <ion-col>\n            <ion-list>\n              <div *ngFor=\"let city of cityPoints | keyvalue\">\n                <ion-item (click)=\"cityOnClickHandler(city.key, $event)\">\n                  <ion-label>{{city.key}}</ion-label>\n                  <ion-label style=\"color: rgb(216, 69, 69)\">\n                    <b>{{city.value.alert? city.value.alert.alertRadius + ' miles' : ''}}</b>\n                  </ion-label>\n                </ion-item>\n              </div>\n            </ion-list>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"!workingAlert\" style=\"height:100%; overflow: auto;\">\n          <ion-col>\n            <ion-row>\n              <ion-col>\n                <ion-range\n                  #alertRange\n                  min=\"1\"\n                  [max]=\"maxAlertRange\"\n                  step=\"1\"\n                  snaps=\"true\"\n                  pin=\"true\"\n                  (ionChange)=\"alertRangeChange($event)\"\n                  style=\"padding: 0;\"\n                >\n                  <ion-label slot=\"start\">1</ion-label>\n                  <ion-label slot=\"end\">{{maxAlertRange}} miles</ion-label>\n                </ion-range>\n              </ion-col>\n            </ion-row>\n            <ion-row>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"light\" (click)=\"cancelAlert()\">Cancel</ion-button>\n              </ion-col>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" (click)=\"saveAlert()\">Save</ion-button>\n              </ion-col>\n            </ion-row>\n            <ion-row [hidden]=\"workingAlert? !cityPoints[workingAlert.city].alert : true\">\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"danger\" (click)=\"deleteAlert()\">Delete</ion-button>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>";
       /***/
     },
 
@@ -12088,21 +12100,21 @@
 
 
       var Tab3Page = /*#__PURE__*/function () {
-        function Tab3Page(http) {
+        function Tab3Page(http, cRef) {
           _classCallCheck(this, Tab3Page);
 
           this.http = http;
-          var Functionone;
-        } //  map = L.map('map').setView(L.latLng(32.302898, -90.183487), 11);
-        //  group = L.layerGroup().addTo(this.map);
+          this.cRef = cRef;
+          this.mapOptions = LMapOptions;
+          this.maxAlertRange = 400; // Miles
 
+          this.cityPoints = {};
+          this.workingAlert = null;
+        }
 
         _createClass(Tab3Page, [{
           key: "ngOnInit",
-          value: function ngOnInit() {
-            this.getLocationService();
-            this.initializeMapOptions();
-          }
+          value: function ngOnInit() {}
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {}
@@ -12117,8 +12129,7 @@
                 });
               });
             });
-          } //MAYBE START STORING VALUES OF RESP.LAT/LNG AND USE FOR CHECKING LAYER THEN REMOVEING IN ONMAPREADY
-
+          }
         }, {
           key: "onMapReady",
           value: function onMapReady(map) {
@@ -12126,136 +12137,22 @@
 
             this.map = map;
             this.getLocationService().then(function (resp) {
-              _this.map.setView(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](resp.lat, resp.lng), 10);
-            }); //this.geoRadius(this.rangeId)
-
-            this.getAlerts();
-            this.setCountiesPoints();
-          } //MISSISSIPPI AREA
-
-        }, {
-          key: "initializeMapOptions",
-          value: function initializeMapOptions() {
-            this.mapOptions = {
-              layers: [Object(leaflet__WEBPACK_IMPORTED_MODULE_3__["tileLayer"])('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 18,
-                attribution: 'Map data © OpenStreetMap contributors'
-              })],
-              zoom: 18
-            };
-          } //UPDATING A MAP RADIUS USING BUTTONS IN ANGULAR
-          //ANGULAR BUTTON 
-
-        }, {
-          key: "geoRadius",
-          value: function geoRadius() {
-            //BUTTON RADIUS: REMOVE PREVIOUS LAYER WHEN NEW BUTTON IS PRESSED
-            //SLIDER RADIUS: LEARN HOW TO UPDATE A RADIUS IMMEDIATELY WHEN RADIUS SLIDER IS MOVED
-            //ALSO HOW TO SAVE RADIUS VALUE.
-            // this.getLocationService().then(resp=>{
-            //   this.rangeId = value
-            //   let milesRadius = this.rangeId / 1609;
-            //   if(this.rangeId === undefined) {
-            //   this.geoRadiusLine = L.circle([resp.lat, resp.lng], { radius: 200 }).addTo(this.map);
-            //   } 
-            //     else if (this.rangeId > 0) {
-            //       this.geoRadiusLine.setRadius(this.rangeId)
-            //       //toGeoJSON is converting to a point instead of a POLYGON
-            //       //Leaflet doesn't support converting Polygons
-            //       //Need to find a plugin or replace the circle.
-            //       console.log(this.geoRadiusLine)
-            //       this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine)
-            //       this.turfcircle = this.geoJSONCircle.toGeoJSON()
-            //       console.log(this.turfcircle)
-            //       // TEST TO EXTRACT POLYGON AND STORE 
-            //       // https://medium.com/geoman-blog/how-to-handle-circles-in-geojson-d04dcd6cb2e6
-            //       //
-            //       //
-            //       for (let i = 0; i < this.polygons.length; i++) {
-            //         const element = this.polygons[i];
-            //         let  doesIntersect = booleanIntersects(
-            //           this.polygons[i].geometry,
-            //           this.turfcircle.geometry
-            //         )
-            //         console.log(this.polygons[i], this.turfcircle)
-            //         console.log(doesIntersect)
-            //         if(doesIntersect == true) {
-            //           console.log(element + `of ID = ${i} has an intersection!`)
-            //         }
-            //       }
-            //     }
-            // })
-            console.log(this.countySelection);
-
-            for (var i = 0; i < this.CountyPoints.length; i++) {
-              var element = this.CountyPoints[i];
-
-              if (element.properties.CONAME == this.countySelection) {
-                if (this.geoRadiusLine === undefined) {
-                  this.geoRadiusLine = leaflet__WEBPACK_IMPORTED_MODULE_3__["circle"]([element.properties.Lat, element.properties.Lon], {
-                    radius: 16900
-                  }).addTo(this.map);
-                  this.map.panTo([element.properties.Lat, element.properties.Lon]);
-                  var radiusNum = this.geoRadiusLine.getRadius();
-                  this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine);
-                  this.turfcircle = this.geoJSONCircle.toGeoJSON();
-                  this.geoRadiusLine.getLatLng();
-                } else {
-                  console.log(true);
-                  this.geoRadiusLine.setLatLng([element.properties.Lat, element.properties.Lon]);
-                  this.map.panTo([element.properties.Lat, element.properties.Lon]);
-                  this.geoJSONCircle = this.circleToPolygon(this.geoRadiusLine);
-                  this.turfcircle = this.geoJSONCircle.toGeoJSON();
-                  this.geoRadiusLine.redraw();
-                }
-
-                debugger;
-              }
-            }
-          }
-        }, {
-          key: "addSampleMarker",
-          value: function addSampleMarker() {
-            var _this2 = this;
-
-            this.getLocationService().then(function (resp) {
-              var marker = new leaflet__WEBPACK_IMPORTED_MODULE_3__["Marker"]([resp.lat, resp.lng]).setIcon(Object(leaflet__WEBPACK_IMPORTED_MODULE_3__["icon"])({
-                iconSize: [25, 41],
-                iconAnchor: [13, 41],
-                iconUrl: 'assets/marker-icon.png'
-              }));
-              marker.addTo(_this2.map);
+              _this.map.setView(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](resp.lat, resp.lng), 8);
             });
-          } //WEATHER POLOYON 
-
+            this.getAlerts();
+            this.setCityPoints();
+          }
         }, {
           key: "getAlerts",
           value: function getAlerts() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var _this3 = this;
-
               var poly, response;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
                       poly = [];
-                      response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe(function (json) {
-                        console.log(json);
-                        _this3.json = json;
-
-                        for (var i = 0; i < _this3.json.features.length; i++) {
-                          var element = _this3.json.features[i];
-                          console.log(element);
-                          poly.push(element);
-                          _this3.polygons = poly;
-                          console.log(_this3.polygons); //I NEED TO PARSE THE POLYGONS IN THE RESPONSE INTO POSITIOSN, PATHOPTIONS, KEY
-                          //
-
-                          var pressOne = leaflet__WEBPACK_IMPORTED_MODULE_3__["geoJSON"](element).addTo(_this3.map);
-                          pressOne.bindPopup("<p>County Affected: ".concat(element.properties.areaDesc, "</p>\n            <p>Event: ").concat(element.properties.event, "</p>\n            "));
-                        }
-                      });
+                      response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe(function (json) {});
 
                     case 2:
                     case "end":
@@ -12266,131 +12163,95 @@
             }));
           }
         }, {
-          key: "setCountiesPoints",
-          value: function setCountiesPoints() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var _this4 = this;
+          key: "setCityPoints",
+          value: function setCityPoints() {
+            var _this2 = this;
 
-              var countiesPointsArray, countiesPoints;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      countiesPointsArray = [];
-                      countiesPoints = this.http.get('../../assets/MississippiCountiesPointsWGS84.geojson').subscribe(function (json) {
-                        console.log(json);
-                        _this4.json = json;
+            Object.entries(MSCityNames).forEach(function (city) {
+              var _city = _slicedToArray(city, 2),
+                  cityName = _city[0],
+                  cityLatLng = _city[1];
 
-                        for (var i = 0; i < _this4.json.features.length; i++) {
-                          var element = _this4.json.features[i];
-                          countiesPointsArray.push(element);
-                          _this4.CountyPoints = countiesPointsArray;
-                          var countiesList = leaflet__WEBPACK_IMPORTED_MODULE_3__["geoJSON"](element).addTo(_this4.map);
-                          countiesList.bindPopup("<p>County Name: ".concat(element.properties.CONAME, "</p>"));
-                        }
-
-                        console.log(_this4.CountyPoints);
-                      });
-
-                    case 2:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this);
-            }));
-          } //FUNCTIONS FOR CONVERTING L.CIRCLE
-
-        }, {
-          key: "destinationVincenty",
-          value: function destinationVincenty(lonlat, brng, dist) {
-            var VincentyConstants = {
-              a: 6378137,
-              b: 6356752.3142,
-              f: 1 / 298.257223563
-            };
-            var a = VincentyConstants.a,
-                b = VincentyConstants.b,
-                f = VincentyConstants.f;
-            var lon1 = lonlat.lng;
-            var lat1 = lonlat.lat;
-            var s = dist;
-            var pi = Math.PI;
-            var alpha1 = brng * pi / 180; // converts brng degrees to radius
-
-            var sinAlpha1 = Math.sin(alpha1);
-            var cosAlpha1 = Math.cos(alpha1);
-            var tanU1 = (1 - f) * Math.tan(lat1 * pi / 180
-            /* converts lat1 degrees to radius */
-            );
-            var cosU1 = 1 / Math.sqrt(1 + tanU1 * tanU1);
-            var sinU1 = tanU1 * cosU1;
-            var sigma1 = Math.atan2(tanU1, cosAlpha1);
-            var sinAlpha = cosU1 * sinAlpha1;
-            var cosSqAlpha = 1 - sinAlpha * sinAlpha;
-            var uSq = cosSqAlpha * (a * a - b * b) / (b * b);
-            var A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
-            var B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
-            var sigma = s / (b * A);
-            var sigmaP = 2 * Math.PI;
-            var cos2SigmaM;
-            var sinSigma;
-            var cosSigma;
-
-            while (Math.abs(sigma - sigmaP) > 1e-12) {
-              cos2SigmaM = Math.cos(2 * sigma1 + sigma);
-              sinSigma = Math.sin(sigma);
-              cosSigma = Math.cos(sigma);
-              var deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
-              sigmaP = sigma;
-              sigma = s / (b * A) + deltaSigma;
-            }
-
-            var tmp = sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1;
-            var lat2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1 - f) * Math.sqrt(sinAlpha * sinAlpha + tmp * tmp));
-            var lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1);
-            var C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
-            var lam = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM))); // const revAz = Math.atan2(sinAlpha, -tmp);  // final bearing
-
-            var lamFunc = lon1 + lam * 180 / pi; // converts lam radius to degrees
-
-            var lat2a = lat2 * 180 / pi; // converts lat2a radius to degrees
-
-            return leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](lamFunc, lat2a);
+              var cityIcon = new leaflet__WEBPACK_IMPORTED_MODULE_3__["Icon"]({
+                iconUrl: 'marker-icon.png',
+                iconSize: [18, 30]
+              });
+              _this2.cityPoints[cityName] = {
+                marker: leaflet__WEBPACK_IMPORTED_MODULE_3__["marker"]([cityLatLng[0], cityLatLng[1]], {
+                  title: cityName,
+                  icon: cityIcon
+                }).addTo(_this2.map).bindPopup(cityName).on('click', _this2.cityOnClickHandler.bind(_this2, cityName)),
+                alert: null
+              };
+            });
           }
         }, {
-          key: "createGeodesicPolygon",
-          value: function createGeodesicPolygon(origin, radius, sides, rotation) {
-            var angle;
-            var newLonlat;
-            var geomPoint;
-            var points = [];
-
-            for (var i = 0; i < sides; i += 1) {
-              angle = i * 360 / sides + rotation;
-              newLonlat = this.destinationVincenty(origin, angle, radius);
-              geomPoint = leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](newLonlat.lng, newLonlat.lat);
-              points.push(geomPoint);
+          key: "cityOnClickHandler",
+          value: function cityOnClickHandler(cityName, e) {
+            if (this.cityPoints[cityName].alert) {
+              this.workingAlert = this.cityPoints[cityName].alert;
+              this.alertRangeEl.value = this.cityPoints[cityName].alert.alertRadius;
+              this.map.fitBounds(this.workingAlert.circle.getBounds());
+              this.cRef.detectChanges();
+            } else {
+              this.updateWorkingAlert(cityName, this.maxAlertRange / 2);
+              this.alertRangeEl.value = this.maxAlertRange / 2;
             }
-
-            return points;
           }
         }, {
-          key: "circleToPolygon",
-          value: function circleToPolygon(circle) {
-            var sides = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 60;
-            var origin = circle.getLatLng();
-            var radius = circle.getRadius();
-            var polys = this.createGeodesicPolygon(origin, radius, sides, 0); // these are the points that make up the circle
+          key: "alertRangeChange",
+          value: function alertRangeChange(e) {
+            this.updateWorkingAlert(this.workingAlert.city, e.target.value);
+          }
+        }, {
+          key: "updateWorkingAlert",
+          value: function updateWorkingAlert(cityName, radiusMiles) {
+            var radiusMeters = radiusMiles * 1609.34;
 
-            var polygon = [];
+            if (!this.workingAlert || cityName !== this.workingAlert.city) {
+              if (this.workingAlert && !this.cityPoints[this.workingAlert.city].alert) {
+                this.workingAlert.circle.remove();
+              }
 
-            for (var i = 0; i < polys.length; i += 1) {
-              var geometry = [polys[i].lat, polys[i].lng];
-              polygon.push(geometry);
+              var latLng = new leaflet__WEBPACK_IMPORTED_MODULE_3__["LatLng"](MSCityNames[cityName][0], MSCityNames[cityName][1]);
+              this.workingAlert = {
+                city: cityName,
+                latlng: latLng,
+                alertRadius: radiusMiles,
+                circle: leaflet__WEBPACK_IMPORTED_MODULE_3__["circle"](latLng, {
+                  radius: radiusMeters
+                }).addTo(this.map)
+              };
+              this.workingAlert.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
+            } else {
+              this.workingAlert.alertRadius = radiusMiles;
+              this.workingAlert.circle.setRadius(radiusMeters);
             }
 
-            return leaflet__WEBPACK_IMPORTED_MODULE_3__["polygon"](polygon, circle.options);
+            this.map.fitBounds(this.workingAlert.circle.getBounds());
+            this.cRef.detectChanges();
+          }
+        }, {
+          key: "cancelAlert",
+          value: function cancelAlert() {
+            if (!this.cityPoints[this.workingAlert.city].alert) this.workingAlert.circle.remove();
+            this.workingAlert = null;
+          }
+        }, {
+          key: "saveAlert",
+          value: function saveAlert() {
+            this.cityPoints[this.workingAlert.city].alert = this.workingAlert;
+            this.cityPoints[this.workingAlert.city].alert.circle.setStyle({
+              color: '#e33b3b'
+            });
+            this.workingAlert = null;
+          }
+        }, {
+          key: "deleteAlert",
+          value: function deleteAlert() {
+            this.cityPoints[this.workingAlert.city].alert.circle.remove();
+            this.cityPoints[this.workingAlert.city].alert = null;
+            this.workingAlert = null;
           }
         }]);
 
@@ -12400,13 +12261,15 @@
       Tab3Page.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
         }];
       };
 
       Tab3Page.propDecorators = {
-        tab3Page: [{
+        alertRangeEl: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
-          args: ['ranger']
+          args: ['alertRange']
         }]
       };
       Tab3Page = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -12417,12 +12280,56 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./tab3.page.scss */
         "./src/app/tab3/tab3.page.scss"))["default"]]
-      }) //I NEED TO GET RADIUS TO SHOW
-      //NEED TO Get current location to set view in leaflet in angular
-      //I have current location how do i send it as a variable outside ngOnInit or alternative
-      //update noaa warnings if bad weather near by.
-      //also fix puzzle pieced map on load
-      ], Tab3Page);
+      })], Tab3Page);
+      var LMapOptions = {
+        layers: [Object(leaflet__WEBPACK_IMPORTED_MODULE_3__["tileLayer"])('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: 'Map data © OpenStreetMap contributors'
+        })],
+        zoom: 18
+      };
+      var MSCityNames = {
+        'Gulfport': [30.3674, -89.0928],
+        'Wiggins': [30.8582, -89.1353],
+        'Hattiesburg': [31.3271, -89.2903],
+        'Laurel': [31.6941, -89.1306],
+        'McComb': [31.2438, -90.4532],
+        'Natchez': [31.5604, -91.4032],
+        'Brookhaven': [31.5791, -90.4407],
+        'Magee': [31.8738, -89.7337],
+        'Port Gibson': [31.9608, -90.9817],
+        'Vicksburg': [32.3526, -90.8779],
+        'Jackson': [32.2988, -90.1848],
+        'Canton': [32.6126, -90.0368],
+        'Forest': [32.3646, -89.4742],
+        'Meridian': [32.3643, -88.7037],
+        'Waynesboro': [31.6749, -88.6461],
+        'Philadelphia': [32.7715, -89.1167],
+        'Louisville': [33.1237, -89.0551],
+        'Kosciusko': [33.1237, -89.0551],
+        'Yazoo City': [32.8551, -90.4056],
+        'Rolling Fork': [32.9065, -90.8782],
+        'Greenville': [33.3997, -91.0377],
+        'Indianola': [33.4510, -90.6551],
+        'Greenwood': [33.5162, -90.1795],
+        'Winona': [33.4821, -89.7281],
+        'Starkville': [33.4504, -88.8184],
+        'Durant': [33.0751, -89.8545],
+        'Senatobia': [34.6176, -89.9687],
+        'Southaven': [34.9919, -90.0023],
+        'Columbus': [33.4957, -88.4273],
+        'Amory': [33.9843, -88.4881],
+        'Houston': [33.8984, -88.9992],
+        'Grenada': [33.7690, -89.8084],
+        'Cleveland': [33.7440, -90.7248],
+        'Oxford': [34.3668, -89.5186],
+        'Pontotoc': [34.2479, -88.9987],
+        'Tupelo': [34.2576, -88.7034],
+        'Booneville': [34.6582, -88.5667],
+        'New Albany': [34.4943, -89.0078],
+        'Corinth': [34.9343, -88.5223],
+        'Iuka': [34.8118, -88.1900]
+      };
       /***/
     }
   }]);
