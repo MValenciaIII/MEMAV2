@@ -67,8 +67,14 @@ export class Tab3Page implements AfterViewInit {
   private setCityPoints() {
     Object.entries(MSCityNames).forEach(city => {
       let [cityName, cityLatLng] = city;
-      L.marker([cityLatLng[0], cityLatLng[1]], {title: cityName})
-        .addTo(this.map)
+      let cityIcon = new L.Icon({
+        iconUrl: 'marker-icon.png',
+        iconSize: [18, 30]
+      });
+      L.marker([cityLatLng[0], cityLatLng[1]], {
+        title: cityName,
+        icon: cityIcon
+      }).addTo(this.map)
         .bindPopup(cityName)
         .on('click', this.cityOnClickHandler.bind(this, cityName));
     });
@@ -78,6 +84,7 @@ export class Tab3Page implements AfterViewInit {
     if (this.savedAlerts[cityName]) {
       this.workingAlert = this.savedAlerts[cityName];
       this.alertRangeEl.value = this.savedAlerts[cityName].alertRadius;
+      this.cRef.detectChanges();
     }
     else {
       this.alertRangeEl.value = this.maxAlertRange / 2;
@@ -93,25 +100,30 @@ export class Tab3Page implements AfterViewInit {
     let radiusMeters = radiusMiles * 1609.34;
 
     if (!this.workingAlert || cityName !== this.workingAlert.city) {
+      if (this.workingAlert) this.workingAlert.circle.remove();
       let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
       this.workingAlert = {
         city: cityName,
         latlng: latLng,
         alertRadius: radiusMiles,
-        circle: L.circle(latLng, { radius: radiusMeters }).addTo(this.map)
+        circle: L.circle(latLng, {
+          radius: radiusMeters,
+          color: '#e33b3b'
+        }).addTo(this.map)
       }
+      this.workingAlert.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
     }
     else {
       this.workingAlert.alertRadius = radiusMiles;
       this.workingAlert.circle.setRadius(radiusMeters);
     }
 
-    this.map.fitBounds(this.workingAlert.circle.getBounds())
+    this.map.fitBounds(this.workingAlert.circle.getBounds());
     this.cRef.detectChanges();
   }
 
   private cancelAlert() {
-    this.workingAlert.circle.remove();
+    if (!this.savedAlerts[this.workingAlert.city]) this.workingAlert.circle.remove();
     this.workingAlert = null;
   }
 
@@ -119,12 +131,18 @@ export class Tab3Page implements AfterViewInit {
     this.savedAlerts[this.workingAlert.city] = this.workingAlert;
     this.workingAlert = null;
   }
+
+  private deleteAlert() {
+    this.savedAlerts[this.workingAlert.city].circle.remove();
+    delete this.savedAlerts[this.workingAlert.city];
+    this.workingAlert = null;
+  }
 }
 
 interface AlertArea {
   city: string,
   latlng: L.LatLng,
-  alertRadius: number,
+  alertRadius: number, // miles
   circle: L.Circle
 }
 
@@ -138,8 +156,7 @@ const LMapOptions: {[key: string]: any} = {
       }
     )
   ],
-  zoom: 18,
-  //center: latLng(this.longitude, this.latitude),
+  zoom: 18
 };
 
 
