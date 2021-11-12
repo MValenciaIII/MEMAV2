@@ -25,12 +25,7 @@ export class Tab3Page implements AfterViewInit {
   mapOptions: MapOptions = LMapOptions;
   maxAlertRange = 400; // Miles
   savedAlerts: { [key: string]: AlertArea } = {};
-  selectedCity: AlertArea = {
-    name: null,
-    latlng: null,
-    alertRadius: null,
-    circle: null
-  };
+  workingAlert: AlertArea = null;
 
   @ViewChild('alertRange') alertRangeEl;
 
@@ -40,7 +35,7 @@ export class Tab3Page implements AfterViewInit {
 //  group = L.layerGroup().addTo(this.map);
 
   ngOnInit() {
-    this.getLocationService() 
+    // this.getLocationService() 
   }   
     
   ngAfterViewInit() {}
@@ -81,60 +76,53 @@ export class Tab3Page implements AfterViewInit {
 
   private cityOnClickHandler(cityName: string, e: Event): void {
     if (this.savedAlerts[cityName]) {
-      this.selectedCity = this.savedAlerts[cityName];
+      this.workingAlert = this.savedAlerts[cityName];
       this.alertRangeEl.value = this.savedAlerts[cityName].alertRadius;
     }
     else {
       this.alertRangeEl.value = this.maxAlertRange / 2;
-      this.updateCurrentAlert(cityName, this.maxAlertRange / 2);
+      this.updateWorkingAlert(cityName, this.maxAlertRange / 2);
     }
   }
 
   private alertRangeChange(e) {
-    this.updateCurrentAlert(this.selectedCity.name, e.target.value);
+    this.updateWorkingAlert(this.workingAlert.city, e.target.value);
   }
 
-  private updateCurrentAlert(cityName, radiusMiles) {
+  private updateWorkingAlert(cityName, radiusMiles) {
     let radiusMeters = radiusMiles * 1609.34;
-    if (this.selectedCity.name && cityName !== this.selectedCity.name) {
-      this.selectedCity.circle.remove();
-      this.selectedCity.circle = null;
-    }
-    this.selectedCity.name = cityName;
-    this.selectedCity.latlng = new L.LatLng(
-      MSCityNames[cityName][0], 
-      MSCityNames[cityName][1]
-    );
-    this.selectedCity.alertRadius = radiusMiles;
-    if (this.selectedCity.circle) {
-      this.selectedCity.circle.setRadius(radiusMeters);
+
+    if (!this.workingAlert || cityName !== this.workingAlert.city) {
+      let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
+      this.workingAlert = {
+        city: cityName,
+        latlng: latLng,
+        alertRadius: radiusMiles,
+        circle: L.circle(latLng, { radius: radiusMeters }).addTo(this.map)
+      }
     }
     else {
-      this.selectedCity.circle = L.circle(this.selectedCity.latlng, {
-        radius: radiusMeters
-      }).addTo(this.map);
+      this.workingAlert.alertRadius = radiusMiles;
+      this.workingAlert.circle.setRadius(radiusMeters);
     }
-    this.map.fitBounds(this.selectedCity.circle.getBounds())
+
+    this.map.fitBounds(this.workingAlert.circle.getBounds())
     this.cRef.detectChanges();
   }
 
   private cancelAlert() {
-    this.selectedCity.name = null;
-    this.selectedCity.latlng = null;
-    this.selectedCity.circle.remove();
-    this.selectedCity.circle = null;
+    this.workingAlert.circle.remove();
+    this.workingAlert = null;
   }
 
   private saveAlert() {
-    this.savedAlerts[this.selectedCity.name] = this.selectedCity;
-    this.selectedCity.name = null;
-    this.selectedCity.latlng = null;
-    this.selectedCity.circle = null;
+    this.savedAlerts[this.workingAlert.city] = this.workingAlert;
+    this.workingAlert = null;
   }
 }
 
 interface AlertArea {
-  name: string,
+  city: string,
   latlng: L.LatLng,
   alertRadius: number,
   circle: L.Circle
