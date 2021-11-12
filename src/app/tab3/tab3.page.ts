@@ -24,7 +24,7 @@ export class Tab3Page implements AfterViewInit {
   map: Map;
   mapOptions: MapOptions = LMapOptions;
   maxAlertRange = 400; // Miles
-  savedAlerts: { [key: string]: AlertArea } = {};
+  cityPoints: { [key: string]: CityPoint } = {};
   workingAlert: AlertArea = null;
 
   @ViewChild('alertRange') alertRangeEl;
@@ -71,19 +71,22 @@ export class Tab3Page implements AfterViewInit {
         iconUrl: 'marker-icon.png',
         iconSize: [18, 30]
       });
-      L.marker([cityLatLng[0], cityLatLng[1]], {
-        title: cityName,
-        icon: cityIcon
-      }).addTo(this.map)
-        .bindPopup(cityName)
-        .on('click', this.cityOnClickHandler.bind(this, cityName));
+      this.cityPoints[cityName] = {
+        marker: L.marker([cityLatLng[0], cityLatLng[1]], {
+            title: cityName,
+            icon: cityIcon
+          }).addTo(this.map)
+            .bindPopup(cityName)
+            .on('click', this.cityOnClickHandler.bind(this, cityName)),
+        alert: null
+      }
     });
   }
 
   private cityOnClickHandler(cityName: string, e: Event): void {
-    if (this.savedAlerts[cityName]) {
-      this.workingAlert = this.savedAlerts[cityName];
-      this.alertRangeEl.value = this.savedAlerts[cityName].alertRadius;
+    if (this.cityPoints[cityName].alert) {
+      this.workingAlert = this.cityPoints[cityName].alert;
+      this.alertRangeEl.value = this.cityPoints[cityName].alert.alertRadius;
       this.cRef.detectChanges();
     }
     else {
@@ -100,15 +103,16 @@ export class Tab3Page implements AfterViewInit {
     let radiusMeters = radiusMiles * 1609.34;
 
     if (!this.workingAlert || cityName !== this.workingAlert.city) {
-      if (this.workingAlert) this.workingAlert.circle.remove();
+      if (this.workingAlert && !this.cityPoints[this.workingAlert.city].alert) {
+        this.workingAlert.circle.remove();
+      }
       let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
       this.workingAlert = {
         city: cityName,
         latlng: latLng,
         alertRadius: radiusMiles,
         circle: L.circle(latLng, {
-          radius: radiusMeters,
-          color: '#e33b3b'
+          radius: radiusMeters
         }).addTo(this.map)
       }
       this.workingAlert.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
@@ -123,20 +127,26 @@ export class Tab3Page implements AfterViewInit {
   }
 
   private cancelAlert() {
-    if (!this.savedAlerts[this.workingAlert.city]) this.workingAlert.circle.remove();
+    if (!this.cityPoints[this.workingAlert.city].alert) this.workingAlert.circle.remove();
     this.workingAlert = null;
   }
 
   private saveAlert() {
-    this.savedAlerts[this.workingAlert.city] = this.workingAlert;
+    this.cityPoints[this.workingAlert.city].alert = this.workingAlert;
+    this.cityPoints[this.workingAlert.city].alert.circle.setStyle({color: '#e33b3b'});
     this.workingAlert = null;
   }
 
   private deleteAlert() {
-    this.savedAlerts[this.workingAlert.city].circle.remove();
-    delete this.savedAlerts[this.workingAlert.city];
+    this.cityPoints[this.workingAlert.city].alert.circle.remove();
+    this.cityPoints[this.workingAlert.city].alert = null;
     this.workingAlert = null;
   }
+}
+
+interface CityPoint {
+  marker: L.Marker,
+  alert: AlertArea | null
 }
 
 interface AlertArea {

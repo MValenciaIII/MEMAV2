@@ -60,7 +60,7 @@
                 <ion-button expand="block" fill="solid" (click)="saveAlert()">Save</ion-button>
               </ion-col>
             </ion-row>
-            <ion-row [hidden]="workingAlert? !savedAlerts[workingAlert.city] : true">
+            <ion-row [hidden]="workingAlert? !cityPoints[workingAlert.city].alert : true">
               <ion-col>
                 <ion-button expand="block" fill="solid" color="danger" (click)="deleteAlert()">Delete</ion-button>
               </ion-col>
