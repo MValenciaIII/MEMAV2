@@ -2,13 +2,12 @@ import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone, SimpleChange, 
 // import * as Leaflet from 'leaflet';
 import { HttpClient } from "@angular/common/http";
 import * as L from "leaflet";
-import {latLng, MapOptions, tileLayer, Map, Marker, icon, Circle} from 'leaflet';
-import * as turfcircle from '@turf/circle';
-import booleanIntersects from '@turf/boolean-intersects';
+import * as esri from "esri-leaflet";
+import '@geoman-io/leaflet-geoman-free';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'proj4leaflet';
-
+import { Capabilities } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-tab3',
@@ -17,12 +16,12 @@ import 'proj4leaflet';
 })
 
 export class Tab3Page implements AfterViewInit {
-  map: Map;
-  mapOptions: MapOptions = LMapOptions;
+  map: L.Map;
+  mapOptions: L.MapOptions = LMapOptions;
   maxAlertRange = 400; // Miles
   cityPoints: { [key: string]: CityPoint } = {};
-  workingAlert: AlertArea = null;
-
+  workingAlertArea: AlertArea = null;
+  NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
   @ViewChild('alertRange') alertRangeEl;
 
   constructor(private http: HttpClient, private cRef: ChangeDetectorRef ) {}
@@ -39,19 +38,45 @@ export class Tab3Page implements AfterViewInit {
     })
   }
     
-  onMapReady(map: Map) {
+  onMapReady(map: L.Map) {
     this.map = map;
+    this.NWSFL.addTo(this.map);
+    this.NWSFL.setWhere('0=1');
+    this.NWSFL.setStyle({ color: 'red' });
     this.getLocationService().then(resp => {
       this.map.setView(L.latLng(resp.lat, resp.lng), 8)
-    })
-    this.getAlerts();
+    });
     this.setCityPoints();
+    setInterval(this.checkForWeatherAlerts.bind(this), 10000);
   }
 
-  private async getAlerts() {
-    let poly = [];
-    let response = this.http.get("https://api.weather.gov/alerts/active?area=MS").subscribe((json: any) => {
+  private async checkForWeatherAlerts() {
+    let cities = Object.values(this.cityPoints).filter(point => (point.alertArea));
+    if (cities.length == 0) return;
+    cities.forEach(city => {
+      this.NWSFL.query().intersects(city.alertArea.polygon).ids((error, ids) => {
+        if (error) {
+          console.log('Error with query: ' + error);
+        } else if (ids) {
+          city.weatherAlerts = ids;
+          this.updateMapWeatherAlerts();
+        }
+      });
     });
+  }
+
+  private updateMapWeatherAlerts() {
+    let citiesWithAlerts = Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
+    if (citiesWithAlerts.length == 0) {
+      this.NWSFL.setWhere('0=1');
+      return;
+    }
+    let alertObjectIds = [];
+    citiesWithAlerts.forEach(city => {
+      let uniqueAlerts = [...alertObjectIds, ...city.weatherAlerts];
+      alertObjectIds = [... new Set(uniqueAlerts)];
+    });
+    this.NWSFL.setWhere('OBJECTID in (' + alertObjectIds.join(',') + ')');
   }
 
   private setCityPoints() {
@@ -59,7 +84,8 @@ export class Tab3Page implements AfterViewInit {
       let [cityName, cityLatLng] = city;
       let cityIcon = new L.Icon({
         iconUrl: 'marker-icon.png',
-        iconSize: [18, 30]
+        iconSize: [18, 30],
+        iconAnchor: [10, 30]
       });
       this.cityPoints[cityName] = {
         marker: L.marker([cityLatLng[0], cityLatLng[1]], {
@@ -67,8 +93,7 @@ export class Tab3Page implements AfterViewInit {
             icon: cityIcon
           }).addTo(this.map)
             .bindPopup(cityName)
-            .on('click', this.cityOnClickHandler.bind(this, cityName)),
-        alert: null
+            .on('click', this.cityOnClickHandler.bind(this, cityName))
       }
     });
   }
@@ -76,10 +101,10 @@ export class Tab3Page implements AfterViewInit {
   // TODO:  If you cancel or select another city while editing
   // an already saved area, it doesn't revert back to the original radius
   private cityOnClickHandler(cityName: string, e: Event): void {
-    if (this.cityPoints[cityName].alert) {
-      this.workingAlert = this.cityPoints[cityName].alert;
-      this.alertRangeEl.value = this.cityPoints[cityName].alert.alertRadius;
-      this.map.fitBounds(this.workingAlert.circle.getBounds());
+    if (this.cityPoints[cityName].alertArea) {
+      this.workingAlertArea = this.cityPoints[cityName].alertArea;
+      this.alertRangeEl.value = this.cityPoints[cityName].alertArea.alertRadius;
+      this.map.fitBounds(this.workingAlertArea.circle.getBounds());
       this.cRef.detectChanges();
     }
     else {
@@ -89,18 +114,18 @@ export class Tab3Page implements AfterViewInit {
   }
 
   private alertRangeChange(e) {
-    this.updateWorkingAlert(this.workingAlert.city, e.target.value);
+    this.updateWorkingAlert(this.workingAlertArea.city, e.target.value);
   }
 
   private updateWorkingAlert(cityName, radiusMiles) {
     let radiusMeters = radiusMiles * 1609.34;
 
-    if (!this.workingAlert || cityName !== this.workingAlert.city) {
-      if (this.workingAlert && !this.cityPoints[this.workingAlert.city].alert) {
-        this.workingAlert.circle.remove();
+    if (!this.workingAlertArea || cityName !== this.workingAlertArea.city) {
+      if (this.workingAlertArea && !this.cityPoints[this.workingAlertArea.city].alertArea) {
+        this.workingAlertArea.circle.remove();
       }
       let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
-      this.workingAlert = {
+      this.workingAlertArea = {
         city: cityName,
         latlng: latLng,
         alertRadius: radiusMiles,
@@ -108,50 +133,57 @@ export class Tab3Page implements AfterViewInit {
           radius: radiusMeters
         }).addTo(this.map)
       }
-      this.workingAlert.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
+      this.workingAlertArea.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
     }
     else {
-      this.workingAlert.alertRadius = radiusMiles;
-      this.workingAlert.circle.setRadius(radiusMeters);
+      this.workingAlertArea.alertRadius = radiusMiles;
+      this.workingAlertArea.circle.setRadius(radiusMeters);
     }
 
-    this.map.fitBounds(this.workingAlert.circle.getBounds());
+    this.map.fitBounds(this.workingAlertArea.circle.getBounds());
     this.cRef.detectChanges();
   }
 
-  private cancelAlert() {
-    if (!this.cityPoints[this.workingAlert.city].alert) this.workingAlert.circle.remove();
-    this.workingAlert = null;
+  private cancelAlertArea() {
+    if (!this.cityPoints[this.workingAlertArea.city].alertArea) {
+      this.workingAlertArea.circle.remove();
+    }
+    this.workingAlertArea = null;
   }
 
-  private saveAlert() {
-    this.cityPoints[this.workingAlert.city].alert = this.workingAlert;
-    this.cityPoints[this.workingAlert.city].alert.circle.setStyle({color: '#e33b3b'});
-    this.workingAlert = null;
+  private saveAlertArea() {
+    this.cityPoints[this.workingAlertArea.city].alertArea = this.workingAlertArea;
+    let polygon = L.PM.Utils.circleToPolygon(this.workingAlertArea.circle);
+    this.cityPoints[this.workingAlertArea.city].alertArea.polygon = polygon;
+    this.workingAlertArea = null;
   }
 
-  private deleteAlert() {
-    this.cityPoints[this.workingAlert.city].alert.circle.remove();
-    this.cityPoints[this.workingAlert.city].alert = null;
-    this.workingAlert = null;
+  private deleteAlertArea() {
+    this.cityPoints[this.workingAlertArea.city].alertArea.circle.remove();
+    this.cityPoints[this.workingAlertArea.city].alertArea = null;
+    this.cityPoints[this.workingAlertArea.city].weatherAlerts = null;
+    this.updateMapWeatherAlerts();
+    this.workingAlertArea = null;
   }
 }
 
 interface CityPoint {
   marker: L.Marker,
-  alert: AlertArea | null
+  alertArea?: AlertArea // populated when alert area is saved
+  weatherAlerts?: number[]
 }
 
 interface AlertArea {
   city: string,
   latlng: L.LatLng,
   alertRadius: number, // miles
-  circle: L.Circle
+  circle: L.Circle,
+  polygon?: object // created when saved
 }
 
-const LMapOptions: {[key: string]: any} = {
+const LMapOptions: L.MapOptions = {
   layers: [
-    tileLayer(
+    L.tileLayer(
       'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
         maxZoom: 18,
@@ -205,3 +237,4 @@ const MSCityNames: { [key: string]: number[] } = {
   'Iuka': [34.8118, -88.1900]
 }
 
+const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
