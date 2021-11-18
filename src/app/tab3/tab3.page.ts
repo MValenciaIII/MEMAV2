@@ -1,6 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone, SimpleChange, SimpleChanges, Input, ViewChild, AfterViewInit } from '@angular/core';
 // import * as Leaflet from 'leaflet';
-import { HttpClient } from "@angular/common/http";
 import * as L from "leaflet";
 import * as esri from "esri-leaflet";
 import '@geoman-io/leaflet-geoman-free';
@@ -24,11 +23,26 @@ export class Tab3Page implements AfterViewInit {
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
   @ViewChild('alertRange') alertRangeEl;
 
-  constructor(private http: HttpClient, private cRef: ChangeDetectorRef ) {}
+  constructor(private cRef: ChangeDetectorRef ) {}
 
   ngOnInit() {}   
     
   ngAfterViewInit() {}
+
+
+  onMapReady(map: L.Map) {
+    this.map = map;
+    this.NWSFL.addTo(this.map);
+    this.NWSFL.setWhere('0=1');
+    this.NWSFL.setStyle({ color: 'red', weight: 1 });
+    this.NWSFL.bindPopup(WeatherAlertPopup);
+    this.getLocationService().then(resp => {
+      this.map.setView(L.latLng(resp.lat, resp.lng), 8)
+    });
+    this.setCityPoints();
+    setInterval(this.checkForWeatherAlerts.bind(this, this.updateMapWeatherAlerts.bind(this)), 10000);
+  }
+
 
   getLocationService(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -38,47 +52,52 @@ export class Tab3Page implements AfterViewInit {
     })
   }
     
-  onMapReady(map: L.Map) {
-    this.map = map;
-    this.NWSFL.addTo(this.map);
-    this.NWSFL.setWhere('0=1');
-    this.NWSFL.setStyle({ color: 'red' });
-    this.getLocationService().then(resp => {
-      this.map.setView(L.latLng(resp.lat, resp.lng), 8)
-    });
-    this.setCityPoints();
-    setInterval(this.checkForWeatherAlerts.bind(this), 10000);
-  }
 
-  private async checkForWeatherAlerts() {
+  /**
+   * Queries NWS FeatureLayer for alert geometries that intersect each user
+   * defined alert detection area and populates each city point with their OBJECTIDs.
+   * @returns void
+   */
+  private async checkForWeatherAlerts(done=null) {
     let cities = Object.values(this.cityPoints).filter(point => (point.alertArea));
-    if (cities.length == 0) return;
+    let NWSQueries = [];
     cities.forEach(city => {
-      this.NWSFL.query().intersects(city.alertArea.polygon).ids((error, ids) => {
-        if (error) {
-          console.log('Error with query: ' + error);
-        } else if (ids) {
-          city.weatherAlerts = ids;
-          this.updateMapWeatherAlerts();
-        }
-      });
+      NWSQueries.push(new Promise((resolve, reject) => {
+        this.NWSFL.query().intersects(city.alertArea.polygon).ids((error, ids) => {
+          if (error) {
+            console.log('Error with query: ' + error);
+          } else if (ids) {
+            city.weatherAlerts = ids;
+          }
+          resolve(null);
+        });
+      }));
     });
+    Promise.all(NWSQueries).then(done.bind(this));
   }
 
+
+  /**
+   * Displays weather alerts on map.
+   * Updates where clause of NWS FeatureLayer to OBJECTIDs of all unique weather
+   * alerts intersecting user defined detection areas.
+   * @returns void
+   */
   private updateMapWeatherAlerts() {
     let citiesWithAlerts = Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
-    if (citiesWithAlerts.length == 0) {
-      this.NWSFL.setWhere('0=1');
-      return;
-    }
+    if (citiesWithAlerts.length == 0) { this.NWSFL.setWhere('0=1'); return; }
     let alertObjectIds = [];
     citiesWithAlerts.forEach(city => {
-      let uniqueAlerts = [...alertObjectIds, ...city.weatherAlerts];
-      alertObjectIds = [... new Set(uniqueAlerts)];
+      let alerts = [...alertObjectIds, ...city.weatherAlerts];
+      alertObjectIds = [... new Set(alerts)]; // only unique ids
     });
     this.NWSFL.setWhere('OBJECTID in (' + alertObjectIds.join(',') + ')');
   }
 
+
+  /**
+   * Place selectable city markers on the map.
+   */
   private setCityPoints() {
     Object.entries(MSCityNames).forEach(city => {
       let [cityName, cityLatLng] = city;
@@ -87,20 +106,27 @@ export class Tab3Page implements AfterViewInit {
         iconSize: [18, 30],
         iconAnchor: [10, 30]
       });
+      let popup = L.popup({ offset: [0, -20] }).setContent(cityName);
       this.cityPoints[cityName] = {
         marker: L.marker([cityLatLng[0], cityLatLng[1]], {
-            title: cityName,
-            icon: cityIcon
-          }).addTo(this.map)
-            .bindPopup(cityName)
-            .on('click', this.cityOnClickHandler.bind(this, cityName))
-      }
+                  title: cityName,
+                  icon: cityIcon
+                }).addTo(this.map)
+                  .bindPopup(popup)
+                  .on('click', this.cityOnClickHandler.bind(this, cityName))
+      };
     });
   }
-
-  // TODO:  If you cancel or select another city while editing
-  // an already saved area, it doesn't revert back to the original radius
+  
+  
+  /**
+   * Handle click of city marker on the map or from the list view.
+   * @param {string} cityName name of city
+   * @param {Event} e click event (not used) 
+   * @returns void
+   */
   private cityOnClickHandler(cityName: string, e: Event): void {
+    if (this.workingAlertArea) return;
     if (this.cityPoints[cityName].alertArea) {
       this.workingAlertArea = this.cityPoints[cityName].alertArea;
       this.alertRangeEl.value = this.cityPoints[cityName].alertArea.alertRadius;
@@ -113,24 +139,34 @@ export class Tab3Page implements AfterViewInit {
     }
   }
 
+
+  /**
+   * Handles changes to alert radius slider.
+   * @param {Event} e slider input change event
+   */
   private alertRangeChange(e) {
     this.updateWorkingAlert(this.workingAlertArea.city, e.target.value);
   }
 
-  private updateWorkingAlert(cityName, radiusMiles) {
-    let radiusMeters = radiusMiles * 1609.34;
 
-    if (!this.workingAlertArea || cityName !== this.workingAlertArea.city) {
-      if (this.workingAlertArea && !this.cityPoints[this.workingAlertArea.city].alertArea) {
-        this.workingAlertArea.circle.remove();
-      }
+  /**
+   * Updates the alert area that is currently being created/edited.
+   * @param {string} cityName name of city
+   * @param {number} radiusMiles radius in miles
+   */
+  private updateWorkingAlert(cityName, radiusMiles) {
+    let radiusMeters = radiusMiles * 1609.34; // convert to meters
+
+    if (!this.workingAlertArea) {
       let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
       this.workingAlertArea = {
         city: cityName,
         latlng: latLng,
         alertRadius: radiusMiles,
         circle: L.circle(latLng, {
-          radius: radiusMeters
+          radius: radiusMeters,
+          opacity: 0.7,
+          weight: 2
         }).addTo(this.map)
       }
       this.workingAlertArea.circle.on('click', this.cityOnClickHandler.bind(this, cityName));
@@ -144,6 +180,10 @@ export class Tab3Page implements AfterViewInit {
     this.cRef.detectChanges();
   }
 
+
+  /**
+   * Handles cancelling of edits to or creation of an alert area.
+   */
   private cancelAlertArea() {
     if (!this.cityPoints[this.workingAlertArea.city].alertArea) {
       this.workingAlertArea.circle.remove();
@@ -151,35 +191,57 @@ export class Tab3Page implements AfterViewInit {
     this.workingAlertArea = null;
   }
 
+
+  /**
+   * Save working alert area to its corresponding city, converts circle area to
+   * a polygon (to use for querying NWS FeatureLayer) and immediately checks
+   * for weather alerts interecting the new area.
+   */
   private saveAlertArea() {
     this.cityPoints[this.workingAlertArea.city].alertArea = this.workingAlertArea;
     let polygon = L.PM.Utils.circleToPolygon(this.workingAlertArea.circle);
     this.cityPoints[this.workingAlertArea.city].alertArea.polygon = polygon;
+    this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
     this.workingAlertArea = null;
   }
 
+
+  /**
+   * Handles deletion of an alert area.
+   */
   private deleteAlertArea() {
     this.cityPoints[this.workingAlertArea.city].alertArea.circle.remove();
     this.cityPoints[this.workingAlertArea.city].alertArea = null;
     this.cityPoints[this.workingAlertArea.city].weatherAlerts = null;
-    this.updateMapWeatherAlerts();
+    this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
     this.workingAlertArea = null;
   }
 }
 
+
+/**
+ * Represents each city point. Stores its map marker, user defined alert area
+ * and any weather alert ids in that area.
+ */
 interface CityPoint {
   marker: L.Marker,
   alertArea?: AlertArea // populated when alert area is saved
   weatherAlerts?: number[]
 }
 
+
+/**
+ * Represents a user defined alert area. Stores the name of the city, its 
+ * lat/long, radius in miles, circle geometry and geojson polygon
+ */
 interface AlertArea {
   city: string,
   latlng: L.LatLng,
   alertRadius: number, // miles
-  circle: L.Circle,
-  polygon?: object // created when saved
+  circle: L.Circle, // for displaying on the map
+  polygon?: object // created when saved (NWS FeatureLayer cannot be queried with a L.Circle)
 }
+
 
 const LMapOptions: L.MapOptions = {
   layers: [
@@ -193,6 +255,7 @@ const LMapOptions: L.MapOptions = {
   ],
   zoom: 18
 };
+
 
 const MSCityNames: { [key: string]: number[] } = {
   'Gulfport': [30.3674, -89.0928],
@@ -237,4 +300,41 @@ const MSCityNames: { [key: string]: number[] } = {
   'Iuka': [34.8118, -88.1900]
 }
 
+
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
+
+
+const WeatherAlertPopup = function(layer) {
+  let formattedProps = {
+    event: layer.feature.properties.event,
+    prod_type: layer.feature.properties.prod_type,
+    start: new Date(layer.feature.properties.issuance).toLocaleString(),
+    end: new Date(layer.feature.properties.expiration).toLocaleString(),
+    url: layer.feature.properties.url
+  };
+  return L.Util.template(
+    `<table>
+      <tr>
+        <td style="white-space: nowrap;"><b>event: </b></td>
+        <td style="text-align: right;">{event}</td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap;"><b>Alert Type: </b></td>
+        <td style="text-align: right;">{prod_type}</td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap;"><b>Issued: </b></td>
+        <td style="text-align: right;">{start}</td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap;"><b>Expires: </b></td>
+        <td style="text-align: right;">{end}</td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap;"><b>Link: </b></td>
+        <td style="text-align: right;"><a href="{url}">View</a></td>
+      </tr>
+    </table>`,
+    formattedProps
+  );
+}

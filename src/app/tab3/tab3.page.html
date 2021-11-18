@@ -33,13 +33,21 @@
                 <ion-list>
                   <div *ngFor="let city of cityPoints | keyvalue">
                     <ion-item (click)="cityOnClickHandler(city.key, $event)">
-                      <ion-label>{{city.key}}</ion-label>
-                      <ion-label style="color: rgb(37, 148, 212)">
-                        <b>{{city.value.alertArea? city.value.alertArea.alertRadius + ' miles' : ''}}</b>
-                      </ion-label>
-                      <ion-label *ngIf="city.value.weatherAlerts">
-                        <ion-icon name="radio-outline" style="color: rgb(230, 67, 67);"></ion-icon>
-                      </ion-label>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label>{{city.key}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label style="color: #539cf6">
+                            <b>{{city.value.alertArea? city.value.alertArea.alertRadius + ' miles' : ''}}</b>
+                          </ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label [hidden]="!city.value.weatherAlerts">
+                            <ion-icon name="radio-outline" size="small" style="color: rgb(230, 67, 67);"></ion-icon>
+                          </ion-label>
+                        </ion-col>
+                      </ion-row>
                     </ion-item>
                   </div>
                 </ion-list>
@@ -51,13 +59,13 @@
         <ion-row [hidden]="!workingAlertArea">
           <ion-col>
             <ion-label>City: </ion-label>
-            <ion-label style="color: rgb(37, 148, 212)"> 
+            <ion-label style="color: #539cf6"> 
               <b>{{workingAlertArea? workingAlertArea.city : ''}}</b>
             </ion-label>
           </ion-col>
           <ion-col>
             <ion-label>Radius: </ion-label>
-            <ion-label [hidden]="!workingAlertArea" style="color: rgb(37, 148, 212)">
+            <ion-label [hidden]="!workingAlertArea" style="color: #539cf6">
               <b>{{workingAlertArea? workingAlertArea.alertRadius + ' miles' : ''}}</b>
             </ion-label>
           </ion-col>
