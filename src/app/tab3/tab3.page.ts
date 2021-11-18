@@ -44,6 +44,9 @@ export class Tab3Page implements AfterViewInit {
   }
 
 
+  /**
+   * Returns a promise that resolves with the user's current lat, long
+   */
   getLocationService(): Promise<any> {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
@@ -56,6 +59,7 @@ export class Tab3Page implements AfterViewInit {
   /**
    * Queries NWS FeatureLayer for alert geometries that intersect each user
    * defined alert detection area and populates each city point with their OBJECTIDs.
+   * @param {function?} done function to run when done
    * @returns void
    */
   private async checkForWeatherAlerts(done=null) {
@@ -73,7 +77,7 @@ export class Tab3Page implements AfterViewInit {
         });
       }));
     });
-    Promise.all(NWSQueries).then(done.bind(this));
+    Promise.all(NWSQueries).then(done?.bind(this));
   }
 
 
