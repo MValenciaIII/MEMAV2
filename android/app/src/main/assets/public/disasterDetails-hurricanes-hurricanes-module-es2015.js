@@ -127,6 +127,7 @@ let HurricanesPage = class HurricanesPage {
             {
                 title: "YOU ARE IN YOUR HOME DURING A TORNADO:",
                 name: "Go to the lowest level of the home, an inner hallway, or smaller inner room without windows, such as a closet or bathroom.",
+                subName: ["Include at least three days worth of nonperishable food and water", "a full list of items can be found here"]
             },
             {
                 name: "Get away from windows and go to the center of the room. Avoid corners, because they tend to attract debris.",
