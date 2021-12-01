@@ -14042,7 +14042,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n    <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n\n  <ion-grid style=\"height: 85%; padding: 0;\">\n\n    <ion-row style=\"height: 70%;\">\n      <ion-col style=\"padding: 0;\">\n        <div \n          id=\"map\"\n          leaflet\n          [leafletOptions]=\"mapOptions\"\n          (leafletMapReady)=\"onMapReady($event)\"\n        ></div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"height: 30%;\">\n      <ion-col style=\"height: 100%;\" class=\"ion-no-padding\">\n\n        <ion-row style=\"height: 100%;\" [hidden]=\"workingAlertArea\">\n          <ion-col style=\"height: 100%;\" class=\"ion-no-padding\">\n            <ion-row>\n              <ion-col><ion-label>Select a city...</ion-label></ion-col>\n            </ion-row>\n            <ion-row style=\"height: 100%; overflow: auto;\">\n              <ion-col class=\"ion-no-padding\">\n                <ion-list>\n                  <div *ngFor=\"let city of cityPoints | keyvalue\">\n                    <ion-item (click)=\"cityOnClickHandler(city.key, $event)\">\n                      <ion-label>{{city.key}}</ion-label>\n                      <ion-label style=\"color: #539cf6\">\n                        <b>{{city.value.alertArea? city.value.alertArea.alertRadius + ' miles' : ''}}</b>\n                      </ion-label>\n                      <ion-label *ngIf=\"city.value.weatherAlerts\">\n                        <ion-icon name=\"radio-outline\" style=\"color: rgb(230, 67, 67);\"></ion-icon>\n                      </ion-label>\n                    </ion-item>\n                  </div>\n                </ion-list>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"!workingAlertArea\">\n          <ion-col>\n            <ion-label>City: </ion-label>\n            <ion-label style=\"color: #539cf6\"> \n              <b>{{workingAlertArea? workingAlertArea.city : ''}}</b>\n            </ion-label>\n          </ion-col>\n          <ion-col>\n            <ion-label>Radius: </ion-label>\n            <ion-label [hidden]=\"!workingAlertArea\" style=\"color: #539cf6\">\n              <b>{{workingAlertArea? workingAlertArea.alertRadius + ' miles' : ''}}</b>\n            </ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"!workingAlertArea\" style=\"height:100%; overflow: auto;\">\n          <ion-col>\n            <ion-row>\n              <ion-col>\n                <ion-range\n                  #alertRange\n                  min=\"1\"\n                  [max]=\"maxAlertRange\"\n                  step=\"1\"\n                  snaps=\"true\"\n                  pin=\"true\"\n                  (ionChange)=\"alertRangeChange($event)\"\n                  style=\"padding: 0;\"\n                >\n                  <ion-label slot=\"start\">1</ion-label>\n                  <ion-label slot=\"end\">{{maxAlertRange}} miles</ion-label>\n                </ion-range>\n              </ion-col>\n            </ion-row>\n            <ion-row>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"light\" (click)=\"cancelAlertArea()\">Cancel</ion-button>\n              </ion-col>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" (click)=\"saveAlertArea()\">Save</ion-button>\n              </ion-col>\n            </ion-row>\n            <ion-row [hidden]=\"workingAlertArea? !cityPoints[workingAlertArea.city].alertArea : true\">\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"danger\" (click)=\"deleteAlertArea()\">Delete</ion-button>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"primary\">\n    <ion-title> MSEMA </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-card-header> <img src=\"assets/tab3/map.png\" height=\"30\"> WEATHER ALERTS</ion-card-header>\n\n  <ion-grid style=\"height: 85%; padding: 0;\">\n\n    <ion-row style=\"height: 70%;\">\n      <ion-col style=\"padding: 0;\">\n        <div \n          id=\"map\"\n          leaflet\n          [leafletOptions]=\"mapOptions\"\n          (leafletMapReady)=\"onMapReady($event)\"\n        ></div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"height: 30%;\">\n      <ion-col style=\"height: 100%;\" class=\"ion-no-padding\">\n\n        <ion-row style=\"height: 100%;\" [hidden]=\"workingAlertArea\">\n          <ion-col style=\"height: 100%;\" class=\"ion-no-padding\">\n            <ion-row>\n              <ion-col><ion-label>Select a city...</ion-label></ion-col>\n            </ion-row>\n            <ion-row style=\"height: 100%; overflow: auto;\">\n              <ion-col class=\"ion-no-padding\">\n                <ion-list>\n                  <div *ngFor=\"let city of cityPoints | keyvalue\">\n                    <ion-item (click)=\"cityOnClickHandler(city.key, $event)\">\n                      <ion-row>\n                        <ion-col>\n                          <ion-label>{{city.key}}</ion-label>\n                        </ion-col>\n                        <ion-col>\n                          <ion-label style=\"color: #539cf6\">\n                            <b>{{city.value.alertArea? city.value.alertArea.alertRadius + ' miles' : ''}}</b>\n                          </ion-label>\n                        </ion-col>\n                        <ion-col>\n                          <ion-label [hidden]=\"!city.value.weatherAlerts\">\n                            <ion-icon name=\"radio-outline\" size=\"small\" style=\"color: rgb(230, 67, 67);\"></ion-icon>\n                          </ion-label>\n                        </ion-col>\n                      </ion-row>\n                    </ion-item>\n                  </div>\n                </ion-list>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"!workingAlertArea\">\n          <ion-col>\n            <ion-label>City: </ion-label>\n            <ion-label style=\"color: #539cf6\"> \n              <b>{{workingAlertArea? workingAlertArea.city : ''}}</b>\n            </ion-label>\n          </ion-col>\n          <ion-col>\n            <ion-label>Radius: </ion-label>\n            <ion-label [hidden]=\"!workingAlertArea\" style=\"color: #539cf6\">\n              <b>{{workingAlertArea? workingAlertArea.alertRadius + ' miles' : ''}}</b>\n            </ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row [hidden]=\"!workingAlertArea\" style=\"height:100%; overflow: auto;\">\n          <ion-col>\n            <ion-row>\n              <ion-col>\n                <ion-range\n                  #alertRange\n                  min=\"1\"\n                  [max]=\"maxAlertRange\"\n                  step=\"1\"\n                  snaps=\"true\"\n                  pin=\"true\"\n                  (ionChange)=\"alertRangeChange($event)\"\n                  style=\"padding: 0;\"\n                >\n                  <ion-label slot=\"start\">1</ion-label>\n                  <ion-label slot=\"end\">{{maxAlertRange}} miles</ion-label>\n                </ion-range>\n              </ion-col>\n            </ion-row>\n            <ion-row>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"light\" (click)=\"cancelAlertArea()\">Cancel</ion-button>\n              </ion-col>\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" (click)=\"saveAlertArea()\">Save</ion-button>\n              </ion-col>\n            </ion-row>\n            <ion-row [hidden]=\"workingAlertArea? !cityPoints[workingAlertArea.city].alertArea : true\">\n              <ion-col>\n                <ion-button expand=\"block\" fill=\"solid\" color=\"danger\" (click)=\"deleteAlertArea()\">Delete</ion-button>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n</ion-content>");
 
 /***/ }),
 
@@ -14784,16 +14784,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tab3Page", function() { return Tab3Page; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var esri_leaflet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! esri-leaflet */ "./node_modules/esri-leaflet/src/EsriLeaflet.js");
-/* harmony import */ var _geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @geoman-io/leaflet-geoman-free */ "./node_modules/@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js");
-/* harmony import */ var _geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var leaflet_dist_images_marker_shadow_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png");
-/* harmony import */ var leaflet_dist_images_marker_icon_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! leaflet/dist/images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png");
-/* harmony import */ var proj4leaflet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! proj4leaflet */ "./node_modules/proj4leaflet/src/proj4leaflet.js");
-/* harmony import */ var proj4leaflet__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(proj4leaflet__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var esri_leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! esri-leaflet */ "./node_modules/esri-leaflet/src/EsriLeaflet.js");
+/* harmony import */ var _geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @geoman-io/leaflet-geoman-free */ "./node_modules/@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js");
+/* harmony import */ var _geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_geoman_io_leaflet_geoman_free__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var leaflet_dist_images_marker_shadow_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png");
+/* harmony import */ var leaflet_dist_images_marker_icon_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! leaflet/dist/images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png");
+/* harmony import */ var proj4leaflet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! proj4leaflet */ "./node_modules/proj4leaflet/src/proj4leaflet.js");
+/* harmony import */ var proj4leaflet__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(proj4leaflet__WEBPACK_IMPORTED_MODULE_7__);
 
 
 // import * as Leaflet from 'leaflet';
@@ -14803,26 +14802,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 let Tab3Page = class Tab3Page {
-    constructor(http, cRef) {
-        this.http = http;
+    constructor(cRef) {
         this.cRef = cRef;
         this.mapOptions = LMapOptions;
         this.maxAlertRange = 400; // Miles
         this.cityPoints = {};
         this.workingAlertArea = null;
-        this.NWSFL = new esri_leaflet__WEBPACK_IMPORTED_MODULE_4__["FeatureLayer"]({ url: WeatherServiceUrl });
+        this.NWSFL = new esri_leaflet__WEBPACK_IMPORTED_MODULE_3__["FeatureLayer"]({ url: WeatherServiceUrl });
     }
     ngOnInit() { }
     ngAfterViewInit() { }
-    getLocationService() {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resp => {
-                resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
-            });
-        });
-    }
     onMapReady(map) {
         this.map = map;
         this.NWSFL.addTo(this.map);
@@ -14830,29 +14820,53 @@ let Tab3Page = class Tab3Page {
         this.NWSFL.setStyle({ color: 'red', weight: 1 });
         this.NWSFL.bindPopup(WeatherAlertPopup);
         this.getLocationService().then(resp => {
-            this.map.setView(leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](resp.lat, resp.lng), 8);
+            this.map.setView(leaflet__WEBPACK_IMPORTED_MODULE_2__["latLng"](resp.lat, resp.lng), 8);
         });
         this.setCityPoints();
-        setInterval(this.checkForWeatherAlerts.bind(this), 10000);
+        setInterval(this.checkForWeatherAlerts.bind(this, this.updateMapWeatherAlerts.bind(this)), 10000);
     }
-    checkForWeatherAlerts() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let cities = Object.values(this.cityPoints).filter(point => (point.alertArea));
-            if (cities.length == 0)
-                return;
-            cities.forEach(city => {
-                this.NWSFL.query().intersects(city.alertArea.polygon).ids((error, ids) => {
-                    if (error) {
-                        console.log('Error with query: ' + error);
-                    }
-                    else if (ids) {
-                        city.weatherAlerts = ids;
-                        this.updateMapWeatherAlerts();
-                    }
-                });
+    /**
+     * Returns a promise that resolves with the user's current lat, long
+     */
+    getLocationService() {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resp => {
+                resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
             });
         });
     }
+    /**
+     * Queries NWS FeatureLayer for alert geometries that intersect each user
+     * defined alert detection area and populates each city point with their OBJECTIDs.
+     * @param {function?} done function to run when done
+     * @returns void
+     */
+    checkForWeatherAlerts(done = null) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let cities = Object.values(this.cityPoints).filter(point => (point.alertArea));
+            let NWSQueries = [];
+            cities.forEach(city => {
+                NWSQueries.push(new Promise((resolve, reject) => {
+                    this.NWSFL.query().intersects(city.alertArea.polygon).ids((error, ids) => {
+                        if (error) {
+                            console.log('Error with query: ' + error);
+                        }
+                        else if (ids) {
+                            city.weatherAlerts = ids;
+                        }
+                        resolve(null);
+                    });
+                }));
+            });
+            Promise.all(NWSQueries).then(done === null || done === void 0 ? void 0 : done.bind(this));
+        });
+    }
+    /**
+     * Displays weather alerts on map.
+     * Updates where clause of NWS FeatureLayer to OBJECTIDs of all unique weather
+     * alerts intersecting user defined detection areas.
+     * @returns void
+     */
     updateMapWeatherAlerts() {
         let citiesWithAlerts = Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
         if (citiesWithAlerts.length == 0) {
@@ -14861,24 +14875,25 @@ let Tab3Page = class Tab3Page {
         }
         let alertObjectIds = [];
         citiesWithAlerts.forEach(city => {
-            let uniqueAlerts = [...alertObjectIds, ...city.weatherAlerts];
-            alertObjectIds = [...new Set(uniqueAlerts)];
+            let alerts = [...alertObjectIds, ...city.weatherAlerts];
+            alertObjectIds = [...new Set(alerts)]; // only unique ids
         });
         this.NWSFL.setWhere('OBJECTID in (' + alertObjectIds.join(',') + ')');
     }
+    /**
+     * Place selectable city markers on the map.
+     */
     setCityPoints() {
         Object.entries(MSCityNames).forEach(city => {
             let [cityName, cityLatLng] = city;
-            let cityIcon = new leaflet__WEBPACK_IMPORTED_MODULE_3__["Icon"]({
+            let cityIcon = new leaflet__WEBPACK_IMPORTED_MODULE_2__["Icon"]({
                 iconUrl: 'marker-icon.png',
                 iconSize: [18, 30],
                 iconAnchor: [10, 30]
             });
-            let popup = leaflet__WEBPACK_IMPORTED_MODULE_3__["popup"]({
-                offset: [0, -20]
-            }).setContent(cityName);
+            let popup = leaflet__WEBPACK_IMPORTED_MODULE_2__["popup"]({ offset: [0, -20] }).setContent(cityName);
             this.cityPoints[cityName] = {
-                marker: leaflet__WEBPACK_IMPORTED_MODULE_3__["marker"]([cityLatLng[0], cityLatLng[1]], {
+                marker: leaflet__WEBPACK_IMPORTED_MODULE_2__["marker"]([cityLatLng[0], cityLatLng[1]], {
                     title: cityName,
                     icon: cityIcon
                 }).addTo(this.map)
@@ -14887,6 +14902,12 @@ let Tab3Page = class Tab3Page {
             };
         });
     }
+    /**
+     * Handle click of city marker on the map or from the list view.
+     * @param {string} cityName name of city
+     * @param {Event} e click event (not used)
+     * @returns void
+     */
     cityOnClickHandler(cityName, e) {
         if (this.workingAlertArea)
             return;
@@ -14901,21 +14922,27 @@ let Tab3Page = class Tab3Page {
             this.alertRangeEl.value = this.maxAlertRange / 2;
         }
     }
+    /**
+     * Handles changes to alert radius slider.
+     * @param {Event} e slider input change event
+     */
     alertRangeChange(e) {
         this.updateWorkingAlert(this.workingAlertArea.city, e.target.value);
     }
+    /**
+     * Updates the alert area that is currently being created/edited.
+     * @param {string} cityName name of city
+     * @param {number} radiusMiles radius in miles
+     */
     updateWorkingAlert(cityName, radiusMiles) {
-        let radiusMeters = radiusMiles * 1609.34;
-        if (!this.workingAlertArea || cityName !== this.workingAlertArea.city) {
-            if (this.workingAlertArea && !this.cityPoints[this.workingAlertArea.city].alertArea) {
-                this.workingAlertArea.circle.remove();
-            }
-            let latLng = new leaflet__WEBPACK_IMPORTED_MODULE_3__["LatLng"](MSCityNames[cityName][0], MSCityNames[cityName][1]);
+        let radiusMeters = radiusMiles * 1609.34; // convert to meters
+        if (!this.workingAlertArea) {
+            let latLng = new leaflet__WEBPACK_IMPORTED_MODULE_2__["LatLng"](MSCityNames[cityName][0], MSCityNames[cityName][1]);
             this.workingAlertArea = {
                 city: cityName,
                 latlng: latLng,
                 alertRadius: radiusMiles,
-                circle: leaflet__WEBPACK_IMPORTED_MODULE_3__["circle"](latLng, {
+                circle: leaflet__WEBPACK_IMPORTED_MODULE_2__["circle"](latLng, {
                     radius: radiusMeters,
                     opacity: 0.7,
                     weight: 2
@@ -14930,29 +14957,39 @@ let Tab3Page = class Tab3Page {
         this.map.fitBounds(this.workingAlertArea.circle.getBounds());
         this.cRef.detectChanges();
     }
+    /**
+     * Handles cancelling of edits to or creation of an alert area.
+     */
     cancelAlertArea() {
         if (!this.cityPoints[this.workingAlertArea.city].alertArea) {
             this.workingAlertArea.circle.remove();
         }
         this.workingAlertArea = null;
     }
+    /**
+     * Save working alert area to its corresponding city, converts circle area to
+     * a polygon (to use for querying NWS FeatureLayer) and immediately checks
+     * for weather alerts interecting the new area.
+     */
     saveAlertArea() {
         this.cityPoints[this.workingAlertArea.city].alertArea = this.workingAlertArea;
-        let polygon = leaflet__WEBPACK_IMPORTED_MODULE_3__["PM"].Utils.circleToPolygon(this.workingAlertArea.circle);
+        let polygon = leaflet__WEBPACK_IMPORTED_MODULE_2__["PM"].Utils.circleToPolygon(this.workingAlertArea.circle);
         this.cityPoints[this.workingAlertArea.city].alertArea.polygon = polygon;
-        this.updateMapWeatherAlerts();
+        this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
         this.workingAlertArea = null;
     }
+    /**
+     * Handles deletion of an alert area.
+     */
     deleteAlertArea() {
         this.cityPoints[this.workingAlertArea.city].alertArea.circle.remove();
         this.cityPoints[this.workingAlertArea.city].alertArea = null;
         this.cityPoints[this.workingAlertArea.city].weatherAlerts = null;
-        this.updateMapWeatherAlerts();
+        this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
         this.workingAlertArea = null;
     }
 };
 Tab3Page.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
 ];
 Tab3Page.propDecorators = {
@@ -14968,7 +15005,7 @@ Tab3Page = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 const LMapOptions = {
     layers: [
-        leaflet__WEBPACK_IMPORTED_MODULE_3__["tileLayer"]('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        leaflet__WEBPACK_IMPORTED_MODULE_2__["tileLayer"]('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: 'Map data © OpenStreetMap contributors'
         })
@@ -15020,12 +15057,17 @@ const MSCityNames = {
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
 const WeatherAlertPopup = function (layer) {
     let formattedProps = {
+        event: layer.feature.properties.event,
         prod_type: layer.feature.properties.prod_type,
         start: new Date(layer.feature.properties.issuance).toLocaleString(),
         end: new Date(layer.feature.properties.expiration).toLocaleString(),
         url: layer.feature.properties.url
     };
-    return leaflet__WEBPACK_IMPORTED_MODULE_3__["Util"].template(`<table>
+    return leaflet__WEBPACK_IMPORTED_MODULE_2__["Util"].template(`<table>
+      <tr>
+        <td style="white-space: nowrap;"><b>event: </b></td>
+        <td style="text-align: right;">{event}</td>
+      </tr>
       <tr>
         <td style="white-space: nowrap;"><b>Alert Type: </b></td>
         <td style="text-align: right;">{prod_type}</td>
