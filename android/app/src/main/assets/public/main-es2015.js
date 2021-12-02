@@ -437,6 +437,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_native_flashlight_ngx__WEBPACK_IMPORTED_MODULE_9__["Flashlight"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"], },
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]],

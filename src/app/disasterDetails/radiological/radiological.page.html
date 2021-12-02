@@ -1,9 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>radiological</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">RADIOLOGICAL SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
 
+
+
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Radiological Preparedness:<br />
+          <ion-text>
+            <p>When the sirens are sounded, the Emergency Alert System will be activated, and instructions given on how to respond as to whether or not they should take shelter or evacuate. </p>
+          </ion-text>
+          <ion-text>
+            <ul>
+              <li>REMEMBER – hearing a siren or tone alert does not mean evacuate. It simply means turn on your radio and listen for instructions.</li>
+              <li>Stay tuned to your radio, remain calm and follow instructions!</li>
+              <li>Appropriate emergency actions (shelter in place, evacuations) will be taken before there is any danger to the public’s health and safety </li>
+            </ul>
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  
+  <img src="../../assets/radiologicalMap.png" />
+  
 </ion-content>
