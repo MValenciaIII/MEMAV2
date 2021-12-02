@@ -1,1 +1,14 @@
-[]
+[
+	{
+		"pkg": "@capacitor-community/fcm",
+		"classpath": "com.getcapacitor.community.fcm.FCMPlugin"
+	},
+	{
+		"pkg": "@capacitor/filesystem",
+		"classpath": "com.capacitorjs.plugins.filesystem.FilesystemPlugin"
+	},
+	{
+		"pkg": "@capacitor/push-notifications",
+		"classpath": "com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin"
+	}
+]
