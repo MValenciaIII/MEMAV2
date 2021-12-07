@@ -1,0 +1,43 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android"
+3    xmlns:android="http://schemas.android.com/apk/res/android"
+4    package="capacitor.android.plugins" >
+5
+6    <uses-sdk
+7        android:minSdkVersion="21"
+7-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+8        android:targetSdkVersion="30" />
+8-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+9
+10    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+10-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:8:1-76
+10-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:8:18-74
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:1-74
+11-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:18-72
+12
+13    <uses-feature
+13-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:1-85
+14        android:name="android.hardware.location.gps"
+14-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:15-59
+15        android:required="true" />
+15-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:60-83
+16
+17    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+17-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:11:1-75
+17-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:11:18-73
+18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+18-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:12:1-76
+18-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:12:18-74
+19    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+19-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:13:1-70
+19-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:13:18-68
+20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+20-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:1-74
+20-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:18-72
+21
+22    <application>
+22-->/Users/margaritovalencia/Desktop/CTWebDoc/MEMAV2/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:5:1-7:15
+23    </application>
+24
+25</manifest>

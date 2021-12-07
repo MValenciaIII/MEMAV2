@@ -1,0 +1,48 @@
+com/rjfun/cordova/plugin/nativeaudio/NativeAudioAsset.java
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudioAsset
+org/apache/cordova/device/Device.java
+ org.apache.cordova.device.Device
+org/apache/cordova/whitelist/WhitelistPlugin.java
+ org.apache.cordova.whitelist.WhitelistPlugin
+ org.apache.cordova.whitelist.WhitelistPlugin$1
+ org.apache.cordova.whitelist.WhitelistPlugin$CustomConfigXmlParser
+io/sqlc/SQLiteConnectorDatabase.java
+ io.sqlc.SQLiteConnectorDatabase
+org/apache/cordova/networkinformation/NetworkManager.java
+ org.apache.cordova.networkinformation.NetworkManager
+ org.apache.cordova.networkinformation.NetworkManager$1
+org/apache/cordova/geolocation/Geolocation.java
+ org.apache.cordova.geolocation.Geolocation
+org/apache/cordova/statusbar/StatusBar.java
+ org.apache.cordova.statusbar.StatusBar
+ org.apache.cordova.statusbar.StatusBar$1
+ org.apache.cordova.statusbar.StatusBar$2
+ org.apache.cordova.statusbar.StatusBar$3
+ org.apache.cordova.statusbar.StatusBar$4
+ org.apache.cordova.statusbar.StatusBar$5
+ org.apache.cordova.statusbar.StatusBar$6
+ org.apache.cordova.statusbar.StatusBar$7
+ org.apache.cordova.statusbar.StatusBar$8
+ org.apache.cordova.statusbar.StatusBar$9
+io/sqlc/SQLiteAndroidDatabase.java
+ io.sqlc.SQLiteAndroidDatabase
+ io.sqlc.SQLiteAndroidDatabase$QueryType
+capacitor/android/plugins/BuildConfig.java
+ capacitor.android.plugins.BuildConfig
+com/rjfun/cordova/plugin/nativeaudio/NativeAudio.java
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$1
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$2
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$3
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$4
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$5
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$6
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudio$7
+io/sqlc/SQLitePlugin.java
+ io.sqlc.SQLitePlugin
+ io.sqlc.SQLitePlugin$1
+ io.sqlc.SQLitePlugin$Action
+ io.sqlc.SQLitePlugin$DBQuery
+ io.sqlc.SQLitePlugin$DBRunner
+com/rjfun/cordova/plugin/nativeaudio/NativeAudioAssetComplex.java
+ com.rjfun.cordova.plugin.nativeaudio.NativeAudioAssetComplex
