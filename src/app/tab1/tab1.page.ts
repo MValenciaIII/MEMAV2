@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',

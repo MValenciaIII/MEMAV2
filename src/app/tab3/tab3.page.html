@@ -1,52 +1,112 @@
-<ion-header [translucent]="false">
-    <ion-toolbar id="toolbarColor">
-        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
-    </ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title> MSEMA </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
-    <!-- <div id="mapId3" style="width: 100%; height: 70%"></div> -->
-    <div 
-    id="map"
-  leaflet
-  style="width: 100%; height: 70%"
-  
-  [leafletOptions]="mapOptions"
-  (leafletMapReady)="onMapReady($event)"
-></div>
-<!-- <div class="App">
-</div> -->
+  <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
 
-<!-- <input #ranger (input)="geoRadius(ranger.value)" type="range" min=0 max=400000 value=200
- /> -->
+  <ion-grid style="height: 85%; padding: 0;">
 
- <ion-item>
-     <ion-label>Select your County</ion-label>
-     <ion-select placeholder="Select County" [(ngModel)]="countySelection" (ionChange)="geoRadius()">
-        <ion-select-option value="Adams">Adams</ion-select-option>
-        <ion-select-option value="Alcorn">Alcorn</ion-select-option>
-        <ion-select-option value="Amite">Amite</ion-select-option>
-        <ion-select-option value="Benton">Benton</ion-select-option>
-        <ion-select-option value="Bolivar">Bolivar</ion-select-option>
-        <ion-select-option value="Calhoun">Calhoun</ion-select-option>
-        <ion-select-option value="CARROLL">Carroll</ion-select-option>
-        <ion-select-option value="CHICKASAW">Chickasaw</ion-select-option>
-        <ion-select-option value="CHOCTAW">Choctaw</ion-select-option>
-        <ion-select-option value="CLAIBORNE">Claiborne</ion-select-option>
-     </ion-select>
- </ion-item>
+    <ion-row style="height: 70%;">
+      <ion-col style="padding: 0;">
+        <div 
+          id="map"
+          leaflet
+          [leafletOptions]="mapOptions"
+          (leafletMapReady)="onMapReady($event)"
+        ></div>
+      </ion-col>
+    </ion-row>
 
-<!-- 
- <ion-item>
-    <ion-label>Select your County</ion-label>
-    <ion-select placeholder="Select County"  >
-       <ion-item *ngFor="let counties of countySelectionTest" (ionChange)="geoRadius(countySelectionTest)">
-           <ion-select-option  [(ngModel)]="counties.selected" [value]="counties.countyName">{{counties.countyName}}</ion-select-option>
+    <ion-row style="height: 30%;">
+      <ion-col style="height: 100%;" class="ion-no-padding">
 
-       </ion-item>
+        <ion-row style="height: 100%;" [hidden]="workingAlertArea">
+          <ion-col style="height: 100%;" class="ion-no-padding">
+            <ion-row>
+              <ion-col><ion-label>Select a city...</ion-label></ion-col>
+            </ion-row>
+            <ion-row style="height: 100%; overflow: auto;">
+              <ion-col class="ion-no-padding">
+                <ion-list>
+                  <div *ngFor="let city of cityPoints | keyvalue">
+                    <ion-item (click)="cityOnClickHandler(city.key, $event)">
+                      <ion-row>
+                        <ion-col>
+                          <ion-label>{{city.key}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label style="color: #539cf6">
+                            <b>{{city.value.alertArea? city.value.alertArea.alertRadius + ' miles' : ''}}</b>
+                          </ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label [hidden]="!city.value.weatherAlerts">
+                            <ion-icon name="radio-outline" size="small" style="color: rgb(230, 67, 67);"></ion-icon>
+                          </ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-item>
+                  </div>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
 
-    </ion-select>
-</ion-item> -->
+        <ion-row [hidden]="!workingAlertArea">
+          <ion-col>
+            <ion-label>City: </ion-label>
+            <ion-label style="color: #539cf6"> 
+              <b>{{workingAlertArea? workingAlertArea.city : ''}}</b>
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>Radius: </ion-label>
+            <ion-label [hidden]="!workingAlertArea" style="color: #539cf6">
+              <b>{{workingAlertArea? workingAlertArea.alertRadius + ' miles' : ''}}</b>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row [hidden]="!workingAlertArea" style="height:100%; overflow: auto;">
+          <ion-col>
+            <ion-row>
+              <ion-col>
+                <ion-range
+                  #alertRange
+                  min="1"
+                  [max]="maxAlertRange"
+                  step="1"
+                  snaps="true"
+                  pin="true"
+                  (ionChange)="alertRangeChange($event)"
+                  style="padding: 0;"
+                >
+                  <ion-label slot="start">1</ion-label>
+                  <ion-label slot="end">{{maxAlertRange}} miles</ion-label>
+                </ion-range>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" fill="solid" color="light" (click)="cancelAlertArea()">Cancel</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" fill="solid" (click)="saveAlertArea()">Save</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row [hidden]="workingAlertArea? !cityPoints[workingAlertArea.city].alertArea : true">
+              <ion-col>
+                <ion-button expand="block" fill="solid" color="danger" (click)="deleteAlertArea()">Delete</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
