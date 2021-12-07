@@ -1,8 +1,27 @@
 .headerText {
     text-align: center;
-    background: #061e3d;
+    background: #061e3d  ;
+    position: relative;
+    opacity: 1;
+    z-index: 2;
     padding: 0%;
     margin: 0%;
+
+}
+
+.ionGridHeader {
+    padding-top: 15%;
+}
+
+
+.memaBuildingImg {
+    position: absolute;
+    background: url(../../assets/memaBuildingHomeTab.jpg) 90% 90% padding-box no-repeat;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    opacity: .25;
+    z-index: 0;
     padding-top: 10%;
 }
 
@@ -16,7 +35,7 @@
     width: 25% !important;
     height: auto !important;
     float: left;
-    margin-left: 25%;
+    margin-left: 17%;
 }
 
 .headerText h1{
@@ -27,7 +46,7 @@ font-size: 13px;
 }
 
 
-ion-grid {
+.ionGridMain {
     position: relative;
     opacity: 1;
     z-index: 2;
@@ -62,19 +81,26 @@ height: 10%
 
 
 .buttonText p {
-margin: 2%;
+margin: 18% 2%;
 font-size: 18px;
 font-weight: bolder;
 color: #061e3d;
 }
 
-.imgDocs {
-height: auto;
-width: auto;
+// .imgDocs {
+// height: auto;
+// width: auto;
+// }
+.iconButtonWeather {
+    padding: 20% 18%;
+    border-style: none;
+    border-radius: 100%;
+    background: #061e3d ;
+    background-position: 50% center;
+    background-repeat: no-repeat;  
 }
-
 .iconButton {
-padding: 20% 23%;
+padding: 20% 28%;
 border-style: none;
 border-radius: 100%;
 background: #061e3d ;

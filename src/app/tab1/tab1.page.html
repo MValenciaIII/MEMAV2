@@ -2,17 +2,25 @@
 
 
 <ion-card-header class="headerText ">
-    <ion-grid>
+    <div class="memaBuildingImg"></div>
+    <ion-grid class="ionGridHeader">
         <ion-row>
             <ion-col>
-                <ion-icon size="small" name="logo-facebook"></ion-icon>
-                <ion-icon size="small" name="logo-twitter"></ion-icon>
+                <a href="https://twitter.com/msema">
+                    <ion-icon size="small" name="logo-facebook"></ion-icon>
+                </a>
+                <a href="https://www.facebook.com/msemaorg/">
+                    <ion-icon size="small" name="logo-twitter"></ion-icon>
+                </a>
+                <a href="https://www.youtube.com/user/MSEMAorg1">
+                    <ion-icon size="small" ios="logo-youtube" md="logo-youtube"></ion-icon>
+                </a>
                 <img class=" memaSeal" src="assets/mema-seal.png" > 
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-                <h1>MISSISSIPPI EMERGENCY MANGAEMENT AGENCY</h1>
+                <h1>MISSISSIPPI EMERGENCY MANAGEMENT AGENCY</h1>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -26,41 +34,41 @@
 
 
 
-    <ion-grid>
+    <ion-grid class="ionGridMain">
         <div class="iconGrid"></div>
         <ion-row class="buttonText ion-align-items-center">
             <ion-col class="ion-text-center">  
                 <button [routerLink]="['/tabs/tab2']" class="btn iconButton" >
-                    <img class="imgDocs img-responsive" src="../../assets/Homepage/Plan.png" alt="">
+                    <img class="imgDocs img-responsive" src="../../assets/Homepage/Plan.png" height="60" alt="">
                 </button>
                 <p>PLAN</p>
             </ion-col>
             
             <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
-                    <img  class="imgDocs " src="../../assets/Homepage/Shelters.png" alt=""> 
+                <button [routerLink]="['/tabs/tab4']" class="btn iconButton">
+                    <img  class="imgDocs " src="../../assets/Homepage/Shelters.png" height="60" alt=""> 
                 </button>
                 <p>SHELTERS</p>
             </ion-col>
 
             <ion-col class="ion-text-center">
                 <button [routerLink]="['/disaster']" class="btn iconButton">
-                    <img  class="imgDocs " src="../../assets/disasterPage/tornado.png " alt="">
+                    <img  class="imgDocs " src="../../assets/disasterPage/tornado.png " height="60" alt="">
                 </button>
-                <p>Disasters</p>
+                <p>DISASTERS</p>
             </ion-col>
         </ion-row>
         <ion-row class="buttonText ion-align-items-center">
             <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab3']" class="btn iconButton">       
-                    <img  class="imgDocs " src="../../assets/Homepage/WeatherAlerts.png" alt="">
+                <button [routerLink]="['/tabs/tab3']" class="btn iconButtonWeather">       
+                    <img  class="imgDocs " src="../../assets/Homepage/WeatherAlerts.png" height="60" alt="">
                 </button>
                 <p>WEATHER ALERTS</p>
             </ion-col>
             
             <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab2/insurance']" class="btn iconButton ">
-                    <img class="imgDocs " src="../../assets/Homepage/ReportDamage.png" alt=""> 
+                <button [routerLink]="['/tabs/tab5']" class="btn iconButton ">
+                    <img class="imgDocs " src="../../assets/Homepage/ReportDamage.png" height="60" alt=""> 
                 </button>
                 
                 <p>REPORT DAMAGE</p>
@@ -69,7 +77,7 @@
             <ion-col class="ion-text-center">
                 <a href="htttps://poweroutage.us/area/state/mississippi">
                     <button  class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" alt=""> 
+                        <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" height="60" alt=""> 
                     </button>
                 </a>
                 <p>POWER OUTAGES</p>
@@ -80,7 +88,7 @@
             <ion-col class="ion-text-center">
                 <a href="https://www.msema.org/news/">
                     <button  class="btn iconButton"> 
-                        <img class="imgDocs " src="../../assets/Homepage/News.png" alt="">
+                        <img class="imgDocs " src="../../assets/Homepage/News.png" height="60" alt="">
                     </button>
                 </a>
                 <p>NEWS</p>
@@ -88,16 +96,16 @@
             <ion-col class="ion-text-center">
                <a href="https://www.msema.org/contact/">
                     <button class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/MSBEOC APP Logo-fpng.png" alt=""> 
+                        <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" height="60" alt=""> 
                     </button>
                 </a>
-                <p>BEOC</p>
+                <p>CONTACT</p>
             </ion-col>
        
             <ion-col class="ion-text-center">
                 <a href="https://www.msema.org/">
                     <button [routerLink]="['/tabs/tab2/contacts']" class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/Website.png" alt=""> 
+                        <img  class="imgDocs " src="../../assets/Homepage/Website.png" height="60" alt=""> 
                     </button>
                 </a>    
                 <p>WEBSITE</p>
