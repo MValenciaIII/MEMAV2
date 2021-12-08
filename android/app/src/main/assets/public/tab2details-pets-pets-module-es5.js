@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n    <ion-toolbar>\n        <ion-row>\n            <ion-col>\n                <ion-nav-link [routerLink]=\"['/tabs/tab2/']\">BACK</ion-nav-link>\n            </ion-col>\n        </ion-row>\n        <ion-title>YOUR PLAN</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-card-header  style=\"text-align: center; background-color:#061e3d; color: #ffffff;\">CHECKLIST</ion-card-header>\n    <ion-item *ngFor=\"let emergencyItems of emergencyItem\" (click)=\"onClick(emergencyItems)\">\n        <ion-label>{{emergencyItems.name}}</ion-label>\n        <ion-checkbox type=\"checkbox\" [(ngModel)]=\"emergencyItems.checked\" [checked]=\"emergencyItems.name\"></ion-checkbox>\n    </ion-item>\n    <ion-card-header>\n        <ion-title>Your Checklist</ion-title>\n    </ion-card-header>\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button>\n</ion-content>\n\n<!-- <ion-content [fullscreen]=\"true\">\n    <ion-card-header>CHECKLIST</ion-card-header>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"food\"></ion-checkbox>\n        <ion-label> FOOD</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"water\"></ion-checkbox>\n        <ion-label>WATER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"meds\"></ion-checkbox>\n        <ion-label>MEDICINES AND MEDICAL RECORDS</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"firstaid\"></ion-checkbox>\n        <ion-label>FIRST AID KIT</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"leash\"></ion-checkbox>\n        <ion-label>COLLOR WITH ID TAG, HARNESS OR LEASH</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"docs\"></ion-checkbox>\n        <ion-label>IMPORTANT DOCUMENTS</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"carrier\"></ion-checkbox>\n        <ion-label>CRATE OR OTHER PET CARRIER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"sanitation\"></ion-checkbox>\n        <ion-label>SANITATION</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"pictures\"></ion-checkbox>\n        <ion-label>A PICTURE OF YOU AND YOUR PET TOGETHER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"familiar\"></ion-checkbox>\n        <ion-label>FAMILIAR ITEMS</ion-label>\n    </ion-item>\n    <ion-card-header>\n        <ion-title>Your Checklist</ion-title>\n    </ion-card-header>\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button>\n</ion-content> -->";
+      __webpack_exports__["default"] = "<ion-header>\n    <ion-toolbar>\n        <ion-row>\n            <ion-col>\n                <ion-nav-link [routerLink]=\"['/tabs/tab2/']\">BACK</ion-nav-link>\n            </ion-col>\n        </ion-row>\n        <ion-title>YOUR PLAN</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-card-header  style=\"text-align: center; background-color:#061e3d; color: #ffffff;\">CHECKLIST</ion-card-header>\n    <ion-item *ngFor=\"let emergencyItems of emergencyItem\" (click)=\"onClick(emergencyItems)\">\n        <ion-label>{{emergencyItems.name}}</ion-label>\n        <ion-checkbox type=\"checkbox\" [(ngModel)]=\"emergencyItems.checked\" [checked]=\"emergencyItems.name\"></ion-checkbox>\n    </ion-item>\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button>\n</ion-content>\n\n<!-- <ion-content [fullscreen]=\"true\">\n    <ion-card-header>CHECKLIST</ion-card-header>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"food\"></ion-checkbox>\n        <ion-label> FOOD</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"water\"></ion-checkbox>\n        <ion-label>WATER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"meds\"></ion-checkbox>\n        <ion-label>MEDICINES AND MEDICAL RECORDS</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"firstaid\"></ion-checkbox>\n        <ion-label>FIRST AID KIT</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"leash\"></ion-checkbox>\n        <ion-label>COLLOR WITH ID TAG, HARNESS OR LEASH</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"docs\"></ion-checkbox>\n        <ion-label>IMPORTANT DOCUMENTS</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"carrier\"></ion-checkbox>\n        <ion-label>CRATE OR OTHER PET CARRIER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"sanitation\"></ion-checkbox>\n        <ion-label>SANITATION</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"pictures\"></ion-checkbox>\n        <ion-label>A PICTURE OF YOU AND YOUR PET TOGETHER</ion-label>\n    </ion-item>\n    <ion-item>\n        <ion-checkbox checked=\"false\" name=\"familiar\"></ion-checkbox>\n        <ion-label>FAMILIAR ITEMS</ion-label>\n    </ion-item>\n    <ion-card-header>\n        <ion-title>Your Checklist</ion-title>\n    </ion-card-header>\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button>\n</ion-content> -->";
       /***/
     },
 
@@ -216,7 +216,13 @@
           _classCallCheck(this, PetsPage);
 
           this.emergencyItem = [{
-            name: "FOOD/WATER",
+            name: "VACCINATION RECORDS",
+            checked: false
+          }, {
+            name: "FOOD",
+            checked: false
+          }, {
+            name: "WATER",
             checked: false
           }, {
             name: "MEDICINES & MEDICAL RECORDS",
@@ -234,13 +240,10 @@
             name: "CRATE OR OTHER PET CARRIER",
             checked: false
           }, {
-            name: "SANITATION",
+            name: "SANITATION SUPPLIES",
             checked: false
           }, {
-            name: "A PICTURE OF YOU AND YOUR PET TOGETHER",
-            checked: false
-          }, {
-            name: "FAMILIAR ITEMS",
+            name: "A PICTURE OF PET",
             checked: false
           }]; // Called when application is first initialized, or when page is refreshed..
 

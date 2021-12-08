@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n    <ion-toolbar>\n        <ion-row>\n            <ion-col>\n                <ion-nav-link [routerLink]=\"['/tabs/tab2/']\">BACK</ion-nav-link>\n            </ion-col>\n        </ion-row>\n        <ion-title>YOUR PLAN</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-card-header style=\"text-align: center; background-color:#061e3d; color: #ffffff;\">CHECKLIST</ion-card-header>\n    <ion-item *ngFor=\"let emergencyItems of emergencyItem\" (click)=\"onClick(emergencyItems)\">\n        <ion-label>{{emergencyItems.name}}</ion-label>\n        <ion-checkbox type=\"checkbox\" [(ngModel)]=\"emergencyItems.checked\" [checked]=\"emergencyItems.name\"></ion-checkbox>\n    </ion-item>\n    <!-- <ion-card-header>\n        <ion-title>Your Checklist</ion-title>\n    </ion-card-header>\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button> -->\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n    <ion-toolbar>\n        <ion-row>\n            <ion-col>\n                <ion-nav-link [routerLink]=\"['/tabs/tab2/']\">BACK</ion-nav-link>\n            </ion-col>\n        </ion-row>\n        <ion-title>YOUR PLAN</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-card-header style=\"text-align: center; background-color:#061e3d; color: #ffffff;\">CHECKLIST</ion-card-header>\n    <ion-item *ngFor=\"let emergencyItems of emergencyItem\" (click)=\"onClick(emergencyItems)\">\n        <ion-label>{{emergencyItems.name}}</ion-label>\n        <ion-checkbox type=\"checkbox\" [(ngModel)]=\"emergencyItems.checked\" [checked]=\"emergencyItems.name\"></ion-checkbox>\n    </ion-item>\n\n    <ion-input type=\"text\"></ion-input>\n    <ion-button style=\"align-content: center\">ADD</ion-button> \n</ion-content>";
       /***/
     },
 
@@ -527,7 +527,7 @@
             name: "FIRST AID KIT",
             checked: false
           }, {
-            name: "MEDICINES AND MEDICAL RECORDS",
+            name: "MEDICATIONS AND MEDICAL RECORDS",
             checked: false
           }, {
             name: "WATER",
@@ -548,19 +548,13 @@
             name: "WHISTLE",
             checked: false
           }, {
-            name: "WRENCH OR PLIES",
-            checked: false
-          }, {
-            name: "LOCAL MAP",
-            checked: false
-          }, {
             name: "MOBILE DEVICE EMERGENCY CHARGER",
             checked: false
           }, {
-            name: "TOWELS,GARBAGE BAGS, AND PLASTIC TIES",
+            name: "FACE COVERING",
             checked: false
           }, {
-            name: "FACE MASK",
+            name: "IMPORTANT DOCUMENTS (INSURANCE, BIRTH CERTIFICATES, ETC.)",
             checked: false
           }]; // Called when application is first initialized, or when page is refreshed..
 
