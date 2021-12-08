@@ -1,4 +1,0 @@
-io/MSEMA/application/BuildConfig.java
- io.MSEMA.application.BuildConfig
-io/MSEMA/application/MainActivity.java
- io.MSEMA.application.MainActivity
