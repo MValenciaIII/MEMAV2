@@ -9,7 +9,15 @@ import { NavController } from "@ionic/angular";
 export class PetsPage {
   emergencyItem = [
     {
-      name: "FOOD/WATER",
+      name: "VACCINATION RECORDS",
+      checked: false,
+    },
+    {
+      name: "FOOD",
+      checked: false,
+    },
+    {
+      name: "WATER",
       checked: false,
     },
     {
@@ -33,17 +41,14 @@ export class PetsPage {
       checked: false,
     },
     {
-      name: "SANITATION",
+      name: "SANITATION SUPPLIES",
       checked: false,
     },
     {
-      name: "A PICTURE OF YOU AND YOUR PET TOGETHER",
+      name: "A PICTURE OF PET",
       checked: false,
     },
-    {
-      name: "FAMILIAR ITEMS",
-      checked: false,
-    },
+
   ];
   constructor() {
     // Called when application is first initialized, or when page is refreshed..

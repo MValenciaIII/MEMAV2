@@ -9,14 +9,14 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card-header  style="text-align: center; background-color:#061e3d; margin-top: 0.25em; color: #ffffff;">INSURANCE INFO</ion-card-header>
+    <!-- <ion-card-header  style="text-align: center; background-color:#061e3d; margin-top: 0.25em; color: #ffffff;">INSURANCE INFO</ion-card-header>
     <div *ngIf="insurances">
       <ion-card *ngFor="let insurance of insurances;" style="padding: 0.25em">
         <ion-card-header>
           <ion-card-title
             >{{insurance.Name}}</ion-card-title
           >
-          <!-- <ion-card-title>{{contact | json}}</ion-card-title> -->
+          <ion-card-title>{{contact | json}}</ion-card-title>
         </ion-card-header>
   
         <ion-card-content style="font-size: 1.125rem">
@@ -28,6 +28,26 @@
         <ion-button >Edit</ion-button>
         <ion-button>Delete</ion-button>
       </ion-card>
-    </div>
+    </div> -->
+    <ion-grid> 
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>
+              Social Security Card
+            </ion-card-title>
+          </ion-card-header>
+          <ion-button (click)="selectPhone()">Upload Photo</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>
+              Insurance Card
+            </ion-card-title>
+          </ion-card-header>
+          <ion-button>Upload Photo</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button>
 </ion-content>

@@ -1,9 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>extremeHeat</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar id="toolbarColor">
+    <ion-row>
+      <ion-col>
+          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+      </ion-col>
+  </ion-row>
+      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="disasterHeader" style="text-align: center;">EXTREME HEAT SAFETY </ion-card-header>
+      <div class="line"></div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item >
+        <ion-text>Safety Tips:<br />
+          <ion-text>
+            <ul>
+              <li>Limit time outside</li>
+              <li>Stay hydrated</li>
+              <li>Wear light-colored, loose-fitting clothing</li>
+              <li>NEVER leave children or pets inside vehicles</li>
+              <li>Be able to recognize the signs of heatstroke</li>
+              <ul>
+                <li>Symptoms = body temperature over 105, no sweating, weak pulse and shallow rapid breathing</li>
+                <li>If you experience these symptoms, call 911 immediately!</li>
+              </ul>
+              <li>If you’re unable to bring pets inside, make sure they have a shady spot to cool off and access to fresh water</li>
+            </ul>
+          </ion-text>
+        </ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
 
 </ion-content>

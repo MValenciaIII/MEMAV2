@@ -17,7 +17,7 @@ export class SuppliesPage {
       checked: false,
     },
     {
-      name: "MEDICINES AND MEDICAL RECORDS",
+      name: "MEDICATIONS AND MEDICAL RECORDS",
       checked: false,
     },
     {
@@ -45,23 +45,15 @@ export class SuppliesPage {
       checked: false,
     },
     {
-      name: "WRENCH OR PLIES",
-      checked: false,
-    },
-    {
-      name: "LOCAL MAP",
-      checked: false,
-    },
-    {
       name: "MOBILE DEVICE EMERGENCY CHARGER",
       checked: false,
     },
     {
-      name: "TOWELS,GARBAGE BAGS, AND PLASTIC TIES",
+      name: "FACE COVERING",
       checked: false,
     },
     {
-      name: "FACE MASK",
+      name: "IMPORTANT DOCUMENTS (INSURANCE, BIRTH CERTIFICATES, ETC.)",
       checked: false,
     },
   ];

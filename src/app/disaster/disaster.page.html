@@ -60,7 +60,7 @@
             <p>WINTER WEATHER</p>
         </ion-col>
         <ion-col class="ion-text-center">
-            <button [routerLink]="['./earthquake']" class="btn iconButton">
+            <button [routerLink]="['./earthquakes']" class="btn iconButton">
                 <img src="../../assets/disasterPage/earthquake.png" alt="">
             </button>
             <p>EARTHQUAKES</p>
@@ -75,9 +75,11 @@
             <p>RADIOLOGICAL</p>
         </ion-col>
         <ion-col class="ion-text-center">
-            <button [routerLink]="['./covid']" class="btn iconButton">
-                <img src="../../assets/disasterPage/COVID.png" alt="">
-            </button>
+            <a href="https://msdh.ms.gov/msdhsite/_static/14,0,420.html">
+                <button class="btn iconButton">
+                    <img src="../../assets/disasterPage/COVID.png" alt="">
+                </button>
+            </a>
             <p>COVID-19</p>
         </ion-col>
     </ion-row>
