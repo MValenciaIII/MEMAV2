@@ -6,7 +6,7 @@ import '@geoman-io/leaflet-geoman-free';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'proj4leaflet';
-import { Capabilities } from 'selenium-webdriver';
+import { Alert, Capabilities } from 'selenium-webdriver';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Storage } from '@ionic/storage-angular';
@@ -26,17 +26,19 @@ export class Tab3Page implements AfterViewInit {
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
   @ViewChild('alertRange') alertRangeEl;
 
+
   constructor(private cRef: ChangeDetectorRef, public storage: Storage) {}
+
 
   async ngOnInit() {
     await this.storage.create();
   }   
 
-  async ngAfterViewInit() {
-    await this.storage.get('alertData');
-  }
 
-  onMapReady(map: L.Map) {
+  ngAfterViewInit() {}
+
+
+  async onMapReady(map: L.Map) {
     this.map = map;
     this.NWSFL.addTo(this.map);
     this.NWSFL.setWhere('0=1');
@@ -46,7 +48,11 @@ export class Tab3Page implements AfterViewInit {
       this.map.setView(L.latLng(resp.lat, resp.lng), 8)
     });
     this.setCityPoints();
-    this.getAlertAreasFromStorage();
+    // Load any previously saved alert areas from disk
+    await this.loadAlertAreasFromStorage();
+    // Immediately check for weather alerts
+    this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
+    // Start periodic weather check
     setInterval(this.checkForWeatherAlerts.bind(this, this.updateMapWeatherAlerts.bind(this)), 10000);
   }
 
@@ -62,11 +68,13 @@ export class Tab3Page implements AfterViewInit {
     })
   }
 
+
   /** */
   setBackgroundMode(on=false) {
     if (on && !BackgroundMode.isActive()) BackgroundMode.enable();
     if (!on && BackgroundMode.isActive()) BackgroundMode.disable();
   }
+
 
   /**
    * Queries NWS FeatureLayer for alert geometries that intersect each user
@@ -75,9 +83,8 @@ export class Tab3Page implements AfterViewInit {
    * @returns void
    */
   private async checkForWeatherAlerts(done=null) {
-    let citiesWithAreas = Object.values(this.cityPoints).filter(point => (point.alertArea));
-    let NWSQueries: Promise<null>[] = []; // only accept Promise type
-    citiesWithAreas.forEach(city => {
+    let NWSQueries: Promise<null>[] = [];
+    this.citiesWithAlertAreas().forEach(city => {
       NWSQueries.push(new Promise((resolve, reject) => {
         this.NWSFL.query().intersects(city.alertArea.polygon).fields(['*']).run((error, resp) => {
           if (error) {
@@ -100,7 +107,7 @@ export class Tab3Page implements AfterViewInit {
    * @returns void
    */
   private updateMapWeatherAlerts() {
-    let citiesWithAlerts = Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
+    let citiesWithAlerts = this.citiesWithActiveWeatherAlerts();
     if (citiesWithAlerts.length == 0) { this.NWSFL.setWhere('0=1'); return; }
     let alertEventIds = [];      // a unique id for each weather event (to reduce the number of 'weather events' when notifying the user)
     let alertAreaObjectIds = []; // ObjectIds of all alert polygons
@@ -195,6 +202,13 @@ export class Tab3Page implements AfterViewInit {
     this.cRef.detectChanges();
   }
 
+
+  /**
+   * Creates an AlertArea, places it on the map and returns it
+   * @param {string} cityName name of city
+   * @param {number} radiusMiles radius in miles
+   * @returns {AlertArea}
+   */
   private createAlertArea(cityName, radiusMiles): AlertArea {
     let radiusMeters = radiusMiles * 1609.34; // convert to meters
     let latLng = new L.LatLng(MSCityNames[cityName][0], MSCityNames[cityName][1]); 
@@ -215,23 +229,53 @@ export class Tab3Page implements AfterViewInit {
     }
   }
 
-  private async getAlertAreasFromStorage() {
+
+  /**
+   * @returns {CityPoint[]} array of CityPoint(s) that have saved alert areas
+   */
+  private citiesWithAlertAreas() {
+    return Object.values(this.cityPoints).filter(point => (point.alertArea));
+  }
+
+
+  /**
+   * @returns {CityPoint[]} array of CityPoint(s) that have active weather alerts
+   */
+  private citiesWithActiveWeatherAlerts() {
+    return Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
+  }
+
+
+  private getBoundsOfAllAlertAreas() {
+    
+  }
+
+
+  /**
+   * Retrieve any saved alert areas from previous sessions and set state
+   */
+  private async loadAlertAreasFromStorage() {
     let stor = await this.storage.get('alertData');
     if (stor) {
       Object.entries(stor).forEach(([city, radius]) => {
         this.cityPoints[city].alertArea = this.createAlertArea(city, radius);
       });
-      this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
     }
   }
 
+
+  /**
+   * Save alert areas to disk
+   * @returns {Promise}
+   */
   private async saveAlertAreasToStorage() {
     let data = {};
-    Object.values(this.cityPoints).filter(point => (point.alertArea)).forEach(point => {
+    this.citiesWithAlertAreas().forEach(point => {
       data[point.alertArea.city] = point.alertArea.alertRadius;
     });
     return this.storage.set('alertData', data);
   }
+
 
   /**
    * Handles cancelling of edits to or creation of an alert area.
@@ -245,9 +289,8 @@ export class Tab3Page implements AfterViewInit {
 
 
   /**
-   * Save working alert area to its corresponding city, converts circle area to
-   * a polygon (to use for querying NWS FeatureLayer) and immediately checks
-   * for weather alerts interecting the new area.
+   * Save working alert area to its corresponding city and immediately checks
+   * for weather alerts. Save to disk and turn on background mode
    */
   private async saveAlertArea() {
     this.cityPoints[this.workingAlertArea.city].alertArea = this.workingAlertArea;
