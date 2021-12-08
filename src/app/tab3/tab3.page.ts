@@ -50,6 +50,8 @@ export class Tab3Page implements AfterViewInit {
     this.setCityPoints();
     // Load any previously saved alert areas from disk
     await this.loadAlertAreasFromStorage();
+    // 
+    this.map.fitBounds(this.getAllAlertAreaBounds());
     // Immediately check for weather alerts
     this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
     // Start periodic weather check
@@ -246,8 +248,12 @@ export class Tab3Page implements AfterViewInit {
   }
 
 
-  private getBoundsOfAllAlertAreas() {
-    
+  private getAllAlertAreaBounds() {
+    let bounds: L.LatLngBounds = this.map.getBounds();
+    this.citiesWithAlertAreas().forEach(area => {
+      bounds = bounds.extend(area.alertArea.circle.getBounds());
+    });
+    return bounds;
   }
 
 
@@ -304,11 +310,12 @@ export class Tab3Page implements AfterViewInit {
   /**
    * Handles deletion of an alert area.
    */
-  private deleteAlertArea() {
+  private async deleteAlertArea() {
     this.cityPoints[this.workingAlertArea.city].alertArea.circle.remove();
     this.cityPoints[this.workingAlertArea.city].alertArea = null;
     this.cityPoints[this.workingAlertArea.city].weatherAlerts = null;
     this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
+    await this.saveAlertAreasToStorage();
     this.workingAlertArea = null;
   }
 }
