@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">MEMA Emergency</string>
-    <string name="title_activity_main">MEMA Emergency</string>
-    <string name="package_name">io.MSEMA.application</string>
-    <string name="custom_url_scheme">io.MSEMA.application</string>
-</resources>
