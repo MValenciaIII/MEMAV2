@@ -18,13 +18,16 @@ import { Storage } from '@ionic/storage-angular';
 })
 
 export class Tab3Page implements AfterViewInit {
-  map: L.Map;
-  mapOptions: L.MapOptions = LMapOptions;
-  maxAlertRange = 400; // Miles
+  // State
   cityPoints: { [key: string]: CityPoint } = {};
   workingAlertArea: AlertArea = null;
+  eventsNotifiedToUser: number[] = [];
+  //
+  map: L.Map;
+  mapOptions: L.MapOptions = LMapOptions;
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
   @ViewChild('alertRange') alertRangeEl;
+  maxAlertRange = 400; // Miles
 
 
   constructor(private cRef: ChangeDetectorRef, public storage: Storage) {}
@@ -44,13 +47,13 @@ export class Tab3Page implements AfterViewInit {
     this.NWSFL.setWhere('0=1');
     this.NWSFL.setStyle({ color: 'red', weight: 1 });
     this.NWSFL.bindPopup(WeatherAlertPopup);
+    this.setCityPoints();
     this.getLocationService().then(resp => {
       this.map.setView(L.latLng(resp.lat, resp.lng), 8)
     });
-    this.setCityPoints();
     // Load any previously saved alert areas from disk
     await this.loadAlertAreasFromStorage();
-    // 
+    // Zoom to fit any saved alert areas
     this.map.fitBounds(this.getAllAlertAreaBounds());
     // Immediately check for weather alerts
     this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
@@ -122,13 +125,22 @@ export class Tab3Page implements AfterViewInit {
       alertEventIds = [... new Set(events)];
     });
     this.NWSFL.setWhere('OBJECTID in (' + alertAreaObjectIds.join(',') + ')');
-    if (alertEventIds.length > 0) {
+    if (alertEventIds.length > 0) this.notify(alertEventIds);
+  }
+
+
+  private notify(alertEventIds) {
+    // let unnotifiedEventIds = alertEventIds.filter(id => {
+    //   return (!this.eventsNotifiedToUser.includes(id))
+    // });
+    // if (unnotifiedEventIds.length > 0) {
       LocalNotifications.schedule({
         title: 'MEMA Severe Weather Alert!',
         text: `You have ${alertEventIds.length} severe weather events!`,
         foreground: true
       });
-    }
+    //   this.eventsNotifiedToUser.push(unnotifiedEventIds);
+    // }
   }
 
 
@@ -245,6 +257,15 @@ export class Tab3Page implements AfterViewInit {
    */
   private citiesWithActiveWeatherAlerts() {
     return Object.values(this.cityPoints).filter(city => (city.weatherAlerts));
+  }
+
+  private activeWeatherEventIdsByCity(cityName) {
+    let eventIds = [];
+    this.cityPoints[cityName].weatherAlerts?.forEach(alert => {
+      let eventId = alert.properties.event;
+      if (!eventIds.includes(eventId)) eventIds.push(eventId);
+    });
+    return eventIds;
   }
 
 
