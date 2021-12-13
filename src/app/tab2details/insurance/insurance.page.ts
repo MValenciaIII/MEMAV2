@@ -31,11 +31,16 @@ export class InsurancePage {
 
   }
   /**
-   * FIRST what plugin will help me store this image. 
-   * MAKE A FUNCTION TO BE ABLE TO TAKE A PICTURE
-   * ENCODE IMAGE IN BASE64 OR USE FILE URI
+   * NEW OBJECTIVE
+   * I want to make a upload button for all images for the first version. 
+   * The picture that was used on a specific upload button will display there. 
+   * I may need to give Each a unqiue id that way it's stored in the same place
+   * I can make seperate directories (Redudant probably though)
+   * 
+   * 
+   * 
    * BASE64 is prob not the best practice for storing images. Especiallys since their long strings. 
-   * The clicking upload photo should bring up Photo album
+   * 
    * 
    */
   async ngOnInit() {
@@ -181,5 +186,13 @@ export class InsurancePage {
     reader.readAsDataURL(blob);
   });
 
+
+  async deleteImage(file: LocalFile) {
+    await Filesystem.deleteFile({
+      directory: Directory.Data,
+      path: file.path
+    });
+    this.loadFiles();
+  }
 
 }

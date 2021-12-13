@@ -37,17 +37,23 @@
               Social Security Card
             </ion-card-title>
           </ion-card-header>
+          <ion-item *ngFor="let file of images">
+            <ion-img [src]="file.data"></ion-img>
+            <ion-label>
+              {{file.name}}
+            </ion-label>
+          </ion-item>
           <ion-button (click)="selectPhoto()">Upload Photo</ion-button>
         </ion-col>
-        <ion-col>
+        <!-- <ion-col>
           <ion-card-header>
             <ion-card-title>
               Insurance Card
             </ion-card-title>
           </ion-card-header>
           <ion-button>Upload Photo</ion-button>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button>
+    <!-- <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button> -->
 </ion-content>
