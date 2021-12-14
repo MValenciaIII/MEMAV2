@@ -32,19 +32,25 @@
     <ion-grid> 
       <ion-row>
         <ion-col>
-          <ion-card-header>
-            <ion-card-title>
-              Social Security Card
-            </ion-card-title>
-          </ion-card-header>
-          <ion-item *ngFor="let file of images">
-            <ion-img [src]="file.data"></ion-img>
-            <ion-label>
-              {{file.name}}
-            </ion-label>
-          </ion-item>
-          <ion-button (click)="selectPhoto()">Upload Photo</ion-button>
+          <ion-list>
+            <ion-item *ngFor="let file of images">
+              <ion-thumbnail slot="start">
+                <ion-img [src]="file.data" ></ion-img>
+              </ion-thumbnail>
+              <ion-label class="ion-text-wrap">
+                {{file.name}}
+              </ion-label>
+
+              <ion-button slot="end" fill="clear" (click)="imageZoom(file)">
+                <ion-icon slot="icon-only" name="cloud"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" (click)="deleteImage(file)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
         </ion-col>
+        <ion-button (click)="selectPhoto()">Upload Photo</ion-button>
         <!-- <ion-col>
           <ion-card-header>
             <ion-card-title>

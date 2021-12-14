@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera'
 import { Directory, Filesystem } from '@capacitor/filesystem'
 import { LoadingController, Platform } from '@ionic/angular';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { read } from 'fs';
 /**
  * This is directory where images are going to get stored.
@@ -27,7 +28,7 @@ interface LocalFile {
 export class InsurancePage {
  images: LocalFile[] = [];
   insurances = [];
-  constructor(private platform: Platform, private loadingCtrl: LoadingController) {
+  constructor(private platform: Platform, private loadingCtrl: LoadingController, private photoViewer: PhotoViewer) {
 
   }
   /**
@@ -36,11 +37,6 @@ export class InsurancePage {
    * The picture that was used on a specific upload button will display there. 
    * I may need to give Each a unqiue id that way it's stored in the same place
    * I can make seperate directories (Redudant probably though)
-   * 
-   * 
-   * 
-   * BASE64 is prob not the best practice for storing images. Especiallys since their long strings. 
-   * 
    * 
    */
   async ngOnInit() {
@@ -187,6 +183,7 @@ export class InsurancePage {
   });
 
 
+
   async deleteImage(file: LocalFile) {
     await Filesystem.deleteFile({
       directory: Directory.Data,
@@ -195,4 +192,8 @@ export class InsurancePage {
     this.loadFiles();
   }
 
+  imageZoom(file: LocalFile) {
+    console.log(file)
+    this.photoViewer.show(`${file.path}`)
+  }
 }
