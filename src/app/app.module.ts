@@ -9,6 +9,7 @@ import { IonicStorageModule } from "@ionic/storage-angular";
 import { Flashlight } from "@ionic-native/flashlight/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet"
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { LeafletModule } from "@asymmetrik/ngx-leaflet"
   providers: [
     Flashlight,
     StatusBar,
+    PhotoViewer,
     SplashScreen,
     HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },

@@ -32,22 +32,34 @@
     <ion-grid> 
       <ion-row>
         <ion-col>
-          <ion-card-header>
-            <ion-card-title>
-              Social Security Card
-            </ion-card-title>
-          </ion-card-header>
-          <ion-button (click)="selectPhone()">Upload Photo</ion-button>
+          <ion-list>
+            <ion-item *ngFor="let file of images">
+              <ion-thumbnail slot="start">
+                <ion-img [src]="file.data" ></ion-img>
+              </ion-thumbnail>
+              <ion-label class="ion-text-wrap">
+                {{file.name}}
+              </ion-label>
+
+              <ion-button slot="end" fill="clear" (click)="imageZoom(file)">
+                <ion-icon slot="icon-only" name="cloud"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" fill="clear" (click)="deleteImage(file)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
         </ion-col>
-        <ion-col>
+        <ion-button (click)="selectPhoto()">Upload Photo</ion-button>
+        <!-- <ion-col>
           <ion-card-header>
             <ion-card-title>
               Insurance Card
             </ion-card-title>
           </ion-card-header>
           <ion-button>Upload Photo</ion-button>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button>
+    <!-- <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button> -->
 </ion-content>
