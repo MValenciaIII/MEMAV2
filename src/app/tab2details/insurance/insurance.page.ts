@@ -15,10 +15,12 @@ const IMAGE_DIR = "stored-images"
  * This is just an exmaple how our data will be passed in through a function
  */
 interface LocalFile {
+  viewerOpen: boolean;
   name: string;
   path: string;
   data: string;
 }
+
 
 @Component({
   selector: 'app-insurance',
@@ -27,6 +29,7 @@ interface LocalFile {
 })
 export class InsurancePage {
  images: LocalFile[] = [];
+ viewerOpen: boolean;
   insurances = [];
   constructor(private platform: Platform, private loadingCtrl: LoadingController, private photoViewer: PhotoViewer) {
 
@@ -83,7 +86,8 @@ export class InsurancePage {
       this.images.push({
         name: f,
         path: filePath,
-        data: `data:image/jpeg;base64,${readFile.data}`
+        data: `data:image/jpeg;base64,${readFile.data}`,
+        viewerOpen: false
       })
 
       console.log('READ: ', readFile)
@@ -148,10 +152,15 @@ export class InsurancePage {
       /**
        * we have to convert this data as a string.
        */
-      data: base64Data
+      data: base64Data,
+      
     })
+    
     console.log('saved:', savedFile)
   }
+
+
+
   
   async readAsBase64(photo: Photo){
     if (this.platform.is('hybrid')) {
@@ -193,7 +202,7 @@ export class InsurancePage {
   }
 
   imageZoom(file: LocalFile) {
+    file.viewerOpen = true
     console.log(file)
-    this.photoViewer.show(`${file.path}`)
   }
 }
