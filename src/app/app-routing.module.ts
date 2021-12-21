@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'tornadoes',
     loadChildren: () => import('./disasterDetails/tornadoes/tornadoes.module').then( m => m.TornadoesPageModule)
   },
+  {
+    path: 'add-supply',
+    loadChildren: () => import('./tab2details/add-supply/add-supply.module').then( m => m.AddSupplyPageModule)
+  },
 ];
 @NgModule({
   imports: [
