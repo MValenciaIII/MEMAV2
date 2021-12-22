@@ -1,11 +1,17 @@
 <ion-header [translucent]="false">
-  <ion-toolbar id="toolbarColor">
-    <ion-row>
-      <ion-col>
-          <ion-nav-link style="color: white;" [routerLink]="['/disaster']">BACK</ion-nav-link>
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="auto">
+        <ion-nav-link style="color: white;" [routerLink]="['/disaster']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
       </ion-col>
-  </ion-row>
-      <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">  <img src="assets/mema-seal.png" height="35"> MEMA</ion-title>
+      <ion-col size="auto">
+        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
+            <img src="assets/mema-seal.png" height="35"> MEMA
+        </ion-title>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 

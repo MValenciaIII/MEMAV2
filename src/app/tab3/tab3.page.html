@@ -1,11 +1,22 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title> MSEMA </ion-title>
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="auto">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
+            <img src="assets/mema-seal.png" height="35"> MEMA
+        </ion-title>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card-header> <img src="assets/tab3/map.png" height="30"> WEATHER ALERTS</ion-card-header>
+  <ion-card-header> <img src="assets/tab3/map.png" height="30">Weather Alerts</ion-card-header>
   <ion-grid style="height: 85%; padding: 0;">
     <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '65%' : '90%'}">
       <ion-col>

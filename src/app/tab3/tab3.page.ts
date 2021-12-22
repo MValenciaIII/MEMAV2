@@ -105,7 +105,12 @@ export class Tab3Page implements AfterViewInit {
     if (this.userLocationMarker) {
       this.userLocationMarker.setLatLng(loc);
     } else {
-      this.userLocationMarker = L.marker(loc).addTo(this.map);
+      this.userLocationMarker = L.marker(loc, {
+        icon: new L.Icon({
+          iconUrl: 'assets/tab3/user_location.png',
+          iconSize: [25, 25]
+        })
+      }).addTo(this.map);
     }
   }
 
