@@ -21,13 +21,13 @@ export class Tab3Page implements AfterViewInit {
   map: L.Map;
   mapOptions: L.MapOptions = LMapOptions;
   userLocationMarker: L.Marker = null;
-  workingDetectionArea: L.Circle = null;
-  detectionAreas: {[key: number]: L.Circle} = {};
+  _workingDetectionArea: L.Circle = null;
+  detectionAreas: {[key: number]: DetectionArea} = {};
   detectionAreasLayer: L.FeatureGroup = new L.FeatureGroup();
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
-  eventsNotifiedToUser: number[] = [];
   // Static data
   maxDetectionRange = 643738; // meters ~= 400 Miles
+  notificationTimeout = 60000; // miliseconds
   // UI elements
   @ViewChild('detectionRange') detectionRangeEl;
 
@@ -43,6 +43,23 @@ export class Tab3Page implements AfterViewInit {
   ngAfterViewInit() {}
 
 
+  get workingDetectionArea() { return this._workingDetectionArea; }
+
+  set workingDetectionArea(area: L.Circle) {
+    this._workingDetectionArea = area;
+    if (this._workingDetectionArea) {
+      this._workingDetectionArea.addTo(this.map);
+      this._workingDetectionArea.on('click', this.detectionClickHandler.bind(this));
+      this.detectionRangeEl.value = this._workingDetectionArea.getRadius();
+      this.map.setMaxBounds(null);
+      this.map.fitBounds(this._workingDetectionArea.getBounds());
+    } else {
+      this.map.setMaxBounds(DefaultMaxBounds);
+    }
+    this.cRef.detectChanges();
+  }
+
+
   async onMapReady(map: L.Map) {
     this.map = map;
     this.NWSFL.addTo(this.map);
@@ -50,6 +67,7 @@ export class Tab3Page implements AfterViewInit {
     this.NWSFL.setStyle({ color: 'red', weight: 1 });
     this.NWSFL.bindPopup(WeatherAlertPopup);
     this.detectionAreasLayer.addTo(this.map);
+    // Take user to their current location
     this.updateUserLocationOnMap().then(_ => {
       this.map.setView(this.userLocationMarker.getLatLng(), 8);
     });
@@ -61,9 +79,9 @@ export class Tab3Page implements AfterViewInit {
       this.map.fitBounds(this.detectionAreasLayer.getBounds());
     }
     // Immediately check for weather alerts
-    this.checkForWeatherAlerts();
+    this.checkForWeatherAlerts(this.notify.bind(this));
     // Start periodic weather check
-    setInterval(this.checkForWeatherAlerts.bind(this), 10000);
+    setInterval(this.checkForWeatherAlerts.bind(this, this.notify.bind(this)), 10000);
     // Bind map click handler
     this.map.on('click', this.mapClickHandler.bind(this));
   }
@@ -94,25 +112,20 @@ export class Tab3Page implements AfterViewInit {
 
   mapClickHandler(evt) {
     if (this.workingDetectionArea) return;
+    if (!DetectionAreaCenterMaxBounds.contains(evt.latlng)) return;
     this.workingDetectionArea = L.circle(evt.latlng, {
       radius: this.maxDetectionRange / 2,
       opacity: DetectionAreaOpacity,
       weight: DetectionAreaWeight
-    })
-    this.detectionRangeEl.value = this.maxDetectionRange / 2;
-    this.workingDetectionArea.addTo(this.map);
-    this.workingDetectionArea.on('click', this.detectionClickHandler.bind(this));
-    this.map.fitBounds(this.workingDetectionArea.getBounds());
-    this.cRef.detectChanges();
+    });
+    // this.cRef.detectChanges();
   }
 
 
   detectionClickHandler(evt) {
     if (this.workingDetectionArea) return;
     let layerId = this.detectionAreasLayer.getLayerId(evt.target);
-    this.workingDetectionArea = this.detectionAreas[layerId];
-    this.detectionRangeEl.value = this.workingDetectionArea.getRadius();
-    this.cRef.detectChanges();
+    this.workingDetectionArea = this.detectionAreas[layerId].circle;
   }
 
 
@@ -132,14 +145,15 @@ export class Tab3Page implements AfterViewInit {
   private async checkForWeatherAlerts(done=null) {
     let NWSQueries: Promise<null>[] = [];
     let weatherAlertIds = [];
-    Object.values(this.detectionAreas).forEach((circle: L.Circle) => {
+    Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
       NWSQueries.push(new Promise((resolve, reject) => {
-        let polygon = L.PM.Utils.circleToPolygon(circle);
+        let polygon = L.PM.Utils.circleToPolygon(area.circle);
         this.NWSFL.query().intersects(polygon).fields(['*']).ids((error, objectIds) => {
           if (error) {
             console.log('Error with query: ' + error);
           } else if (objectIds) {
             weatherAlertIds = [...new Set([...weatherAlertIds, ...objectIds])];
+            area.weatherEvents = weatherAlertIds;
           }
           resolve(null);
         });
@@ -147,22 +161,24 @@ export class Tab3Page implements AfterViewInit {
     });
     await Promise.all(NWSQueries);
     this.NWSFL.setWhere('OBJECTID in (' + weatherAlertIds.join(',') + ')');
-    done?.bind(this);
+    if (done) done();
   }
 
 
-  private notify(alertEventIds) {
-    // let unnotifiedEventIds = alertEventIds.filter(id => {
-    //   return (!this.eventsNotifiedToUser.includes(id))
-    // });
-    // if (unnotifiedEventIds.length > 0) {
-      LocalNotifications.schedule({
-        title: 'MEMA Severe Weather Alert!',
-        text: `You have ${alertEventIds.length} severe weather events!`,
-        foreground: true
-      });
-    //   this.eventsNotifiedToUser.push(unnotifiedEventIds);
-    // }
+  private notify() {
+    Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
+      if (area.weatherEvents && area.weatherEvents.length > 0) {
+        let lastNotification = new Date().getTime() - area.lastNotify?.getTime();
+        if (!area.lastNotify || lastNotification > this.notificationTimeout) {
+          LocalNotifications.schedule({
+            title: 'MEMA Severe Weather Alert!',
+            text: `One of your detection areas has severe weather events!`,
+            foreground: true
+          });
+          area.lastNotify = new Date();
+        }
+      }
+    });
   }
 
 
@@ -191,7 +207,7 @@ export class Tab3Page implements AfterViewInit {
         .addTo(this.detectionAreasLayer)
         .on('click', this.detectionClickHandler.bind(this));
         let newId = this.detectionAreasLayer.getLayerId(circle);
-        this.detectionAreas[newId] = circle;
+        this.detectionAreas[newId] = {circle: circle};
       });
     }
   }
@@ -202,13 +218,12 @@ export class Tab3Page implements AfterViewInit {
    * @returns {Promise}
    */
   private async saveDetectionAreasToStorage() {
-    let data = Object.values(this.detectionAreas).map(circle => {
+    let data = Object.values(this.detectionAreas).map((area: DetectionArea) => {
       return {
-        latLng: circle.getLatLng(),
-        radius: circle.getRadius()
+        latLng: area.circle.getLatLng(),
+        radius: area.circle.getRadius()
       };
     });
-    console.log()
     return this.storage.set('detectionData', data);
   }
 
@@ -220,7 +235,6 @@ export class Tab3Page implements AfterViewInit {
     let id = this.detectionAreasLayer.getLayerId(this.workingDetectionArea);
     if (!this.detectionAreas[id]) {
       this.workingDetectionArea.remove();
-      delete this.detectionAreas[id];
     }
     this.workingDetectionArea = null;
   }
@@ -233,10 +247,9 @@ export class Tab3Page implements AfterViewInit {
   private async saveDetectionArea() {
     this.workingDetectionArea.addTo(this.detectionAreasLayer);
     let id = this.detectionAreasLayer.getLayerId(this.workingDetectionArea);
-    this.detectionAreas[id] = this.workingDetectionArea;
+    this.detectionAreas[id] = {circle: this.workingDetectionArea};
     this.workingDetectionArea = null;
-    // this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
-    this.checkForWeatherAlerts();
+    this.checkForWeatherAlerts(this.notify.bind(this));
     await this.saveDetectionAreasToStorage();
     this.setBackgroundMode(true);
   }
@@ -246,19 +259,27 @@ export class Tab3Page implements AfterViewInit {
    * Handles deletion of an alert area.
    */
   private async deleteDetectionArea() {
-    // this.checkForWeatherAlerts(this.updateMapWeatherAlerts);
-    this.checkForWeatherAlerts();
     let id = this.detectionAreasLayer.getLayerId(this.workingDetectionArea);
     this.detectionAreasLayer.removeLayer(id);
     delete this.detectionAreas[id];
     this.workingDetectionArea = null;
+    this.checkForWeatherAlerts(this.notify.bind(this));
     await this.saveDetectionAreasToStorage();
   }
+}
+
+// Types
+interface DetectionArea {
+  circle: L.Circle,
+  weatherEvents?: number[],
+  lastNotify?: Date
 }
 
 // Constants
 const DetectionAreaOpacity = 0.7;
 const DetectionAreaWeight = 2;
+const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
+const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
 
 const LMapOptions: L.MapOptions = {
   layers: [
@@ -270,7 +291,9 @@ const LMapOptions: L.MapOptions = {
       }
     )
   ],
-  zoom: 18
+  maxBounds: DefaultMaxBounds,
+  zoom: 6,
+  minZoom: 4
 };
 
 
