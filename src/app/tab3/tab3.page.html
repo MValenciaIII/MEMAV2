@@ -16,11 +16,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card-header> <img src="assets/tab3/map.png" height="30">Weather Alerts</ion-card-header>
+  <ion-card-header> <img src="assets/tab3/map.png" height="20">Weather Alerts</ion-card-header>
   <ion-grid style="height: 85%; padding: 0;">
     <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '65%' : '90%'}">
       <ion-col>
-        <div 
+        <div
           id="map"
           leaflet
           [leafletOptions]="mapOptions"
