@@ -18,8 +18,8 @@
 <ion-content [fullscreen]="true">
   <ion-card-header> <img src="assets/tab3/map.png" height="20">Weather Alerts</ion-card-header>
   <ion-grid style="height: 85%; padding: 0;">
-    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '65%' : '90%'}">
-      <ion-col>
+    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '75%' : '90%'}">
+      <ion-col style="padding: 0">
         <div
           id="map"
           leaflet
@@ -28,9 +28,19 @@
         ></div>
       </ion-col>
     </ion-row>
-    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '35%' : '10%'}">
+    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '25%' : '10%'}" id="inst-edit-row">
       <ion-col>
-        <span [hidden]="workingDetectionArea">Tap on a location within Mississippi to create a weather alert detection area...</span>
+        <ion-row [hidden]="workingDetectionArea">
+          <ion-col>
+            <ion-row class="justify-content-center">
+              <img src="assets/tab3/tap.png" height="50" />
+            </ion-row>
+            <ion-row>
+              <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
         <ion-row [hidden]="!workingDetectionArea">
           <ion-col>
             <ion-row>

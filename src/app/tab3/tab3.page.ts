@@ -158,29 +158,44 @@ export class Tab3Page implements AfterViewInit {
             console.log('Error with query: ' + error);
           } else if (objectIds) {
             weatherAlertIds = [...new Set([...weatherAlertIds, ...objectIds])];
-            area.weatherEvents = weatherAlertIds;
+            area.activeWeatherEvents = weatherAlertIds;
+          } else {
+            area.activeWeatherEvents = [];
+            area.lastNotificationEvents = [];
           }
           resolve(null);
         });
       }));
     });
     await Promise.all(NWSQueries);
-    this.NWSFL.setWhere('OBJECTID in (' + weatherAlertIds.join(',') + ')');
+    if (weatherAlertIds.length > 0) {
+      this.NWSFL.setWhere('OBJECTID in (' + weatherAlertIds.join(',') + ')');
+    } else {
+      this.NWSFL.setWhere('0=1');
+    }
     if (done) done();
   }
 
 
   private notify() {
     Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
-      if (area.weatherEvents && area.weatherEvents.length > 0) {
-        let lastNotification = new Date().getTime() - area.lastNotify?.getTime();
-        if (!area.lastNotify || lastNotification > this.notificationTimeout) {
+      if (area.activeWeatherEvents && area.activeWeatherEvents.length > 0) {
+        let lastNotification = new Date().getTime() - area.lastNotificationDate?.getTime();
+        if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
+          area.lastNotificationEvents = [];
+        }
+        let unnotifiedEvents = area.activeWeatherEvents.filter(event => {
+          return (!area.lastNotificationEvents.includes(event));
+        });
+        if (unnotifiedEvents.length > 0) {
           LocalNotifications.schedule({
             title: 'MEMA Severe Weather Alert!',
-            text: `One of your detection areas has severe weather events!`,
+            text: `There are severe weather events in your detection area(s)!`,
             foreground: true
           });
-          area.lastNotify = new Date();
+          area.lastNotificationDate = new Date();
+          area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEvents);
+          area.lastNotificationEvents = [...new Set([...area.lastNotificationEvents, ...unnotifiedEvents])];
         }
       }
     });
@@ -252,7 +267,12 @@ export class Tab3Page implements AfterViewInit {
   private async saveDetectionArea() {
     this.workingDetectionArea.addTo(this.detectionAreasLayer);
     let id = this.detectionAreasLayer.getLayerId(this.workingDetectionArea);
-    this.detectionAreas[id] = {circle: this.workingDetectionArea};
+    this.detectionAreas[id] = {
+      circle: this.workingDetectionArea,
+      activeWeatherEvents: this.detectionAreas[id]?.activeWeatherEvents,
+      lastNotificationDate: this.detectionAreas[id]?.lastNotificationDate,
+      lastNotificationEvents: []
+    };
     this.workingDetectionArea = null;
     this.checkForWeatherAlerts(this.notify.bind(this));
     await this.saveDetectionAreasToStorage();
@@ -276,8 +296,9 @@ export class Tab3Page implements AfterViewInit {
 // Types
 interface DetectionArea {
   circle: L.Circle,
-  weatherEvents?: number[],
-  lastNotify?: Date
+  activeWeatherEvents?: number[],
+  lastNotificationDate?: Date
+  lastNotificationEvents?: number[]
 }
 
 // Constants
@@ -307,7 +328,6 @@ const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS
 
 const WeatherAlertPopup = function(layer) {
   let formattedProps = {
-    event: layer.feature.properties.event,
     prod_type: layer.feature.properties.prod_type,
     start: new Date(layer.feature.properties.issuance).toLocaleString(),
     end: new Date(layer.feature.properties.expiration).toLocaleString(),
@@ -315,10 +335,6 @@ const WeatherAlertPopup = function(layer) {
   };
   return L.Util.template(
     `<table>
-      <tr>
-        <td style="white-space: nowrap;"><b>event: </b></td>
-        <td style="text-align: right;">{event}</td>
-      </tr>
       <tr>
         <td style="white-space: nowrap;"><b>Alert Type: </b></td>
         <td style="text-align: right;">{prod_type}</td>
