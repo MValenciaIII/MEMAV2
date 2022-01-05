@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="auto">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab3/']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
+            <img src="assets/mema-seal.png" height="35"> MEMA
+        </ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card-header>
+    Weather Alert Settings
+  </ion-card-header>
+
+  <ion-list>
+    <ion-list-header><b>Turn On/Off Event Types</b></ion-list-header>
+    <ion-item><ion-label>Air Stagnation Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Air_Stagnation_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Ashfall Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Ashfall_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Ashfall Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Ashfall_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Beach Hazards Statement</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Beach_Hazards_Statement"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Blizzard Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Blizzard_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Blowing Dust Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Blowing_Dust_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Brisk Wind Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Brisk_Wind_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Coastal Flood Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Coastal_Flood_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Coastal Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Coastal_Flood_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Coastal Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Coastal_Flood_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Dense Fog Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Dense_Fog_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Dense Smoke Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Dense_Smoke_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Dust Storm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Dust_Storm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Extreme Cold Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Extreme_Cold_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Extreme Cold Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Extreme_Cold_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Excessive Heat Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Excessive_Heat_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Excessive Heat Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Excessive_Heat_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Fire Weather Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Fire_Weather_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flash Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flash_Flood_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flash Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flash_Flood_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flood Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Freeze Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freeze_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Freeze Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freeze_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Freezing Fog Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freezing_Fog_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Freezing Rain Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freezing_Rain_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Freezing Spray Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freezing_Spray_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Frost Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Frost_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Gale Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Gale_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Gale Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Gale_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hard Freeze Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hard_Freeze_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hard Freeze Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hard_Freeze_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hazardous Seas Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hazardous_Seas_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hazardous Seas Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hazardous_Seas_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Heat Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Heat_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Heavy Freezing Spray</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Heavy_Freezing_Spray"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Heavy Freezing Spray Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Heavy_Freezing_Spray_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Heavy Freezing Spray Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Heavy_Freezing_Spray_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Rip Current Risk</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Rip_Current_Risk"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Surf Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Surf_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Surf Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Surf_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Wind Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Wind_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Wind Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Wind_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>High Wind Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.High_Wind_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hurricane Force Wind Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hurricane_Force_Wind_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hurricane Force Wind Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hurricane_Force_Wind_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hurricane Local Statement</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hurricane_Local_Statement"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hurricane Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hurricane_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Hurricane Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Hurricane_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Ice Storm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Ice_Storm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lake Effect Snow Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lake_Effect_Snow_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lake Effect Snow Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lake_Effect_Snow_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lakeshore Flood Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lakeshore_Flood_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lakeshore Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lakeshore_Flood_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lakeshore Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lakeshore_Flood_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Lake Wind Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Lake_Wind_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Low Water Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Low_Water_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Severe Thunderstorm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Severe_Thunderstorm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Severe Thunderstorm Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Severe_Thunderstorm_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Red Flag Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Red_Flag_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Rip Current - High Rip Current Risk</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Rip_Current_High_Rip_Current_Risk"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Small Craft Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Small_Craft_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Small Craft Advisory for Hazardous Seas</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Small_Craft_Advisory_for_Hazardous_Seas"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Storm Surge</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Storm_Surge"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Storm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Storm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Storm Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Storm_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tornado Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tornado_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tornado Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tornado_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tropical Storm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tropical_Storm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tropical Storm Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tropical_Storm_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tsunami Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tsunami_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tsunami Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tsunami_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Tsunami Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Tsunami_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Wind Chill Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Wind_Chill_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Wind Chill Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Wind_Chill_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Wind Chill Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Wind_Chill_Watch"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Winter Weather Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Winter_Weather_Advisory"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Winter Storm Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Winter_Storm_Warning"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Winter Storm Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Winter_Storm_Watch"></ion-checkbox></ion-item>
+  </ion-list>
+</ion-content>

@@ -3,6 +3,14 @@
   padding: 10rem;
 }
 
+ion-card-header {
+  padding: 0;
+}
+
+ion-card-header #alert-settings-link {
+  // color: white;
+}
+
 .leaflet-container {
   height: 100%;
 }
