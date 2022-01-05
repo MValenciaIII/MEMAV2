@@ -1,16 +1,19 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-row>
-            <ion-col>
-                <ion-nav-link [routerLink]="['/tabs/tab2/']">BACK</ion-nav-link>
-            </ion-col>
-        </ion-row>
-        <ion-title>YOUR PLAN</ion-title>
+    <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="auto">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-title>Pet Checklist</ion-title>
+      </ion-col>
+    </ion-row>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card-header  style="text-align: center; background-color:#061e3d; color: #ffffff;">CHECKLIST</ion-card-header>
     <ion-item *ngFor="let emergencyItems of emergencyItem" (click)="onClick(emergencyItems)">
         <ion-label>{{emergencyItems.name}}</ion-label>
         <ion-checkbox type="checkbox" [(ngModel)]="emergencyItems.checked" [checked]="emergencyItems.name"></ion-checkbox>
