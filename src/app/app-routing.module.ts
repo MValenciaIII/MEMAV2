@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'tornadoes',
     loadChildren: () => import('./disasterDetails/tornadoes/tornadoes.module').then( m => m.TornadoesPageModule)
   },
+  {
+    path: 'weather-alert-settings',
+    loadChildren: () => import('./weather-alert-settings/weather-alert-settings.module').then( m => m.WeatherAlertSettingsPageModule)
+  },
 ];
 @NgModule({
   imports: [
