@@ -8,6 +8,13 @@ const routes: Routes = [
     path: "",
     component: SuppliesPage,
   },
+  {
+    path: "addSupply",
+    loadChildren: () => 
+      import("../add-supply/add-supply-routing.module").then(
+        (m) => m.AddSupplyPageRoutingModule
+      )
+  }
 ];
 
 @NgModule({

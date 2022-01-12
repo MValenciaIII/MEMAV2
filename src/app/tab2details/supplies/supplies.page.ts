@@ -58,6 +58,11 @@ export class SuppliesPage {
     },
   ];
   constructor() {
+
+    /**
+     * I need to check for localstorage items from the add supplies page. 
+     * 
+     */
     // Called when application is first initialized, or when page is refreshed..
     console.log("constructor()... ");
     // If localStorage has not been initialized, then initialize it by setting them all to false.
@@ -82,6 +87,7 @@ export class SuppliesPage {
   }
 
   ionViewWillEnter() {
+    this.addNewItems();
     console.log("I just entered the pets page");
     // Load the emergencyItems from localStorage
     // Iterating through the localStorage to get the "true"/"false" boolean.
@@ -91,6 +97,15 @@ export class SuppliesPage {
         localStorage.getItem(this.emergencyItem[i].name)
       );
     }
+  }
+
+
+  private addNewItems() {
+    let newsupplies = JSON.parse(localStorage.getItem('SUPPLIES')) 
+    /** 
+     * 
+     */
+    this.emergencyItem.push(newsupplies);
   }
 
   ionViewWillLeave() {
