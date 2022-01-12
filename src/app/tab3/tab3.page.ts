@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone, SimpleChange, SimpleChanges, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 // import * as Leaflet from 'leaflet';
 import * as L from "leaflet";
 import * as esri from "esri-leaflet";
@@ -40,13 +41,18 @@ export class Tab3Page implements AfterViewInit {
   constructor(
     private cRef: ChangeDetectorRef,
     private router: Router,
-    public storage: Storage
+    public storage: Storage,
+    public platform: Platform
   ) {}
 
 
   async ngOnInit() {
     await this.storage.create();
     this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
+    if (!this.weatherAlertSettings) {
+      this.weatherAlertSettings = defaultWeatherAlertSettings;
+      this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
+    }
 
     this.subscription = this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd && event.url === '/tabs/tab3') {
@@ -211,11 +217,24 @@ export class Tab3Page implements AfterViewInit {
           return (!area.lastNotificationEvents.includes(event.properties.objectid));
         });
         let unnotifiedEventIds = unnotifiedEvents.map(event => event.properties.objectid);
+        let isWarning = false;
+        let isTornado = false;
+        area.activeWeatherEvents?.forEach(event => {
+          if (event.properties.sig === 'W') isWarning = true;
+          if (event.properties.sig === 'W' && event.properties.phenom == 'TO') {
+            isTornado = true;
+          }
+        });
+        let sound = 'file://assets/weatherAlertSounds/Watch';
+        if (isWarning) sound = 'file://assets/weatherAlertSounds/Warning';
+        if (isTornado) sound = 'file://assets/weatherAlertSounds/TornadoWarning';
+        if (this.platform.is('android')) {sound += '.mp3'} else {sound += '.caf'}
         if (unnotifiedEvents.length > 0) {
           LocalNotifications.schedule({
             title: 'MEMA Severe Weather Alert!',
             text: `There are severe weather events in your detection area(s)!`,
-            foreground: true
+            foreground: true,
+            sound: sound
           });
           area.lastNotificationDate = new Date();
           area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEventIds);
@@ -378,4 +397,20 @@ const WeatherAlertPopup = function(layer) {
     </table>`,
     formattedProps
   );
+}
+
+const defaultWeatherAlertSettings = {
+  "Hurricane Force Wind Warning": true,
+  "Hurricane Force Wind Watch": true,
+  "Hurricane Local Statement": true,
+  "Hurricane Warning": true,
+  "Hurricane Watch": true,
+  "Tornado Warning": true,
+  "Tornado Watch": true,
+  "Tropical Storm Warning": true,
+  "Tropical Storm Watch": true,
+  "Flash Flood Watch": true,
+  "Flash Flood Warning": true,
+  "Flood Watch": true,
+  "Flood Warning": true
 }
