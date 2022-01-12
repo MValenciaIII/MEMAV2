@@ -15,8 +15,7 @@ export class WeatherAlertSettingsPage implements OnInit {
 
   async ngOnInit() {
     await this.storage.create();
-    let settings = await this.storage.get('weatherAlertSettings') || defaultWeatherAlertSettings;
-    settings = Object.assign(settings, defaultWeatherAlertSettings);
+    let settings = await this.storage.get('weatherAlertSettings');
     let formattedSettings = {};
     Object.entries(settings).forEach(([key, value]) => {
       let formattedKey = key.replace(/ /g, '_');
@@ -35,14 +34,3 @@ export class WeatherAlertSettingsPage implements OnInit {
   }
 }
 
-const defaultWeatherAlertSettings = {
-  "Hurricane Force Wind Warning": true,
-  "Hurricane Force Wind Watch": true,
-  "Hurricane Local Statement": true,
-  "Hurricane Warning": true,
-  "Hurricane Watch": true,
-  "Tornado Warning": true,
-  "Tornado Watch": true,
-  "Tropical Storm Warning": true,
-  "Tropical Storm Watch": true
-}

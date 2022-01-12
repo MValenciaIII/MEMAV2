@@ -40,11 +40,11 @@
     <ion-item><ion-label>Excessive Heat Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Excessive_Heat_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Excessive Heat Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Excessive_Heat_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Fire Weather Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Fire_Weather_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
-    <ion-item><ion-label>Flash Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flash_Flood_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
-    <ion-item><ion-label>Flash Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flash_Flood_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flash Flood Watch</ion-label><ion-checkbox disabled checked="true" [(ngModel)]="settings.Flash_Flood_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flash Flood Warning</ion-label><ion-checkbox disabled checked="true" [(ngModel)]="settings.Flash_Flood_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Flood Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Advisory" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
-    <ion-item><ion-label>Flood Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
-    <ion-item><ion-label>Flood Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Flood_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flood Warning</ion-label><ion-checkbox disabled checked="true" [(ngModel)]="settings.Flood_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
+    <ion-item><ion-label>Flood Watch</ion-label><ion-checkbox disabled checked="true" [(ngModel)]="settings.Flood_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Freeze Watch</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freeze_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Freeze Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freeze_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Freezing Fog Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Freezing_Fog_Advisory" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
