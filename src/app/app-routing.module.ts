@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'add-supply',
     loadChildren: () => import('./tab2details/add-supply/add-supply.module').then( m => m.AddSupplyPageModule)
   },
+  {
+    path: 'weather-alert-settings',
+    loadChildren: () => import('./weather-alert-settings/weather-alert-settings.module').then( m => m.WeatherAlertSettingsPageModule)
+  },
 ];
 @NgModule({
   imports: [

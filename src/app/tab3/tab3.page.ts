@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, NgZone, SimpleChange, SimpleChanges, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 // import * as Leaflet from 'leaflet';
 import * as L from "leaflet";
 import * as esri from "esri-leaflet";
@@ -10,6 +11,8 @@ import { Alert, Capabilities } from 'selenium-webdriver';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Storage } from '@ionic/storage-angular';
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -25,23 +28,45 @@ export class Tab3Page implements AfterViewInit {
   detectionAreas: {[key: number]: DetectionArea} = {};
   detectionAreasLayer: L.FeatureGroup = new L.FeatureGroup();
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
+  weatherAlertSettings = {};
   // Static data
   maxDetectionRange = 643738; // meters ~= 400 Miles
   notificationTimeout = 60000; // miliseconds
   // UI elements
   @ViewChild('detectionRange') detectionRangeEl;
+  // 
+  subscription: Subscription;
 
 
-  constructor(private cRef: ChangeDetectorRef, public storage: Storage) {}
+  constructor(
+    private cRef: ChangeDetectorRef,
+    private router: Router,
+    public storage: Storage,
+    public platform: Platform
+  ) {}
 
 
   async ngOnInit() {
     await this.storage.create();
+    this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
+    if (!this.weatherAlertSettings) {
+      this.weatherAlertSettings = defaultWeatherAlertSettings;
+      this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
+    }
+
+    this.subscription = this.router.events.subscribe(async (event) => {
+      if (event instanceof NavigationEnd && event.url === '/tabs/tab3') {
+        this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
+        this.checkForWeatherAlerts();
+      }
+    });
   }   
 
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
-  ngAfterViewInit() {}
-
+  ngAfterViewInit(): void {}
 
   get workingDetectionArea() { return this._workingDetectionArea; }
 
@@ -149,16 +174,20 @@ export class Tab3Page implements AfterViewInit {
    */
   private async checkForWeatherAlerts(done=null) {
     let NWSQueries: Promise<null>[] = [];
-    let weatherAlertIds = [];
+    let allWeatherEventIds = [];
     Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
       NWSQueries.push(new Promise((resolve, reject) => {
         let polygon = L.PM.Utils.circleToPolygon(area.circle);
-        this.NWSFL.query().intersects(polygon).fields(['*']).ids((error, objectIds) => {
+        this.NWSFL.query().intersects(polygon).fields(['*']).run((error, results) => {
           if (error) {
             console.log('Error with query: ' + error);
-          } else if (objectIds) {
-            weatherAlertIds = [...new Set([...weatherAlertIds, ...objectIds])];
-            area.activeWeatherEvents = weatherAlertIds;
+          } else if (results) {
+            let enabledWeatherEvents = results.features.filter(event => {
+              return this.weatherAlertSettings[event.properties.prod_type];
+            });
+            area.activeWeatherEvents = enabledWeatherEvents;
+            let objectIds = enabledWeatherEvents.map(event => event.properties.objectid);
+            allWeatherEventIds = [...new Set([...allWeatherEventIds, ...objectIds])];
           } else {
             area.activeWeatherEvents = [];
             area.lastNotificationEvents = [];
@@ -168,8 +197,8 @@ export class Tab3Page implements AfterViewInit {
       }));
     });
     await Promise.all(NWSQueries);
-    if (weatherAlertIds.length > 0) {
-      this.NWSFL.setWhere('OBJECTID in (' + weatherAlertIds.join(',') + ')');
+    if (allWeatherEventIds.length > 0) {
+      this.NWSFL.setWhere('OBJECTID in (' + allWeatherEventIds.join(',') + ')');
     } else {
       this.NWSFL.setWhere('0=1');
     }
@@ -185,17 +214,31 @@ export class Tab3Page implements AfterViewInit {
           area.lastNotificationEvents = [];
         }
         let unnotifiedEvents = area.activeWeatherEvents.filter(event => {
-          return (!area.lastNotificationEvents.includes(event));
+          return (!area.lastNotificationEvents.includes(event.properties.objectid));
         });
+        let unnotifiedEventIds = unnotifiedEvents.map(event => event.properties.objectid);
+        let isWarning = false;
+        let isTornado = false;
+        area.activeWeatherEvents?.forEach(event => {
+          if (event.properties.sig === 'W') isWarning = true;
+          if (event.properties.sig === 'W' && event.properties.phenom == 'TO') {
+            isTornado = true;
+          }
+        });
+        let sound = 'file://assets/weatherAlertSounds/Watch';
+        if (isWarning) sound = 'file://assets/weatherAlertSounds/Warning';
+        if (isTornado) sound = 'file://assets/weatherAlertSounds/TornadoWarning';
+        if (this.platform.is('android')) {sound += '.mp3'} else {sound += '.caf'}
         if (unnotifiedEvents.length > 0) {
           LocalNotifications.schedule({
             title: 'MEMA Severe Weather Alert!',
             text: `There are severe weather events in your detection area(s)!`,
-            foreground: true
+            foreground: true,
+            sound: sound
           });
           area.lastNotificationDate = new Date();
-          area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEvents);
-          area.lastNotificationEvents = [...new Set([...area.lastNotificationEvents, ...unnotifiedEvents])];
+          area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEventIds);
+          area.lastNotificationEvents = [...new Set([...area.lastNotificationEvents, ...unnotifiedEventIds])];
         }
       }
     });
@@ -296,7 +339,7 @@ export class Tab3Page implements AfterViewInit {
 // Types
 interface DetectionArea {
   circle: L.Circle,
-  activeWeatherEvents?: number[],
+  activeWeatherEvents?: any[],
   lastNotificationDate?: Date
   lastNotificationEvents?: number[]
 }
@@ -354,4 +397,20 @@ const WeatherAlertPopup = function(layer) {
     </table>`,
     formattedProps
   );
+}
+
+const defaultWeatherAlertSettings = {
+  "Hurricane Force Wind Warning": true,
+  "Hurricane Force Wind Watch": true,
+  "Hurricane Local Statement": true,
+  "Hurricane Warning": true,
+  "Hurricane Watch": true,
+  "Tornado Warning": true,
+  "Tornado Watch": true,
+  "Tropical Storm Warning": true,
+  "Tropical Storm Watch": true,
+  "Flash Flood Watch": true,
+  "Flash Flood Warning": true,
+  "Flood Watch": true,
+  "Flood Warning": true
 }

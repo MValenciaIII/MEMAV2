@@ -16,7 +16,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card-header> <img src="assets/tab3/map.png" height="20">Weather Alerts</ion-card-header>
+  <ion-card-header>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <img src="assets/tab3/map.png" height="20">Weather Alerts
+        </ion-col>
+        <ion-col class="ion-align-self-end" size="2">
+          <ion-nav-link id="alert-settings-link" [routerLink]="['/weather-alert-settings/']">
+            <ion-icon name="settings-outline" size="large"></ion-icon>
+          </ion-nav-link>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
   <ion-grid style="height: 85%; padding: 0;">
     <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '75%' : '90%'}">
       <ion-col style="padding: 0">
