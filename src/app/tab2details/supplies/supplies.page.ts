@@ -88,6 +88,7 @@ export class SuppliesPage {
 
   ionViewWillEnter() {
     this.addNewItems();
+    console.log(this.emergencyItem)
     console.log("I just entered the pets page");
     // Load the emergencyItems from localStorage
     // Iterating through the localStorage to get the "true"/"false" boolean.
@@ -103,9 +104,18 @@ export class SuppliesPage {
   private addNewItems() {
     let newsupplies = JSON.parse(localStorage.getItem('SUPPLIES')) 
     /** 
-     * 
+     * This is only adding to one 
      */
-    this.emergencyItem.push(newsupplies);
+    for (let i = 0; i < newsupplies.length; i++) {
+      const element = newsupplies[i];
+      if (element.id != [i]) {
+        this.emergencyItem.push(element)
+      } else {
+        return
+      }
+
+    }
+    this.emergencyItem.concat(newsupplies);
   }
 
   ionViewWillLeave() {
