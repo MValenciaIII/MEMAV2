@@ -1,24 +1,34 @@
 <ion-header>
-    <ion-toolbar class="mema-navy">
-        <ion-row class="align-items-center">
-            <ion-col size="auto">
-                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
-                    <ion-icon name="chevron-back-outline" size="large"></ion-icon>
-                </ion-nav-link>
-            </ion-col>
-            <ion-col size="auto">
-                <ion-title>Supplies Checklist</ion-title>
-            </ion-col>
-        </ion-row>
-    </ion-toolbar>
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="auto">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
+          <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-title>Supplies Checklist</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-item *ngFor="let emergencyItems of emergencyItem" (click)="onClick(emergencyItems)">
-        <ion-label>{{emergencyItems.name}}</ion-label>
-        <ion-checkbox type="checkbox" [(ngModel)]="emergencyItems.checked" [checked]="emergencyItems.name"></ion-checkbox>
+  <ion-list id="supplies-list">
+    <ion-item *ngFor="let supply of supplies">
+      <ion-label>{{supply.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="supply.checked" (ionChange)="suppliesChange()"></ion-checkbox>
     </ion-item>
+  </ion-list>
 
-    <ion-input type="text"></ion-input>
-    <ion-button style="align-content: center">ADD</ion-button> 
+  <ion-button id="add-supply-btn" [hidden]="adding" (click)="adding = true">Add</ion-button>
+  <div id="add-supply-ctn" [hidden]="!adding">
+    <ion-grid id="edit-newsupply-grid">
+      <ion-row>
+        <ion-col><ion-button (click)="adding = false; newSupply = null" color="danger">Cancel</ion-button></ion-col>
+        <ion-col id="new-supply-col"><ion-input [(ngModel)]="newSupply" size="15" placeholder="New item..."></ion-input></ion-col>
+        <ion-col><ion-button [disabled]="!newSupply" (click)="saveNewSupply()">Save</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
