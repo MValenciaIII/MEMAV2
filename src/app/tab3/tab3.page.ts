@@ -207,7 +207,7 @@ export class Tab3Page implements AfterViewInit {
 
 
   private notify() {
-    Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
+    Object.values(this.detectionAreas).forEach(async (area: DetectionArea) => {
       if (area.activeWeatherEvents && area.activeWeatherEvents.length > 0) {
         let lastNotification = new Date().getTime() - area.lastNotificationDate?.getTime();
         if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
@@ -225,16 +225,21 @@ export class Tab3Page implements AfterViewInit {
             isTornado = true;
           }
         });
-        let sound = 'file://assets/weatherAlertSounds/Watch';
-        if (isWarning) sound = 'file://assets/weatherAlertSounds/Warning';
-        if (isTornado) sound = 'file://assets/weatherAlertSounds/TornadoWarning';
-        if (this.platform.is('android')) {sound += '.mp3'} else {sound += '.caf'}
         if (unnotifiedEvents.length > 0) {
+          let sound = 'assets/weatherAlertSounds/watch';
+          if (isWarning) sound = 'assets/weatherAlertSounds/warning';
+          if (isTornado) sound = 'assets/weatherAlertSounds/tornadowarning';
+          if (this.platform.is('android')) {sound += '.wav'} else {sound += '.caf'}
+
+          let aud = new Audio();
+          aud.src = sound;
+          await aud.load();
+          aud.play();
+
           LocalNotifications.schedule({
             title: 'MEMA Severe Weather Alert!',
             text: `There are severe weather events in your detection area(s)!`,
-            foreground: true,
-            sound: sound
+            foreground: true
           });
           area.lastNotificationDate = new Date();
           area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEventIds);
