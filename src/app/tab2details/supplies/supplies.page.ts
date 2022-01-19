@@ -8,7 +8,7 @@ import { Storage } from "@ionic/storage-angular";
 })
 export class SuppliesPage implements OnInit {
   supplies = [];
-  adding: false;
+  adding = false;
   newSupply = null;
 
   constructor(public storage: Storage) {}
