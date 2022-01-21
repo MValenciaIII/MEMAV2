@@ -19,9 +19,12 @@
       <ion-label>{{supply.name}}</ion-label>
       <ion-checkbox [(ngModel)]="supply.checked" (ionChange)="suppliesChange()"></ion-checkbox>
     </ion-item>
+    <ion-item></ion-item>
   </ion-list>
 
-  <ion-button id="add-supply-btn" [hidden]="adding" (click)="adding = true">Add</ion-button>
+  <ion-fab-button id="add-supply-btn" [hidden]="adding" (click)="adding = true">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
   <div id="add-supply-ctn" [hidden]="!adding">
     <ion-grid id="edit-newsupply-grid">
       <ion-row>

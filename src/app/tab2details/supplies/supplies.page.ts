@@ -16,7 +16,7 @@ export class SuppliesPage implements OnInit {
   async ngOnInit() {
     await this.storage.create();
     this.supplies = await this.storage.get('emergencySupplies') || DefaultSupplies;
-    this.storage.set('emergencySupplies', this.supplies);
+    await this.storage.set('emergencySupplies', this.supplies);
   }   
 
   async suppliesChange() {
