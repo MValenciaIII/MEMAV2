@@ -14,7 +14,8 @@
 #add-supply-btn {
   position: fixed;
   bottom: 1%;
-  right: 10%;
+  margin: 0 50%;
+  transform: translate(-50%, 0%);
 }
 
 #edit-newsupply-grid {
