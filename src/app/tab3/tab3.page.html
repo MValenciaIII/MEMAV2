@@ -1,93 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="mema-navy">
-    <ion-row class="align-items-center">
-      <ion-col size="auto">
-        <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
-            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
-        </ion-nav-link>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
-            <img src="assets/mema-seal.png" height="35"> MEMA
-        </ion-title>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-card-header>
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-        <ion-col>
-          <img src="assets/tab3/map.png" height="20">Weather Alerts
-        </ion-col>
-        <ion-col class="ion-align-self-end" size="2">
-          <ion-nav-link id="alert-settings-link" [routerLink]="['/weather-alert-settings/']">
-            <ion-icon name="settings-outline" size="large"></ion-icon>
-          </ion-nav-link>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card-header>
-
-  <ion-grid id="map-grid">
-    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '75%' : '90%'}">
-      <ion-col style="padding: 0">
-        <div
-          id="map"
-          leaflet
-          [leafletOptions]="mapOptions"
-          (leafletMapReady)="onMapReady($event)"
-        ></div>
-      </ion-col>
-    </ion-row>
-    <ion-row id="inst-edit-row">
-      <ion-col>
-        <ion-row [hidden]="!workingDetectionArea">
-          <ion-col>
-            <ion-row>
-              <ion-col>
-                <ion-range
-                  #detectionRange
-                  min="1"
-                  [max]="maxDetectionRange"
-                  step="1000"
-                  snaps="true"
-                  (ionChange)="detectionRangeChange($event)"
-                  style="padding: 0;"
-                >
-                </ion-range>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-button expand="block" fill="solid" color="light" (click)="cancelDetectionArea()">Cancel</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button expand="block" fill="solid" (click)="saveDetectionArea()">Save</ion-button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-button expand="block" fill="solid" color="danger" (click)="deleteDetectionArea()">Delete</ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <div id="instructions" [hidden]="workingDetectionArea">
-    <ion-grid>
-      <ion-row class="justify-content-center">
-        <img src="assets/tab3/tap.png" height="50" />
-      </ion-row>
+  <ion-grid id="content-grid">
       <ion-row>
-        <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
+        <ion-toolbar class="mema-navy">
+          <ion-row class="align-items-center">
+            <ion-col size="auto">
+              <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
+                  <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+              </ion-nav-link>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
+                  <img src="assets/mema-seal.png" height="35"> MEMA
+              </ion-title>
+            </ion-col>
+          </ion-row>
+        </ion-toolbar>
       </ion-row>
-    </ion-grid>
-  </div>
 
+      <ion-row>
+        <ion-card-header>
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <ion-col>
+                <img src="assets/tab3/map.png" height="20">Weather Alerts
+              </ion-col>
+              <ion-col class="ion-align-self-end" size="2">
+                <ion-nav-link [routerLink]="['/weather-alert-settings/']">
+                  <ion-icon name="settings-outline" size="large"></ion-icon>
+                </ion-nav-link>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-row>
+
+      <ion-row id="map-row">
+        <ion-col style="padding: 0">
+          <div
+            id="map"
+            leaflet
+            [leafletOptions]="mapOptions"
+            (leafletMapReady)="onMapReady($event)"
+          ></div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row id="edit-row" [hidden]="!workingDetectionArea">
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <ion-range
+                #detectionRange
+                min="1"
+                [max]="maxDetectionRange"
+                step="1000"
+                snaps="true"
+                (ionChange)="detectionRangeChange($event)"
+              >
+              </ion-range>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" fill="solid" color="light" (click)="cancelDetectionArea()">Cancel</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" fill="solid" (click)="saveDetectionArea()">Save</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" fill="solid" color="danger" (click)="deleteDetectionArea()">Delete</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row [hidden]="workingDetectionArea" class="justify-content-center">
+        <ion-col>
+          <ion-row class="justify-content-center">
+            <img src="assets/tab3/tap.png" height="50" />
+          </ion-row>
+          <ion-row>
+            <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+  </ion-grid>
 </ion-content>
