@@ -1,20 +1,25 @@
-.App {
-  height: 480px;
-  padding: 10rem;
-}
-
 ion-card-header {
   padding: 0;
-}
-
-ion-card-header #alert-settings-link {
-  // color: white;
 }
 
 .leaflet-container {
   height: 100%;
 }
 
+#map-grid {
+  height: 85%;
+  padding: 0;
+}
+
 #inst-edit-row {
+  height: 25%;
   border-top: 1px solid rgb(80, 80, 80);
+  overflow: auto;
+}
+
+#instructions {
+  position: fixed;
+  bottom: 0;
+  z-index: 100000;
+  backdrop-filter: blur(5px);
 }

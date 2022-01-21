@@ -31,7 +31,7 @@
     </ion-grid>
   </ion-card-header>
 
-  <ion-grid style="height: 85%; padding: 0;">
+  <ion-grid id="map-grid">
     <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '75%' : '90%'}">
       <ion-col style="padding: 0">
         <div
@@ -42,19 +42,8 @@
         ></div>
       </ion-col>
     </ion-row>
-    <ion-row [ngStyle]="{'height': (workingDetectionArea) ? '25%' : '10%'}" id="inst-edit-row">
+    <ion-row id="inst-edit-row">
       <ion-col>
-        <ion-row [hidden]="workingDetectionArea">
-          <ion-col>
-            <ion-row class="justify-content-center">
-              <img src="assets/tab3/tap.png" height="50" />
-            </ion-row>
-            <ion-row>
-              <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-
         <ion-row [hidden]="!workingDetectionArea">
           <ion-col>
             <ion-row>
@@ -90,5 +79,15 @@
     </ion-row>
   </ion-grid>
 
+  <div id="instructions" [hidden]="workingDetectionArea">
+    <ion-grid>
+      <ion-row class="justify-content-center">
+        <img src="assets/tab3/tap.png" height="50" />
+      </ion-row>
+      <ion-row>
+        <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>
