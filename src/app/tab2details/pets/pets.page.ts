@@ -1,104 +1,80 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { Storage } from "@ionic/storage-angular";
 
 @Component({
   selector: "app-pets",
   templateUrl: "./pets.page.html",
   styleUrls: ["./pets.page.scss"],
 })
-export class PetsPage {
-  emergencyItem = [
-    {
-      name: "VACCINATION RECORDS",
-      checked: false,
-    },
-    {
-      name: "FOOD",
-      checked: false,
-    },
-    {
-      name: "WATER",
-      checked: false,
-    },
-    {
-      name: "MEDICINES & MEDICAL RECORDS",
-      checked: false,
-    },
-    {
-      name: "FIRST AID",
-      checked: false,
-    },
-    {
-      name: "COLLAR WITH ID TAG, HARNESS OR LEASH",
-      checked: false,
-    },
-    {
-      name: "IMPORTANT INFORMATION",
-      checked: false,
-    },
-    {
-      name: "CRATE OR OTHER PET CARRIER",
-      checked: false,
-    },
-    {
-      name: "SANITATION SUPPLIES",
-      checked: false,
-    },
-    {
-      name: "A PICTURE OF PET",
-      checked: false,
-    },
+export class PetsPage implements OnInit {
+  supplies = [];
+  adding = false;
+  newSupply = null;
 
-  ];
-  constructor() {
-    // Called when application is first initialized, or when page is refreshed..
-    console.log("constructor()... ");
-    // If localStorage has not been initialized, then initialize it by setting them all to false.
-    if (localStorage.length == 0) {
-      // For each item in emergencyItem, set the "name" and "checked" in localStorage.
-      for (var i = 0; i < this.emergencyItem.length; i++) {
-        console.log(
-          "i: ",
-          i,
-          "localStorage: ",
-          localStorage.key(i),
-          this.emergencyItem[i].name
-        );
-        localStorage.setItem(
-          this.emergencyItem[i].name,
-          this.emergencyItem[i].checked.toString()
-        );
-        console.log("localStorage: ", localStorage);
-      }
-    }
-    console.log("Local Storage: " + localStorage.length);
+  constructor(public storage: Storage) {}
+
+  async ngOnInit() {
+    await this.storage.create();
+    this.supplies = await this.storage.get('emergencyPetSupplies') || DefaultPetSupplies;
+    await this.storage.set('emergencyPetSupplies', this.supplies);
+  }   
+
+  async suppliesChange() {
+    await this.storage.set('emergencyPetSupplies', this.supplies);
   }
 
-  ionViewWillEnter() {
-    console.log("I just entered the pets page");
-    // Load the emergencyItems from localStorage
-    // Iterating through the localStorage to get the "true"/"false" boolean.
-    for (var i = 0; i < this.emergencyItem.length; i++) {
-      // When true, set emergency items to true. If false, set emergency items to false.
-      this.emergencyItem[i].checked = JSON.parse(
-        localStorage.getItem(this.emergencyItem[i].name)
-      );
-    }
+  async saveNewSupply() {
+    this.supplies.push({name: this.newSupply, checked: false});
+    await this.storage.set('emergencyPetSupplies', this.supplies);
+    this.newSupply = null;
+    this.adding = false;
   }
 
-  ionViewWillLeave() {
-    // Set the emergencyItems into localStorage
-    // The "checked" flags could have changed from "false". Need to set them if so.
-    for (var i = 0; i < this.emergencyItem.length; i++) {
-      localStorage.getItem(this.emergencyItem[i].name);
-    }
-    console.log("I just left the supplies page");
-    console.log(localStorage);
-  }
-
-  onClick(emergencyItem) {
-    // Clicking an emergencyItem changes the "checked" flag. Need to change it in storage.
-    localStorage.setItem(emergencyItem.name, emergencyItem.checked);
-    console.log(emergencyItem);
+  async deleteSupply(supply) {
+    this.supplies = this.supplies.filter(s => s.name !== supply.name)
+    await this.storage.set('emergencyPetSupplies', this.supplies);
   }
 }
+
+const DefaultPetSupplies = [
+  {
+    name: "Vaccination Records",
+    checked: false,
+  },
+  {
+    name: "Food",
+    checked: false,
+  },
+  {
+    name: "Water",
+    checked: false,
+  },
+  {
+    name: "Medicines and Medical Records",
+    checked: false,
+  },
+  {
+    name: "First Aid",
+    checked: false,
+  },
+  {
+    name: "Collar with ID tag, Harness or Leash",
+    checked: false,
+  },
+  {
+    name: "Other Important Information",
+    checked: false,
+  },
+  {
+    name: "Crate or Other Pet Carrier",
+    checked: false,
+  },
+  {
+    name: "Sanitation Supplies",
+    checked: false,
+  },
+  {
+    name: "Picture of Pet",
+    checked: false,
+  }
+];
