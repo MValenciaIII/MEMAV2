@@ -29,6 +29,11 @@ export class SuppliesPage implements OnInit {
     this.newSupply = null;
     this.adding = false;
   }
+
+  async deleteSupply(supply) {
+    this.supplies = this.supplies.filter(s => s.name !== supply.name)
+    await this.storage.set('emergencySupplies', this.supplies);
+  }
 }
 
 
