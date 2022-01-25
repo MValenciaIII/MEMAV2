@@ -47,20 +47,22 @@
                 </ion-label>
   
                 <ion-button slot="end" fill="clear" (click)="imageZoom(file)">
-                  <ion-icon slot="icon-only" name="cloud"></ion-icon>
+                  <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
                 </ion-button>
                 <ion-button slot="end" fill="clear" (click)="deleteImage(file)">
-                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
                 </ion-button>
               </ion-item>
               <div class="image-container" [hidden]="!file.viewerOpen">
-                <ion-button (click)="file.viewerOpen = false">Close image</ion-button>
+                <ion-button (click)="file.viewerOpen = false" fill="clear">
+                  <ion-icon slot="icon-only" name="close-outline" color="dark"></ion-icon>
+                </ion-button>
                 <ion-img  [src]="file.data" ></ion-img>
               </div>
             </div>
           </ion-list>
         </ion-col>
-        <ion-button (click)="selectPhoto()">Upload Photo</ion-button>
+        <!-- <ion-button (click)="selectPhoto()">Upload Photo</ion-button> -->
         <!-- <ion-col>
           <ion-card-header>
             <ion-card-title>
@@ -71,5 +73,7 @@
         </ion-col> -->
       </ion-row>
     </ion-grid>
-    <!-- <ion-button [routerLink]="['/tabs/tab2/insurance/info']">ADD NEW INSURANCE INFO</ion-button> -->
+    <ion-fab-button id="add-doc-btn" (click)="selectPhoto()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
 </ion-content>
