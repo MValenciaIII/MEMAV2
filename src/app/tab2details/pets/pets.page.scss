@@ -17,3 +17,30 @@
   margin: 0 50%;
   transform: translate(-50%, 0%);
 }
+
+#edit-newsupply-grid {
+  background-color: inherit;
+}
+
+#edit-newsupply-grid ion-row {
+  align-items: center;
+  justify-content: end;
+}
+#edit-newsupply-grid ion-row ion-col {
+  flex-grow: unset;
+}
+#edit-newsupply-grid ion-row #new-supply-col {
+  flex-grow: 1;
+}
+
+#edit-newsupply-grid ion-input {
+  background-color: white;
+  color: black;
+}
+
+#edit-newsupply-grid ion-button {
+  opacity: 1;
+}
+#edit-newsupply-grid ion-button[disabled] {
+  --background: gray;
+}
