@@ -48,12 +48,9 @@ export class InsuranceinfoPage implements OnInit {
     Agent: this.agent
     });
     
-    localStorage.setItem('INSURANCES', JSON.stringify(this.insurances));
     
     // console.log(this.contacts);
     // this.navCtrl.navigateRoot("tabs/tab2/contacts");
-    console.log("Local Storage length: " + localStorage.length);
-    console.log("LocalStorage: ", localStorage);
     // console.log("this.person: ", this.person);
     let navigationExtras: NavigationExtras = {
       queryParams: {
