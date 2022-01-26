@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { LocalStorageService } from "../services/local-storage.service";
-import { NavController } from "@ionic/angular";
 import { Router, NavigationExtras } from "@angular/router";
-import { ContactsPage } from "../contacts/contacts.page";
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-contactinfo',
@@ -10,35 +8,37 @@ import { ContactsPage } from "../contacts/contacts.page";
   styleUrls: ['./contactinfo.page.scss'],
 })
 export class ContactinfoPage implements OnInit {
-  title = "local-storage-app";
-  // # parses stringified array to a array
-  contacts = JSON.parse(localStorage.getItem('CONTACTS')) || [];
-  currentDisplayIndex: number = -1;
-  constructor(
-    private router: Router
-  ) {}
-  public id: number = null ;
-  public firstname: string = "";
-  public lastname: string = "";
-  public phone: number = null;
-  public address: string = "";
+  firstname: string = null;
+  lastname: string = null;
+  phone: string = null;
+  address: string = null;
 
-  public addPerson() {
-    event.preventDefault();
-    this.id = this.contacts.length + 1
-    this.contacts.push({
-      id: this.id,
+  constructor(private router: Router, private storage: Storage) {}
+
+  async ngOnInit() {
+    await this.storage.create();
+  }
+
+  ionViewWillEnter() {
+    this.firstname = null;
+    this.lastname = null;
+    this.phone = null;
+    this.address = null;
+  }
+
+  async addPerson() {
+    let newContact = {
+      id: new Date().getTime(),
       firstName: this.firstname,
       lastName: this.lastname,
       phone: this.phone,
       address: this.address,
-    });
+    };
     
-    localStorage.setItem('CONTACTS', JSON.stringify(this.contacts));
-
-    console.log("LocalStorage: ", localStorage);
-    this.router.navigate(["tabs/tab2/contacts"]);
+    let contacts = await this.storage.get('emergencyContacts');
+    contacts.push(newContact);
+    await this.storage.set('emergencyContacts', contacts);
+    this.router.navigate(["/tabs/tab2/contacts"]);
   }
 
-  ngOnInit() {}
 }

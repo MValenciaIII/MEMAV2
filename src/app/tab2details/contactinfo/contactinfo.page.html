@@ -3,18 +3,17 @@
     <ion-toolbar class="mema-navy">
         <ion-row class="align-items-center">
             <ion-col size="auto">
-                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
+                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/contacts/']">
                     <ion-icon name="chevron-back-outline" size="large"></ion-icon>
                 </ion-nav-link>
             </ion-col>
             <ion-col size="auto">
-                <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
-                    <img src="assets/mema-seal.png" height="35"> MEMA
-                </ion-title>
+              <ion-title>Emergency Contacts</ion-title>
             </ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-header>
+
 <ion-content padding>
     <ion-item>
         <ion-label position="floating">First name:</ion-label>
@@ -26,13 +25,14 @@
     </ion-item>
     <ion-item>
         <ion-label position="floating">Phone:</ion-label>
-        <ion-input [(ngModel)]="phone" name="phone" type="number"></ion-input>
+        <ion-input [(ngModel)]="phone" name="phone" type="text"></ion-input>
     </ion-item>
     <ion-item>
         <ion-label position="floating">Address:</ion-label>
         <ion-input [(ngModel)]="address" name="address" type="text"></ion-input>
     </ion-item>
-        <ion-button (click)="addPerson()">Add</ion-button>
+
+    <ion-button id="save-new-contact-btn" (click)="addPerson()">Save</ion-button>
 </ion-content>
 
 
