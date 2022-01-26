@@ -35,7 +35,7 @@ export class ContactinfoPage implements OnInit {
       address: this.address,
     };
     
-    let contacts = await this.storage.get('emergencyContacts');
+    let contacts = await this.storage.get('emergencyContacts') || [];
     contacts.push(newContact);
     await this.storage.set('emergencyContacts', contacts);
     this.router.navigate(["/tabs/tab2/contacts"]);
