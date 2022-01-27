@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet"
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
