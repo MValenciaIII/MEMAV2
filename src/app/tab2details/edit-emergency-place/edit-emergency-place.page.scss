@@ -1,0 +1,33 @@
+#content-grid {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-header {
+  padding: 0;
+  width: 100%;
+}
+
+#map-row {
+  padding: 0;
+  flex-grow: 1;
+}
+// Necessary for Leaflet map to display
+.leaflet-container {
+  height: 100%;
+}
+
+#edit-row {
+  border-top: 1px solid rgb(80, 80, 80);
+  overflow: auto;
+}
+
+#save-new-place-btn {
+  position: fixed;
+  bottom: 2%;
+  margin: 0 50%;
+  transform: translate(-50%, 0%);
+  width: 50%;
+}

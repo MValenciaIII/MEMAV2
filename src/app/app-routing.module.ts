@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'weather-alert-settings',
     loadChildren: () => import('./weather-alert-settings/weather-alert-settings.module').then( m => m.WeatherAlertSettingsPageModule)
   },
+  {
+    path: 'edit-emergency-place',
+    loadChildren: () => import('./tab2details/edit-emergency-place/edit-emergency-place.module').then( m => m.EditEmergencyPlacePageModule)
+  }
 ];
 @NgModule({
   imports: [

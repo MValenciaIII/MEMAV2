@@ -1,14 +1,13 @@
-  
 <ion-header>
     <ion-toolbar class="mema-navy">
         <ion-row class="align-items-center">
             <ion-col size="2">
-                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/contacts/']">
+                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/places/']">
                     <ion-icon name="chevron-back-outline" size="large"></ion-icon>
                 </ion-nav-link>
             </ion-col>
             <ion-col size="8" style="text-align:center;">
-              <ion-title>Edit Emergency Contact</ion-title>
+              <ion-title>Edit Emergency Place</ion-title>
             </ion-col>
             <ion-col size="2"></ion-col>
         </ion-row>
@@ -17,12 +16,8 @@
 
 <ion-content padding>
     <ion-item>
-        <ion-label position="floating">First name:</ion-label>
-        <ion-input [(ngModel)]="firstname" name="firstname" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Last name:</ion-label>
-        <ion-input [(ngModel)]="lastname" name="lastname" type="text"></ion-input>
+        <ion-label position="floating">Name:</ion-label>
+        <ion-input [(ngModel)]="name" name="name" type="text"></ion-input>
     </ion-item>
     <ion-item>
         <ion-label position="floating">Phone:</ion-label>
@@ -33,7 +28,7 @@
         <ion-input [(ngModel)]="address" name="address" type="text"></ion-input>
     </ion-item>
 
-    <ion-button id="save-new-contact-btn" (click)="addPerson()">Save</ion-button>
+    <ion-button id="save-new-place-btn" (click)="addPlace()">Save</ion-button>
 </ion-content>
 
 

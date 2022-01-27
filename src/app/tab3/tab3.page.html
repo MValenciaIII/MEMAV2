@@ -3,21 +3,24 @@
       <ion-row>
         <ion-toolbar class="mema-navy">
           <ion-row class="align-items-center">
-            <ion-col size="auto">
+            <ion-col size="3">
               <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
                   <ion-icon name="chevron-back-outline" size="large"></ion-icon>
               </ion-nav-link>
             </ion-col>
-            <ion-col size="auto">
-              <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
-                  <img src="assets/mema-seal.png" height="35"> MEMA
-              </ion-title>
+            <ion-col size="6" style="text-align:center;">
+              <ion-title>Weather Alerts</ion-title>
+            </ion-col>
+            <ion-col size="3" style="text-align:center;">
+              <ion-nav-link [routerLink]="['/weather-alert-settings/']">
+                <ion-icon name="settings-outline" size="large"></ion-icon>
+              </ion-nav-link>
             </ion-col>
           </ion-row>
         </ion-toolbar>
       </ion-row>
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-card-header>
           <ion-grid>
             <ion-row class="ion-align-items-center">
@@ -32,7 +35,7 @@
             </ion-row>
           </ion-grid>
         </ion-card-header>
-      </ion-row>
+      </ion-row> -->
 
       <ion-row id="map-row">
         <ion-col style="padding: 0">

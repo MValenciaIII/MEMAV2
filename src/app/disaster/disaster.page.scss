@@ -2,11 +2,13 @@
     --background: #061e3d;
   }
   
-  .headerText {
-    text-align: center;
-    font-weight: bolder;
-    color: #061e3d;
-  }
+.headerText {
+  text-align: center;
+  font-weight: bolder;
+  color: #061e3d;
+  padding: 0;
+  border-bottom: 3px solid #061e3d;
+}
   
   .line {
     border-top:solid #061e3d 10px;
