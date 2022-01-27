@@ -1,0 +1,19 @@
+.place-item {
+  display: flex;
+  flex-direction: row;
+}
+.place-item .place-card {
+  flex-grow: 1;
+}
+.place-item .delete-place-btn {
+  flex-grow: 0;
+}
+
+
+#add-place-btn {
+  position: fixed;
+  bottom: 1%;
+  margin: 0 50%;
+  transform: translate(-50%, 0%);
+}
+

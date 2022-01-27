@@ -1,0 +1,46 @@
+#supplies-list {
+  overflow: auto;
+  height: auto;
+}
+#add-supply-ctn {
+  position: fixed;
+  bottom: 0px;
+  right: 1%;
+  height: auto;
+  width: 100%;
+  backdrop-filter: blur(2px);
+}
+
+#add-supply-btn {
+  position: fixed;
+  bottom: 1%;
+  margin: 0 50%;
+  transform: translate(-50%, 0%);
+}
+
+#edit-newsupply-grid {
+  background-color: inherit;
+}
+
+#edit-newsupply-grid ion-row {
+  align-items: center;
+  justify-content: end;
+}
+#edit-newsupply-grid ion-row ion-col {
+  flex-grow: unset;
+}
+#edit-newsupply-grid ion-row #new-supply-col {
+  flex-grow: 1;
+}
+
+#edit-newsupply-grid ion-input {
+  background-color: white;
+  color: black;
+}
+
+#edit-newsupply-grid ion-button {
+  opacity: 1;
+}
+#edit-newsupply-grid ion-button[disabled] {
+  --background: gray;
+}

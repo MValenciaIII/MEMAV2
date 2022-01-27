@@ -60,7 +60,6 @@ export class InsurancePage {
       directory: Directory.Data,
       path: IMAGE_DIR
     }).then(result => {
-      console.log('HERE: ', result)
       this.loadFileData(result.files)
     }, async err => {
       console.log('err: ', err);
@@ -89,8 +88,6 @@ export class InsurancePage {
         data: `data:image/jpeg;base64,${readFile.data}`,
         viewerOpen: false
       })
-
-      console.log('READ: ', readFile)
     }
   }
 
@@ -104,10 +101,8 @@ export class InsurancePage {
   ionViewWillEnter() {
     // # If new contact is entered, before component mounts, refresh from local storage
     this.insurances = JSON.parse(localStorage.getItem('INSURANCES'))
-    console.log("I just entered contacts page");
   }
   ngOnDestroy() {
-    console.log("The stack for tab two 'contacts' has been destroyed");
   }
 
   async selectPhoto() {
@@ -155,8 +150,6 @@ export class InsurancePage {
       data: base64Data,
       
     })
-    
-    console.log('saved:', savedFile)
   }
 
 

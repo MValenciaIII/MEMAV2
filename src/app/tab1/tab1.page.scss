@@ -1,90 +1,79 @@
-.headerText {
-    text-align: center;
-    background: #061e3d  ;
-    position: relative;
-    opacity: 1;
-    z-index: 2;
-    padding: 0%;
-    margin: 0%;
-
+ion-card-header {
+  padding: 0%;
+  margin: 0%;
+  background-color: #061e3d;
+}
+ion-card-header:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url(../../assets/memaBuildingHomeTab.jpg) !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  opacity: 0.25;
 }
 
-.ionGridHeader {
-    padding-top: 15%;
+ion-card-header #mema-title-row {
+  color: white;
+}
+ion-card-header #mema-title-row ion-col {
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
 }
 
-
-.memaBuildingImg {
-    position: absolute;
-    background: url(../../assets/memaBuildingHomeTab.jpg) 90% 90% padding-box no-repeat;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    opacity: .25;
-    z-index: 0;
-    padding-top: 10%;
+ion-card-header #social-media-row ion-col {
+  flex-grow: 0;
+}
+ion-card-header #social-media-row ion-icon {
+  color: #fff;
+  margin-right: 3%;
+  float: left;
 }
 
-.headerText ion-icon {
-    color: #fff;
-    margin-right: 3%;
-    float: left;
+ion-card-header #logo-row {
+  justify-content: center;
+}
+ion-card-header #logo-row img {
+  width: 25% !important;
+  height: auto !important;
+  z-index: 1;
 }
 
-.headerText img{
-    width: 25% !important;
-    height: auto !important;
-    float: left;
-    margin-left: 17%;
-}
-
-.headerText h1{
-text-align: center;
-font-weight: bolder;
-color: white;
-font-size: 13px;
-}
 
 
 .ionGridMain {
-    position: relative;
-    opacity: 1;
-    z-index: 2;
+  position: relative;
+  opacity: 1;
+  z-index: 2;
 }
 
 .iconGrid {
-    position: absolute;
-    background: url(../../assets/mema-seal.png) 50% 50% no-repeat;
-    background-size: contain;
-    height: 100%;
-    width: 100%;
-    opacity: .25;
-    z-index: 0;
+  position: absolute;
+  background: url(../../assets/mema-seal.png) 50% 50% no-repeat;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  opacity: .25;
+  z-index: 0;
 }
 
 
 .content-with-full-height{
-    // height: 100%;
-    //margin-bottom: 10px;
-    --background:white ;
-
-  }
-
-
-
-.equal-sized-item{
-height: 10%
+  // height: 100%;
+  //margin-bottom: 10px;
+  --background:white ;
 }
-
 
 
 
 
 .buttonText p {
-margin: 18% 2%;
-font-size: 18px;
-font-weight: bolder;
-color: #061e3d;
+  margin: 1% 2%;
+  // font-size: 18px;
+  font-weight: bolder;
+  color: #061e3d;
 }
 
 // .imgDocs {
@@ -92,19 +81,18 @@ color: #061e3d;
 // width: auto;
 // }
 .iconButtonWeather {
-    padding: 20% 18%;
-    border-style: none;
-    border-radius: 100%;
-    background: #061e3d ;
-    background-position: 50% center;
-    background-repeat: no-repeat;  
+  padding: 20% 18%;
+  border-style: none;
+  border-radius: 100%;
+  background: #061e3d ;
+  background-position: 50% center;
+  background-repeat: no-repeat;  
 }
 .iconButton {
-padding: 20% 28%;
-border-style: none;
-border-radius: 100%;
-background: #061e3d ;
-background-position: 50% center;
-background-repeat: no-repeat;
-
+  padding: 20% 28%;
+  border-style: none;
+  border-radius: 100%;
+  background: #061e3d ;
+  background-position: 50% center;
+  background-repeat: no-repeat;
 }

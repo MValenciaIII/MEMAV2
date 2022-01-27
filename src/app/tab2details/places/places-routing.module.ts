@@ -7,6 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: PlacesPage
+  },
+  {
+    path: 'addPlace',
+    loadChildren: () =>
+      import("../edit-emergency-place/edit-emergency-place.module").then(
+        (m) => m.EditEmergencyPlacePageModule
+      )
   }
 ];
 

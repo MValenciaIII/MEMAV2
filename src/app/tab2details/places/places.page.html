@@ -1,27 +1,43 @@
 <ion-header>
     <ion-toolbar class="mema-navy">
         <ion-row class="align-items-center">
-            <ion-col size="auto">
+            <ion-col size="2">
                 <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
                     <ion-icon name="chevron-back-outline" size="large"></ion-icon>
                 </ion-nav-link>
             </ion-col>
-            <ion-col size="auto">
+            <ion-col size="8" style="text-align:center;">
                 <ion-title>Emergency Meeting Places</ion-title>
             </ion-col>
+            <ion-col size="2"></ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-item *ngFor="let emergencyPlaces of emergencyPlace">
-        <ion-text>{{emergencyPlaces.title}} <br />
-            <ion-text>{{emergencyPlaces.name}} </ion-text>
-            <ion-card-content>
-                <ion-label>Instructions:</ion-label>
-                <ion-input type="text" [(ngModel)]="emergencyPlaces.input" [inputmode]="emergencyPlaces.name"></ion-input>
-            </ion-card-content>
-        </ion-text>
+  <ion-card-header>
+    Decide on a safe, familiar place where your family can go following a disaster to reunite if necessary. Make sure the location is accessible for household members with disabilities or access and functional needs. If you have pets or service animals, think about animal-friendly locations.
+  </ion-card-header>
+
+  <ion-list>
+    <ion-item *ngFor="let place of places" class="place-item">
+      <ion-card class="place-card">
+        <ion-card-header>
+          <ion-card-title>{{place.name}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content style="font-size: 1.125rem">
+          Phone: {{place.phone}} <br />
+          Address: {{place.address}}
+        </ion-card-content>
+      </ion-card>
+      <ion-button class="delete-place-btn" (click)="deletePlace($event)" [attr.data-id]="place.id" fill="clear">
+        <ion-icon name="trash-outline" color="danger"></ion-icon>
+      </ion-button>
     </ion-item>
-    <ion-button (click)="onClick(emergencyPlace)">SAVE</ion-button>
+  </ion-list>
+
+  <ion-fab-button id="add-place-btn" [routerLink]="['/tabs/tab2/places/addPlace']">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
 </ion-content>

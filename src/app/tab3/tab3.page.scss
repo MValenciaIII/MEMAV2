@@ -1,20 +1,25 @@
-.App {
-  height: 480px;
-  padding: 10rem;
+#content-grid {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 ion-card-header {
   padding: 0;
+  width: 100%;
 }
 
-ion-card-header #alert-settings-link {
-  // color: white;
+#map-row {
+  padding: 0;
+  flex-grow: 1;
 }
-
+// Necessary for Leaflet map to display
 .leaflet-container {
   height: 100%;
 }
 
-#inst-edit-row {
+#edit-row {
   border-top: 1px solid rgb(80, 80, 80);
+  overflow: auto;
 }

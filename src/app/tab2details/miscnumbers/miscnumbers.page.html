@@ -1,99 +1,48 @@
 <ion-header>
-    <ion-toolbar class="mema-navy">
-        <ion-row class="align-items-center">
-            <ion-col size="auto">
-                <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
-                    <ion-icon name="chevron-back-outline" size="large"></ion-icon>
-                </ion-nav-link>
-            </ion-col>
-            <ion-col size="auto">
-                <ion-title>Other Important Numbers</ion-title>
-            </ion-col>
-        </ion-row>
-    </ion-toolbar>
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="2">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
+          <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="8" style="text-align:center;">
+        <ion-title>Disability Planning</ion-title>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
+
 <ion-content padding>
-  <!--  <ion-card-header  style="text-align: center; ">OTHER IMPORTANT NUMBERS</ion-card-header>
-    <ion-card-content>
-        <ion-header>EMERGENCY SERVICES</ion-header>
-        <ion-item>
-        <ion-label position="floating">Police Phone: </ion-label>
-        <ion-input [(ngModel)]="police" name="police" type="number"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Fire Phone: </ion-label>
-        <ion-input [(ngModel)]="fire" name="fire" type="number"></ion-input>
-    </ion-item>
-    </ion-card-content>
-    <ion-card-content>
-        <ion-header>DOCTOR</ion-header>
-        <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input [(ngModel)]="docName" name="docName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Phone: </ion-label>
-        <ion-input [(ngModel)]="doctor" name="doctor" type="number"></ion-input>
-    </ion-item>
-    </ion-card-content>
-    <ion-card-content>
-        <ion-header>PEDIATRICIAN</ion-header>
-        <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input [(ngModel)]="pedName" name="pedName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Phone: </ion-label>
-        <ion-input [(ngModel)]="peds" name="peds" type="number"></ion-input>
-    </ion-item>
-    </ion-card-content>
-    <ion-card-content>
-        <ion-header>VETERINARIAN</ion-header>
-        <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input [(ngModel)]="vetName" name="vetName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Phone: </ion-label>
-        <ion-input [(ngModel)]="vet" name="vet" type="number"></ion-input>
-    </ion-item>
-    </ion-card-content>
-    <ion-card-content>
-        <ion-header>UTILITIES</ion-header>
-        <ion-item>
-        <ion-label position="floating">Electric Company</ion-label>
-        <ion-input [(ngModel)]="electName" name="electName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Electric Company Phone: </ion-label>
-        <ion-input [(ngModel)]="electric" name="electric" type="number"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Gas Company</ion-label>
-        <ion-input [(ngModel)]="gasName" name="gasName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Gas Company Phone: </ion-label>
-        <ion-input [(ngModel)]="gas" name="gas" type="number"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Water Company</ion-label>
-        <ion-input [(ngModel)]="waterName" name="waterName" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="floating">Water Company Phone: </ion-label>
-        <ion-input [(ngModel)]="water" name="water" type="number"></ion-input>
-    </ion-item>
-    </ion-card-content>
-    <ion-button (click)="saveNumbers()">Save</ion-button> -->
-    <ion-card-content *ngFor="let otherNumbers of otherNumber">
-            <!-- <ion-text>{{otherNumbers.name}} </ion-text> -->
-            <ion-item>
-                <ion-text>{{otherNumbers.title}} <br />
-                <ion-label position="floating">{{otherNumbers.name}}</ion-label>
-                <ion-input type="text" [(ngModel)]="otherNumbers.input" [inputmode]="otherNumbers.name"></ion-input>
-                </ion-text>
-            </ion-item>
-    </ion-card-content >
-    <ion-button>SAVE</ion-button>
+  <ion-card-header>
+    Consider adding these additional items to your disaster supply kit if you or a loved one you’re caring for is disabled. While these are just a few examples, we encourage you to review your specific needs and organize a disaster supply kit tailored for your family.
+  </ion-card-header>
+
+  <ion-list id="supplies-list">
+    <ion-item-sliding *ngFor="let supply of supplies">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="deleteSupply(supply)">Delete</ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-label>{{supply.name}}</ion-label>
+        <ion-checkbox [(ngModel)]="supply.checked" (ionChange)="suppliesChange()"></ion-checkbox>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item></ion-item>
+  </ion-list>
+
+  <ion-fab-button id="add-supply-btn" [hidden]="adding" (click)="adding = true">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
+
+  <div id="add-supply-ctn" [hidden]="!adding">
+    <ion-grid id="edit-newsupply-grid">
+      <ion-row>
+        <ion-col><ion-button (click)="adding = false; newSupply = null" color="danger">Cancel</ion-button></ion-col>
+        <ion-col id="new-supply-col"><ion-input [(ngModel)]="newSupply" size="15" placeholder="New item..."></ion-input></ion-col>
+        <ion-col><ion-button [disabled]="!newSupply" (click)="saveNewSupply()">Save</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content> 

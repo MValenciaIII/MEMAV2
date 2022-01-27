@@ -1,55 +1,39 @@
 <ion-header>
   <ion-toolbar class="mema-navy">
     <ion-row class="align-items-center">
-      <ion-col size="auto">
+      <ion-col size="3">
         <ion-nav-link style="color: white;" [routerLink]="['/tabs/tab2/']">
             <ion-icon name="chevron-back-outline" size="large"></ion-icon>
         </ion-nav-link>
       </ion-col>
-      <ion-col size="auto">
-        <ion-title style="font-size: 40px; font-weight: bolder; color: #fff;">
-            <img src="assets/mema-seal.png" height="35"> MEMA
-        </ion-title>
+      <ion-col size="6" style="text-align:center;">
+        <ion-title>Emergency Contacts</ion-title>
       </ion-col>
+      <ion-col size="3"></ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card-header
-    style="
-      text-align: center;
-      background-color: #061e3d;
-      margin-top: 0.25em;
-      color: #ffffff;
-    "
-    >CONTACT INFO</ion-card-header
-  >
-  <div *ngIf="contacts">
-    <ion-card
-      *ngFor="let contact of contacts;"
-      style="padding: 0.25em"
-      id="contact-items"
-    >
-      <ion-card-header>
-        <ion-card-title
-          >{{contact.firstName}} {{contact.lastName}}</ion-card-title
-        >
-        <!-- <ion-card-title>{{contact | json}}</ion-card-title> -->
-      </ion-card-header>
+  <ion-list>
+    <ion-item *ngFor="let contact of contacts" class="contact-item">
+      <ion-card class="contact-card">
+        <ion-card-header>
+          <ion-card-title>{{contact.firstName}} {{contact.lastName}}</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content style="font-size: 1.125rem">
-        Phone Number: {{contact.phone}} <br />
-        Address: {{contact.address}}
-      </ion-card-content>
-      <!-- <ion-button (click)="EditContact($event)" [attr.data-id]="contact.id">Edit</ion-button> -->
-      <ion-button (click)="DeleteContact($event)" [attr.data-id]="contact.id"
-        >Delete</ion-button
-      >
-    </ion-card>
-  </div>
+        <ion-card-content style="font-size: 1.125rem">
+          Phone: {{contact.phone}} <br />
+          Address: {{contact.address}}
+        </ion-card-content>
+      </ion-card>
+      <ion-button class="delete-contact-btn" (click)="deleteContact($event)" [attr.data-id]="contact.id" fill="clear">
+        <ion-icon name="trash-outline" color="danger"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 
-  <ion-button [routerLink]="['/tabs/tab2/contacts/info']"
-    >ADD NEW CONTACT</ion-button
-  >
+  <ion-fab-button id="add-contact-btn" [routerLink]="['/tabs/tab2/contacts/info']">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-fab-button>
 </ion-content>

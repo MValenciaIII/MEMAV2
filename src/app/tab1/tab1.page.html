@@ -1,117 +1,105 @@
 <ion-content [fullscreen]="true" class = "content-with-full-height ">
 
-
-<ion-card-header class="headerText ">
-    <div class="memaBuildingImg"></div>
-    <ion-grid class="ionGridHeader">
-        <ion-row>
-            <ion-col>
-                <a href="https://twitter.com/msema">
-                    <ion-icon size="small" name="logo-facebook"></ion-icon>
-                </a>
-                <a href="https://www.facebook.com/msemaorg/">
-                    <ion-icon size="small" name="logo-twitter"></ion-icon>
-                </a>
-                <a href="https://www.youtube.com/user/MSEMAorg1">
-                    <ion-icon size="small" ios="logo-youtube" md="logo-youtube"></ion-icon>
-                </a>
-                <img class=" memaSeal" src="assets/mema-seal.png" > 
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <h1>MISSISSIPPI EMERGENCY MANAGEMENT AGENCY</h1>
-            </ion-col>
-        </ion-row>
+  <ion-card-header>
+    <ion-grid>
+      <ion-row id="social-media-row">
+        <ion-col>
+          <a href="https://twitter.com/msema">
+              <ion-icon size="small" name="logo-facebook"></ion-icon>
+          </a>
+        </ion-col>
+        <ion-col>
+          <a href="https://www.facebook.com/msemaorg/">
+            <ion-icon size="small" name="logo-twitter"></ion-icon>
+          </a>
+        </ion-col>
+        <ion-col>
+          <a href="https://www.youtube.com/user/MSEMAorg1">
+            <ion-icon size="small" ios="logo-youtube" md="logo-youtube"></ion-icon>
+          </a>
+        </ion-col>
+      </ion-row>
+      <ion-row id="logo-row">
+          <img class=" memaSeal" src="assets/mema-seal.png" >
+      </ion-row>
+      <ion-row id="mema-title-row">
+        <ion-col>Mississippi Emergency Management Agency</ion-col>
+      </ion-row>
     </ion-grid>
+  </ion-card-header>
 
-</ion-card-header>
+  <ion-grid class="ionGridMain">
+    <div class="iconGrid"></div>
+    <ion-row class="buttonText ion-align-items-center">
+      <ion-col class="ion-text-center">  
+        <button [routerLink]="['/tabs/tab2']" class="btn iconButton" >
+          <img class="imgDocs img-responsive" src="../../assets/Homepage/Plan.png" height="60" alt="">
+        </button>
+        <p>Plan</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <button [routerLink]="['/tabs/tab4']" class="btn iconButton">
+          <img  class="imgDocs " src="../../assets/Homepage/Shelters.png" height="60" alt=""> 
+        </button>
+        <p>Shelters</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <button [routerLink]="['/disaster']" class="btn iconButton">
+          <img  class="imgDocs " src="../../assets/disasterPage/tornado.png " height="60" alt="">
+        </button>
+        <p>Disasters</p>
+      </ion-col>
+    </ion-row>
 
+    <ion-row class="buttonText ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <button [routerLink]="['/tabs/tab3']" class="btn iconButtonWeather">       
+          <img  class="imgDocs " src="../../assets/Homepage/WeatherAlerts.png" height="60" alt="">
+        </button>
+        <p>Weather Alerts</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <button [routerLink]="['/tabs/tab5']" class="btn iconButton ">
+          <img class="imgDocs " src="../../assets/Homepage/ReportDamage.png" height="60" alt=""> 
+        </button>
+        <p>Report Damage</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <a href="https://poweroutage.us/area/state/mississippi">
+          <button  class="btn iconButton">
+            <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" height="60" alt=""> 
+          </button>
+        </a>
+        <p>Power Outages</p>
+      </ion-col>
+    </ion-row>
 
+    <ion-row class="buttonText ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <a href="https://www.msema.org/news/">
+          <button  class="btn iconButton"> 
+            <img class="imgDocs " src="../../assets/Homepage/News.png" height="60" alt="">
+          </button>
+        </a>
+        <p>News</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <a href="https://www.msema.org/contact/">
+          <button class="btn iconButton">
+            <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" height="60" alt=""> 
+          </button>
+        </a>
+        <p>Contact</p>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <a href="https://www.msema.org/">
+          <button class="btn iconButton">
+            <img  class="imgDocs " src="../../assets/Homepage/Website.png" height="60" alt=""> 
+          </button>
+        </a>    
+        <p>Website</p>
+      </ion-col>
+    </ion-row>
 
-    <!-- <iframe height='100%' width="100%" title="website" src="https://www.msema.org/"></iframe> -->
-
-
-
-
-    <ion-grid class="ionGridMain">
-        <div class="iconGrid"></div>
-        <ion-row class="buttonText ion-align-items-center">
-            <ion-col class="ion-text-center">  
-                <button [routerLink]="['/tabs/tab2']" class="btn iconButton" >
-                    <img class="imgDocs img-responsive" src="../../assets/Homepage/Plan.png" height="60" alt="">
-                </button>
-                <p>PLAN</p>
-            </ion-col>
-            
-            <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab4']" class="btn iconButton">
-                    <img  class="imgDocs " src="../../assets/Homepage/Shelters.png" height="60" alt=""> 
-                </button>
-                <p>SHELTERS</p>
-            </ion-col>
-
-            <ion-col class="ion-text-center">
-                <button [routerLink]="['/disaster']" class="btn iconButton">
-                    <img  class="imgDocs " src="../../assets/disasterPage/tornado.png " height="60" alt="">
-                </button>
-                <p>DISASTERS</p>
-            </ion-col>
-        </ion-row>
-        <ion-row class="buttonText ion-align-items-center">
-            <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab3']" class="btn iconButtonWeather">       
-                    <img  class="imgDocs " src="../../assets/Homepage/WeatherAlerts.png" height="60" alt="">
-                </button>
-                <p>WEATHER ALERTS</p>
-            </ion-col>
-            
-            <ion-col class="ion-text-center">
-                <button [routerLink]="['/tabs/tab5']" class="btn iconButton ">
-                    <img class="imgDocs " src="../../assets/Homepage/ReportDamage.png" height="60" alt=""> 
-                </button>
-                
-                <p>REPORT DAMAGE</p>
-            </ion-col>
-
-            <ion-col class="ion-text-center">
-                <a href="https://poweroutage.us/area/state/mississippi">
-                    <button  class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" height="60" alt=""> 
-                    </button>
-                </a>
-                <p>POWER OUTAGES</p>
-            </ion-col>
-        </ion-row>
-
-        <ion-row class="buttonText ion-align-items-center">
-            <ion-col class="ion-text-center">
-                <a href="https://www.msema.org/news/">
-                    <button  class="btn iconButton"> 
-                        <img class="imgDocs " src="../../assets/Homepage/News.png" height="60" alt="">
-                    </button>
-                </a>
-                <p>NEWS</p>
-            </ion-col>
-            <ion-col class="ion-text-center">
-               <a href="https://www.msema.org/contact/">
-                    <button class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" height="60" alt=""> 
-                    </button>
-                </a>
-                <p>CONTACT</p>
-            </ion-col>
-       
-            <ion-col class="ion-text-center">
-                <a href="https://www.msema.org/">
-                    <button class="btn iconButton">
-                        <img  class="imgDocs " src="../../assets/Homepage/Website.png" height="60" alt=""> 
-                    </button>
-                </a>    
-                <p>WEBSITE</p>
-            </ion-col>
-        </ion-row>
-
-
-    </ion-grid>
+  </ion-grid>
 </ion-content>
