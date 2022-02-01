@@ -25,6 +25,7 @@ export class Tab3Page implements AfterViewInit {
   mapOptions: L.MapOptions = LMapOptions;
   userLocationMarker: L.Marker = null;
   _workingDetectionArea: L.Circle = null;
+  _originalRadius: number = null;
   detectionAreas: {[key: number]: DetectionArea} = {};
   detectionAreasLayer: L.FeatureGroup = new L.FeatureGroup();
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
@@ -92,10 +93,9 @@ export class Tab3Page implements AfterViewInit {
     this.NWSFL.setStyle({ color: 'red', weight: 1 });
     this.NWSFL.bindPopup(WeatherAlertPopup);
     this.detectionAreasLayer.addTo(this.map);
-    // Take user to their current location
-    this.updateUserLocationOnMap().then(_ => {
-      this.map.setView(this.userLocationMarker.getLatLng(), 8);
-    });
+    // Center map on user's location and start recurring update
+    await this.updateUserLocationOnMap();
+    this.map.setView(this.userLocationMarker.getLatLng(), 8);
     setInterval(this.updateUserLocationOnMap.bind(this), 10000);
     // Load any previously saved alert areas from disk
     await this.loadDetectionAreasFromStorage();
@@ -155,6 +155,7 @@ export class Tab3Page implements AfterViewInit {
   detectionClickHandler(evt) {
     if (this.workingDetectionArea) return;
     let layerId = this.detectionAreasLayer.getLayerId(evt.target);
+    this._originalRadius = this.detectionAreas[layerId].circle.getRadius();
     this.workingDetectionArea = this.detectionAreas[layerId].circle;
   }
 
@@ -305,6 +306,8 @@ export class Tab3Page implements AfterViewInit {
       this.workingDetectionArea.remove();
     }
     this.workingDetectionArea = null;
+    this.detectionAreas[id].circle.setRadius(this._originalRadius);
+    this.map.fitBounds(this.detectionAreasLayer.getBounds());
   }
 
 
@@ -335,6 +338,7 @@ export class Tab3Page implements AfterViewInit {
     let id = this.detectionAreasLayer.getLayerId(this.workingDetectionArea);
     this.detectionAreasLayer.removeLayer(id);
     delete this.detectionAreas[id];
+    this.workingDetectionArea.remove();
     this.workingDetectionArea = null;
     this.checkForWeatherAlerts(this.notify.bind(this));
     await this.saveDetectionAreasToStorage();
