@@ -52,7 +52,7 @@ export class Tab3Page implements AfterViewInit {
     this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
     if (!this.weatherAlertSettings) {
       this.weatherAlertSettings = defaultWeatherAlertSettings;
-      this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
+      await this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
     }
 
     this.subscription = this.router.events.subscribe(async (event) => {
@@ -179,7 +179,7 @@ export class Tab3Page implements AfterViewInit {
     Object.values(this.detectionAreas).forEach((area: DetectionArea) => {
       NWSQueries.push(new Promise((resolve, reject) => {
         let polygon = L.PM.Utils.circleToPolygon(area.circle);
-        this.NWSFL.query().intersects(polygon).fields(['*']).run((error, results) => {
+        this.NWSFL.query().intersects(polygon).fields(['*']).returnGeometry(false).run((error, results) => {
           if (error) {
             console.log('Error with query: ' + error);
           } else if (results) {
