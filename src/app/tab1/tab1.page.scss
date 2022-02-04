@@ -1,11 +1,12 @@
 ion-card-header {
-  padding: 0%;
+  padding: 7% 0% 0% 0%;
   margin: 0%;
   background-color: #061e3d;
 }
 ion-card-header:before {
   content: "";
   position: absolute;
+  top: 0;
   height: 100%;
   width: 100%;
   background-image: url(../../assets/memaBuildingHomeTab.jpg) !important;
