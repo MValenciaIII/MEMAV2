@@ -33,8 +33,12 @@
         <ion-input [(ngModel)]="address" name="address" type="text"></ion-input>
     </ion-item>
 
-    <ion-button id="save-new-contact-btn" (click)="addPerson()">Save</ion-button>
 </ion-content>
+
+<ion-fab id="save-new-contact-ctn" slot="fixed" vertical="bottom" horizontal="center">
+  <ion-button (click)="addPerson()">Save</ion-button>
+</ion-fab>
+
 
 
 

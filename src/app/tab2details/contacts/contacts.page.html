@@ -33,7 +33,9 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab-button id="add-contact-btn" [routerLink]="['/tabs/tab2/contacts/info']">
+</ion-content>
+<ion-fab [hidden]="adding" slot="fixed" vertical="bottom" horizontal="center">
+  <ion-fab-button [routerLink]="['/tabs/tab2/contacts/info']">
     <ion-icon name="add-outline"></ion-icon>
   </ion-fab-button>
-</ion-content>
+</ion-fab>

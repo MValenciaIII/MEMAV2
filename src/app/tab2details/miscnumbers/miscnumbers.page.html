@@ -32,17 +32,20 @@
     <ion-item></ion-item>
   </ion-list>
 
-  <ion-fab-button id="add-supply-btn" [hidden]="adding" (click)="adding = true">
+</ion-content> 
+
+<ion-fab [hidden]="adding" slot="fixed" vertical="bottom" horizontal="center">
+  <ion-fab-button (click)="adding=true">
     <ion-icon name="add-outline"></ion-icon>
   </ion-fab-button>
+</ion-fab>
 
-  <div id="add-supply-ctn" [hidden]="!adding">
-    <ion-grid id="edit-newsupply-grid">
-      <ion-row>
-        <ion-col><ion-button (click)="adding = false; newSupply = null" color="danger">Cancel</ion-button></ion-col>
-        <ion-col id="new-supply-col"><ion-input [(ngModel)]="newSupply" size="15" placeholder="New item..."></ion-input></ion-col>
-        <ion-col><ion-button [disabled]="!newSupply" (click)="saveNewSupply()">Save</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ion-content> 
+<ion-fab id="add-supply-ctn" [hidden]="!adding" slot="fixed" vertical="bottom">
+  <ion-grid id="edit-newsupply-grid">
+    <ion-row>
+      <ion-col><ion-button (click)="adding = false; newSupply = null" color="danger">Cancel</ion-button></ion-col>
+      <ion-col id="new-supply-col"><ion-input [(ngModel)]="newSupply" size="15" placeholder="New item..."></ion-input></ion-col>
+      <ion-col><ion-button [disabled]="!newSupply" (click)="saveNewSupply()">Save</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-fab>
