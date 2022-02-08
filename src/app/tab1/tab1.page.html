@@ -15,7 +15,7 @@
         </ion-col>
         <ion-col>
           <a href="https://www.youtube.com/user/MSEMAorg1">
-            <ion-icon size="small" ios="logo-youtube" md="logo-youtube"></ion-icon>
+            <ion-icon size="small" ios="logo-youtube" md="logo-youtube" ></ion-icon>
           </a>
         </ion-col>
       </ion-row>
@@ -65,38 +65,30 @@
         <p>Report Damage</p>
       </ion-col>
       <ion-col class="ion-text-center">
-        <a href="https://poweroutage.us/area/state/mississippi">
-          <button  class="btn iconButton">
+          <button  class="btn iconButton" (click)="openBlank('https://poweroutage.us/area/state/mississippi')">
             <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" height="60" alt=""> 
           </button>
-        </a>
         <p>Power Outages</p>
       </ion-col>
     </ion-row>
 
     <ion-row class="buttonText ion-align-items-center">
       <ion-col class="ion-text-center">
-        <a href="https://www.msema.org/news/">
-          <button  class="btn iconButton"> 
+          <button  class="btn iconButton" (click)="openBlank('https://www.msema.org/news/')"> 
             <img class="imgDocs " src="../../assets/Homepage/News.png" height="60" alt="">
           </button>
-        </a>
         <p>News</p>
       </ion-col>
       <ion-col class="ion-text-center">
-        <a href="https://www.msema.org/contact/">
-          <button class="btn iconButton">
+          <button class="btn iconButton" (click)="openBlank('https://www.msema.org/contact/')">
             <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" height="60" alt=""> 
           </button>
-        </a>
         <p>Contact</p>
       </ion-col>
       <ion-col class="ion-text-center">
-        <a href="https://www.msema.org/">
-          <button class="btn iconButton">
+          <button class="btn iconButton" (click)="openBlank('https://www.msema.org')">
             <img  class="imgDocs " src="../../assets/Homepage/Website.png" height="60" alt=""> 
           </button>
-        </a>    
         <p>Website</p>
       </ion-col>
     </ion-row>
