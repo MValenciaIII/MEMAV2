@@ -211,7 +211,8 @@ export class Tab3Page implements AfterViewInit {
     Object.values(this.detectionAreas).forEach(async (area: DetectionArea) => {
       if (area.activeWeatherEvents && area.activeWeatherEvents.length > 0) {
         let lastNotification = new Date().getTime() - area.lastNotificationDate?.getTime();
-        if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
+        // if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
+        if (!area.lastNotificationDate) {
           area.lastNotificationEvents = [];
         }
         let unnotifiedEvents = area.activeWeatherEvents.filter(event => {
