@@ -22,6 +22,22 @@ const routes: Routes = [
   {
     path: 'edit-emergency-place',
     loadChildren: () => import('./tab2details/edit-emergency-place/edit-emergency-place.module').then( m => m.EditEmergencyPlacePageModule)
+  },
+  {
+    path: 'poweroutages',
+    loadChildren: () => import('./poweroutages/poweroutages.module').then( m => m.PoweroutagesPageModule)
+  },
+  {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
+  },
+  {
+    path: 'memawebsite',
+    loadChildren: () => import('./memawebsite/memawebsite.module').then( m => m.MemawebsitePageModule)
+  },
+  {
+    path: 'contactmema',
+    loadChildren: () => import('./contactmema/contactmema.module').then( m => m.ContactmemaPageModule)
   }
 ];
 @NgModule({

@@ -65,7 +65,7 @@
         <p>Report Damage</p>
       </ion-col>
       <ion-col class="ion-text-center">
-          <button  class="btn iconButton" (click)="openBlank('https://poweroutage.us/area/state/mississippi')">
+          <button [routerLink]="['/poweroutages']" class="btn iconButton">
             <img  class="imgDocs " src="../../assets/Homepage/PowerOutages.png" height="60" alt=""> 
           </button>
         <p>Power Outages</p>
@@ -74,19 +74,19 @@
 
     <ion-row class="buttonText ion-align-items-center">
       <ion-col class="ion-text-center">
-          <button  class="btn iconButton" (click)="openBlank('https://www.msema.org/news/')"> 
+          <button [routerLink]="['/news']" class="btn iconButton">
             <img class="imgDocs " src="../../assets/Homepage/News.png" height="60" alt="">
           </button>
         <p>News</p>
       </ion-col>
       <ion-col class="ion-text-center">
-          <button class="btn iconButton" (click)="openBlank('https://www.msema.org/contact/')">
+          <button [routerLink]="['/contactmema']" class="btn iconButton">
             <img  class="imgDocs " src="../../assets/Homepage/contactPhone.png" height="60" alt=""> 
           </button>
         <p>Contact</p>
       </ion-col>
       <ion-col class="ion-text-center">
-          <button class="btn iconButton" (click)="openBlank('https://www.msema.org')">
+          <button [routerLink]="['/memawebsite']" class="btn iconButton">
             <img  class="imgDocs " src="../../assets/Homepage/Website.png" height="60" alt=""> 
           </button>
         <p>Website</p>
