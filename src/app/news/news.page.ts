@@ -36,10 +36,10 @@ export class NewsPage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://www.msema.org/news/', '_blank', this.options);
+    // const browser = this.iab.create('https://www.msema.org/news/', '_blank', this.options);
 
-    browser.on('exit').subscribe(event => {
-      this.router.navigate(["/tabs/"])
-    });
+    // browser.on('exit').subscribe(event => {
+    //   this.router.navigate(["/tabs/"])
+    // });
   }
 }

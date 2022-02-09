@@ -36,10 +36,10 @@ export class MemawebsitePage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://msema.org', '_blank', this.options);
+    // const browser = this.iab.create('https://msema.org', '_blank', this.options);
 
-    browser.on('exit').subscribe(event => {
-      this.router.navigate(["/tabs/"])
-    });
+    // browser.on('exit').subscribe(event => {
+    //   this.router.navigate(["/tabs/"])
+    // });
   }
 }
