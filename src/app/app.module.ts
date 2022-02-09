@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet"
+import { InAppBrowser } from "@awesome-cordova-plugins/in-app-browser/ngx"
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { LeafletModule } from "@asymmetrik/ngx-leaflet"
     PhotoViewer,
     SplashScreen,
     HttpClient,
+    InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent],
