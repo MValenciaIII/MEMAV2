@@ -13,7 +13,7 @@ export class NewsPage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://www.msema.org/news/', '_self', options);
+    const browser = this.iab.create('https://www.msema.org/news/', '_blank', options);
 
     browser.on('exit').subscribe(event => {
       this.router.navigate(["/tabs/"])
@@ -30,12 +30,15 @@ const options : InAppBrowserOptions = {
     hardwareback : 'yes',
     mediaPlaybackRequiresUserAction : 'no',
     shouldPauseOnSuspend : 'no', //Android only 
-    closebuttoncaption : 'Close', //iOS only
+    closebuttoncaption : 'Back', //iOS only
+    closebuttoncolor: '#FFFFFF',
     disallowoverscroll : 'no', //iOS only 
     toolbar : 'yes', //iOS only 
+    toolbarposition: 'top', //iOS only
+    lefttoright: 'no',
     enableViewportScale : 'no', //iOS only 
     allowInlineMediaPlayback : 'no',//iOS only 
-    presentationstyle : 'pagesheet',//iOS only 
+    presentationstyle : 'fullscreen',//iOS only 
     fullscreen : 'yes',//Windows only    
     hidenavigationbuttons: 'yes',
     hideurlbar: 'yes',
