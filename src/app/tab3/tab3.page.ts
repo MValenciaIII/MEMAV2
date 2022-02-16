@@ -359,6 +359,8 @@ const DetectionAreaOpacity = 0.7;
 const DetectionAreaWeight = 2;
 const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
 const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
+const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
+const WeatherServiceRadar = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/radar/radar_base_reflectivity_time/ImageServer';
 
 const LMapOptions: L.MapOptions = {
   layers: [
@@ -368,16 +370,13 @@ const LMapOptions: L.MapOptions = {
         maxZoom: 18,
         attribution: 'Map data © OpenStreetMap contributors'
       }
-    )
+    ),
+    new esri.ImageMapLayer({ url: WeatherServiceRadar })
   ],
   maxBounds: DefaultMaxBounds,
   zoom: 6,
-  minZoom: 4
+  minZoom: 6
 };
-
-
-const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
-
 
 const WeatherAlertPopup = function(layer) {
   let formattedProps = {
