@@ -1,25 +1,27 @@
-<ion-content>
-  <ion-grid id="content-grid">
-      <ion-row>
-        <ion-toolbar class="mema-navy">
-          <ion-row class="align-items-center">
-            <ion-col size="2">
-              <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
-                  <ion-icon name="chevron-back-outline" size="large"></ion-icon>
-              </ion-nav-link>
-            </ion-col>
-            <ion-col size="8" style="text-align:center;">
-              <ion-title style="color:white;padding:0">Weather Alerts</ion-title>
-            </ion-col>
-            <ion-col size="2" style="text-align:center;">
-              <ion-nav-link [routerLink]="['/weather-alert-settings/']">
-                <ion-icon color="light" name="settings-outline" size="large"></ion-icon>
-              </ion-nav-link>
-            </ion-col>
-          </ion-row>
-        </ion-toolbar>
-      </ion-row>
+<ion-header [translucent]="false">
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="2">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="8">
+        <ion-title style="padding: 0;font-weight: bolder; color: #fff;">
+          Weather Alerts
+        </ion-title>
+      </ion-col>
+      <ion-col size="2">
+        <ion-nav-link [routerLink]="['/weather-alert-settings/']">
+          <ion-icon color="light" name="settings-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true" class="content-with-full-height">
+  <ion-grid id="content-grid">
       <ion-row id="map-row">
         <ion-col style="padding: 0">
           <div
