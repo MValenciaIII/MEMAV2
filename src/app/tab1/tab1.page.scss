@@ -25,6 +25,9 @@ ion-card-header #mema-title-row ion-col {
   text-align: center;
 }
 
+ion-card-header #social-media-row {
+  height: 0;
+}
 ion-card-header #social-media-row ion-col {
   flex-grow: 0;
 }
