@@ -1,6 +1,8 @@
 ion-card-header {
   background-color: #061e3d;
+  padding-bottom: 0;
 }
+
 ion-card-header:before {
   content: "";
   position: absolute;
