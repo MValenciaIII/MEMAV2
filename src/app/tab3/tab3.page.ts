@@ -375,7 +375,7 @@ const LMapOptions: L.MapOptions = {
   ],
   maxBounds: DefaultMaxBounds,
   zoom: 6,
-  minZoom: 6
+  minZoom: 5
 };
 
 const WeatherAlertPopup = function(layer) {
