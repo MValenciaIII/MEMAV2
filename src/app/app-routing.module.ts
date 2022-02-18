@@ -38,6 +38,18 @@ const routes: Routes = [
   {
     path: 'contactmema',
     loadChildren: () => import('./contactmema/contactmema.module').then( m => m.ContactmemaPageModule)
+  },
+  {
+    path: 'traffic',
+    loadChildren: () => import('./traffic/traffic.module').then( m => m.TrafficPageModule)
+  },
+  {
+    path: 'countyema',
+    loadChildren: () => import('./countyema/countyema.module').then( m => m.CountyemaPageModule)
+  },
+  {
+    path: 'links',
+    loadChildren: () => import('./links/links.module').then( m => m.LinksPageModule)
   }
 ];
 @NgModule({
