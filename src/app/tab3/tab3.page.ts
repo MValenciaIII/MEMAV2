@@ -121,7 +121,7 @@ export class Tab3Page implements AfterViewInit {
     var searchControl = Geocoding.geosearch({
       position: 'topright',
       placeholder: 'City, Address, Zip...',
-      useMapBounds: true,
+      useMapBounds: false,
       providers: [Geocoding.arcgisOnlineProvider({
         apikey: this.geocoderAPIToken,
         nearby: {
