@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 // import * as Leaflet from 'leaflet';
 import * as L from "leaflet";
 import * as esri from "esri-leaflet";
+import * as Geocoding from "esri-leaflet-geocoder";
 import '@geoman-io/leaflet-geoman-free';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
@@ -13,6 +14,8 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { Storage } from '@ionic/storage-angular';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab3',
@@ -35,15 +38,18 @@ export class Tab3Page implements AfterViewInit {
   notificationTimeout = 60000; // miliseconds
   // UI elements
   @ViewChild('detectionRange') detectionRangeEl;
-  // 
+  // Subscribe to router nav events
   subscription: Subscription;
+  // API Key for leaflet geocoder, needs to be refreshed
+  geocoderAPIToken: string = 'test';
 
 
   constructor(
     private cRef: ChangeDetectorRef,
     private router: Router,
     public storage: Storage,
-    public platform: Platform
+    public platform: Platform,
+    private httpClient: HttpClient
   ) {}
 
 
@@ -109,6 +115,35 @@ export class Tab3Page implements AfterViewInit {
     setInterval(this.checkForWeatherAlerts.bind(this, this.notify.bind(this)), 10000);
     // Bind map click handler
     this.map.on('click', this.mapClickHandler.bind(this));
+    // Geocoding
+    await this.refreshAPIKey(); // get initial api key
+    setInterval(this.refreshAPIKey.bind(this), 60000); // refresh periodically
+    var searchControl = Geocoding.geosearch({
+      position: 'topright',
+      placeholder: 'City, Address, Zip...',
+      useMapBounds: true,
+      providers: [Geocoding.arcgisOnlineProvider({
+        apikey: this.geocoderAPIToken,
+        nearby: {
+          lat: 32.2988,
+          lng: -90.1848
+        }
+      })]
+    }).addTo(this.map);
+
+    searchControl.on('results', (data => {
+      console.log('data', data);
+    }));
+  }
+
+  async refreshAPIKey(): Promise<null> {
+    return new Promise((resolve, reject) => {
+      let resp = this.httpClient.get(GeocodingTokenGenURL);
+      resp.subscribe(data => {
+        this.geocoderAPIToken = data['access_token'];
+        resolve(null);
+      });
+    });
   }
 
   /**
@@ -307,8 +342,10 @@ export class Tab3Page implements AfterViewInit {
       this.workingDetectionArea.remove();
     }
     this.workingDetectionArea = null;
-    this.detectionAreas[id].circle.setRadius(this._originalRadius);
-    this.map.fitBounds(this.detectionAreasLayer.getBounds());
+    this.detectionAreas[id]?.circle.setRadius(this._originalRadius);
+    if (this.detectionAreasLayer.getLayers().length > 0) {
+      this.map.fitBounds(this.detectionAreasLayer.getBounds());
+    }
   }
 
 
@@ -361,6 +398,9 @@ const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
 const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
 const WeatherServiceRadar = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/radar/radar_base_reflectivity_time/ImageServer';
+const GeocodingAppId: string = 'KvXYTuMn34EdpBkm';
+const GeocodingAppSecret: string = '778ae7ea03d347718ed3df4be9b7ef5d';
+const GeocodingTokenGenURL: string = `https://www.arcgis.com/sharing/oauth2/token?client_id=${GeocodingAppId}&grant_type=client_credentials&client_secret=${GeocodingAppSecret}&expiration=20000&f=pjson`
 
 const LMapOptions: L.MapOptions = {
   layers: [

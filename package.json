@@ -53,6 +53,7 @@
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "es.keensoft.fullscreenimage": "^0.2.10",
     "esri-leaflet": "^3.0.3",
+    "esri-leaflet-geocoder": "^3.1.1",
     "ionic": "^5.4.16",
     "leaflet": "^1.7.1",
     "proj4leaflet": "^1.0.2",
