@@ -398,8 +398,8 @@ const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
 const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
 const WeatherServiceRadar = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/radar/radar_base_reflectivity_time/ImageServer';
-const GeocodingAppId: string = 'KvXYTuMn34EdpBkm';
-const GeocodingAppSecret: string = '778ae7ea03d347718ed3df4be9b7ef5d';
+const GeocodingAppId: string = 'D2yZZl1X9RcNEUSe';
+const GeocodingAppSecret: string = '76ecfaa3f366457d9a049d3a19dbb6f8';
 const GeocodingTokenGenURL: string = `https://www.arcgis.com/sharing/oauth2/token?client_id=${GeocodingAppId}&grant_type=client_credentials&client_secret=${GeocodingAppSecret}&expiration=20000&f=pjson`
 
 const LMapOptions: L.MapOptions = {
