@@ -1,9 +1,88 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>links</ion-title>
+<ion-header [translucent]="false">
+  <ion-toolbar class="mema-navy">
+    <ion-row class="align-items-center">
+      <ion-col size="2">
+        <ion-nav-link style="color: white;" [routerLink]="['/tabs/']">
+            <ion-icon name="chevron-back-outline" size="large"></ion-icon>
+        </ion-nav-link>
+      </ion-col>
+      <ion-col size="8">
+        <ion-title style="padding: 0;font-weight: bolder; color: #fff;text-align: center;">
+          Helpful Links
+        </ion-title>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-list-header><b>Federal Emergency Management</b></ion-list-header>
+    <ion-item href="http://www.fema.gov/" target="_blank">
+      <ion-label>Federal Emergency Management Agency</ion-label>
+    </ion-item>
+    <ion-item href="http://www.ready.gov/" target="_blank">
+      <ion-label>Prepare. Plan. Stay Informed.</ion-label>
+    </ion-item>
+    <ion-item href="http://www.nhc.noaa.gov/" target="_blank">
+      <ion-label>National Hurricane Center</ion-label>
+    </ion-item>
+    <ion-item href="http://www.nemaweb.org/" target="_blank">
+      <ion-label>National Emergency Management Association</ion-label>
+    </ion-item>
+    <ion-item href="http://www.cusec.org/" target="_blank">
+      <ion-label>Central United States Earthquake Consortium</ion-label>
+    </ion-item>
+
+    <ion-list-header><b>State Resources</b></ion-list-header>
+    <ion-item href="https://www.mdhs.ms.gov/" target="_blank">
+      <ion-label>Mississippi Department of Human Resources</ion-label>
+    </ion-item>
+    <ion-item href="http://www.deq.state.ms.us/" target="_blank">
+      <ion-label>Mississippi Department of Environmental Quality</ion-label>
+    </ion-item>
+    <ion-item href="http://www.dps.state.ms.us/" target="_blank">
+      <ion-label>Mississippi Department of Public Safety</ion-label>
+    </ion-item>
+    <ion-item href="http://www.msdh.state.ms.us/" target="_blank">
+      <ion-label>Mississippi Department of Health</ion-label>
+    </ion-item>
+    <ion-item href="http://www.mississippi.org/" target="_blank">
+      <ion-label>Mississippi Development Authority</ion-label>
+    </ion-item>
+    <ion-item href="http://www.mpbonline.org/" target="_blank">
+      <ion-label>Mississippi Public Broadcasting</ion-label>
+    </ion-item>
+
+    <ion-list-header><b>Additional Resources</b></ion-list-header>
+    <ion-item href="http://www.sba.gov" target="_blank">
+      <ion-label>United States Small Business Administration</ion-label>
+    </ion-item>
+    <ion-item href="http://www.redcross.org/" target="_blank">
+      <ion-label>American Red Cross</ion-label>
+    </ion-item>
+    <ion-item href="http://www.salvationarmyusa.org/" target="_blank">
+      <ion-label>The Salvation Army</ion-label>
+    </ion-item>
+    <ion-item href="https://www.mississippivoad.org/" target="_blank">
+      <ion-label>MISSISSIPPI VOAD</ion-label>
+    </ion-item>
+
+    <ion-list-header><b>Weather Resources</b></ion-list-header>
+    <ion-item href="https://www.weather.gov/meg/" target="_blank">
+      <ion-label>National Weather Service Memphis</ion-label>
+    </ion-item>
+    <ion-item href="https://www.weather.gov/jan/" target="_blank">
+      <ion-label>National Weather Service Jackson</ion-label>
+    </ion-item>
+    <ion-item href="https://www.weather.gov/lix/" target="_blank">
+      <ion-label>National Weather Service New Orleans</ion-label>
+    </ion-item>
+    <ion-item href="https://www.weather.gov/mob/" target="_blank">
+      <ion-label>National Weather Service Mobile</ion-label>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
