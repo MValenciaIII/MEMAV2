@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { Router } from "@angular/router";
 import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-disaster',
@@ -9,6 +10,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./disaster.page.scss'],
 })
 export class DisasterPage implements OnInit {
+  subscription: Subscription;
   options: InAppBrowserOptions = {
     location : 'yes',//Or 'no' 
     hidden : 'no', //Or  'yes'
@@ -35,10 +37,19 @@ export class DisasterPage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://www.msema.org/wp-content/uploads/2022/02/2022-Disaster-Guide.pdf', '_blank', this.options);
-
-    browser.on('exit').subscribe(event => {
-      this.router.navigate(["/tabs/"])
-    });
+    let url = 'https://www.msema.org/wp-content/uploads/2022/02/2022-Disaster-Guide.pdf';
+    if (this.platform.is('ios')) {
+      const browser = this.iab.create(url, '_blank', this.options);
+      browser.on('exit').subscribe(event => {
+        this.router.navigate(["/tabs/"])
+      });
+    } else {
+      window.open(url);
+      this.subscription = this.router.events.subscribe(async (event) => {
+        if (event instanceof NavigationEnd && event.url === '/disaster') {
+          this.router.navigate(['/tabs']);
+        }
+      });
+    }
   }
 }
