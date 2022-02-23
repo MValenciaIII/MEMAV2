@@ -120,7 +120,7 @@ export class Tab3Page implements AfterViewInit {
     setInterval(this.refreshAPIKey.bind(this), 60000); // refresh periodically
     var searchControl = Geocoding.geosearch({
       position: 'topright',
-      placeholder: 'City, Address, Zip...',
+      placeholder: 'City, Address, County, Zip...',
       useMapBounds: false,
       providers: [Geocoding.arcgisOnlineProvider({
         apikey: this.geocoderAPIToken,
@@ -411,7 +411,7 @@ const LMapOptions: L.MapOptions = {
         attribution: 'Map data © OpenStreetMap contributors'
       }
     ),
-    new esri.ImageMapLayer({ url: WeatherServiceRadar })
+    new esri.ImageMapLayer({ url: WeatherServiceRadar, opacity: 0.65 })
   ],
   maxBounds: DefaultMaxBounds,
   zoom: 6,
@@ -449,9 +449,6 @@ const WeatherAlertPopup = function(layer) {
 }
 
 const defaultWeatherAlertSettings = {
-  "Hurricane Force Wind Warning": true,
-  "Hurricane Force Wind Watch": true,
-  "Hurricane Local Statement": true,
   "Hurricane Warning": true,
   "Hurricane Watch": true,
   "Tornado Warning": true,
@@ -460,6 +457,6 @@ const defaultWeatherAlertSettings = {
   "Tropical Storm Watch": true,
   "Flash Flood Watch": true,
   "Flash Flood Warning": true,
-  "Flood Watch": true,
-  "Flood Warning": true
+  "Severe Thunderstorm Watch": true,
+  "Severe Thunderstorm Warning": true
 }
