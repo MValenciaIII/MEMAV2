@@ -261,47 +261,47 @@ export class Tab3Page implements AfterViewInit {
 
 
   private notify() {
-    Object.values(this.detectionAreas).forEach(async (area: DetectionArea) => {
-      if (area.activeWeatherEvents && area.activeWeatherEvents.length > 0) {
-        let lastNotification = new Date().getTime() - area.lastNotificationDate?.getTime();
-        // if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
-        if (!area.lastNotificationDate) {
-          area.lastNotificationEvents = [];
-        }
-        let unnotifiedEvents = area.activeWeatherEvents.filter(event => {
-          return (!area.lastNotificationEvents.includes(event.properties.objectid));
-        });
-        let unnotifiedEventIds = unnotifiedEvents.map(event => event.properties.objectid);
-        let isWarning = false;
-        let isTornado = false;
-        area.activeWeatherEvents?.forEach(event => {
-          if (event.properties.sig === 'W') isWarning = true;
-          if (event.properties.sig === 'W' && event.properties.phenom == 'TO') {
-            isTornado = true;
-          }
-        });
-        if (unnotifiedEvents.length > 0) {
-          let sound = 'assets/weatherAlertSounds/watch';
-          if (isWarning) sound = 'assets/weatherAlertSounds/warning';
-          if (isTornado) sound = 'assets/weatherAlertSounds/tornadowarning';
-          if (this.platform.is('android')) {sound += '.wav'} else {sound += '.caf'}
+    // Object.values(this.detectionAreas).forEach(async (area: DetectionArea) => {
+    //   if (area.activeWeatherEvents && area.activeWeatherEvents.length > 0) {
+    //     let lastNotification = new Date().getTime() - area.lastNotificationDate?.getTime();
+    //     // if (!area.lastNotificationDate || lastNotification > this.notificationTimeout) {
+    //     if (!area.lastNotificationDate) {
+    //       area.lastNotificationEvents = [];
+    //     }
+    //     let unnotifiedEvents = area.activeWeatherEvents.filter(event => {
+    //       return (!area.lastNotificationEvents.includes(event.properties.objectid));
+    //     });
+    //     let unnotifiedEventIds = unnotifiedEvents.map(event => event.properties.objectid);
+    //     let isWarning = false;
+    //     let isTornado = false;
+    //     area.activeWeatherEvents?.forEach(event => {
+    //       if (event.properties.sig === 'W') isWarning = true;
+    //       if (event.properties.sig === 'W' && event.properties.phenom == 'TO') {
+    //         isTornado = true;
+    //       }
+    //     });
+    //     if (unnotifiedEvents.length > 0) {
+    //       let sound = 'assets/weatherAlertSounds/watch';
+    //       if (isWarning) sound = 'assets/weatherAlertSounds/warning';
+    //       if (isTornado) sound = 'assets/weatherAlertSounds/tornadowarning';
+    //       if (this.platform.is('android')) {sound += '.wav'} else {sound += '.caf'}
 
-          let aud = new Audio();
-          aud.src = sound;
-          await aud.load();
-          aud.play();
+    //       let aud = new Audio();
+    //       aud.src = sound;
+    //       await aud.load();
+    //       aud.play();
 
-          LocalNotifications.schedule({
-            title: 'MEMA Severe Weather Alert!',
-            text: `There are severe weather events in your detection area(s)!`,
-            foreground: true
-          });
-          area.lastNotificationDate = new Date();
-          area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEventIds);
-          area.lastNotificationEvents = [...new Set([...area.lastNotificationEvents, ...unnotifiedEventIds])];
-        }
-      }
-    });
+    //       LocalNotifications.schedule({
+    //         title: 'MEMA Severe Weather Alert!',
+    //         text: `There are severe weather events in your detection area(s)!`,
+    //         foreground: true
+    //       });
+    //       area.lastNotificationDate = new Date();
+    //       area.lastNotificationEvents = area.lastNotificationEvents.concat(unnotifiedEventIds);
+    //       area.lastNotificationEvents = [...new Set([...area.lastNotificationEvents, ...unnotifiedEventIds])];
+    //     }
+    //   }
+    // });
   }
 
 
