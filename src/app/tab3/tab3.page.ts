@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 })
 
 export class Tab3Page implements AfterViewInit {
+  showInstructions = true;
   map: L.Map;
   mapOptions: L.MapOptions = LMapOptions;
   userLocationMarker: L.Marker = null;
@@ -55,12 +56,18 @@ export class Tab3Page implements AfterViewInit {
 
   async ngOnInit() {
     await this.storage.create();
-    this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
-    if (!this.weatherAlertSettings) {
-      this.weatherAlertSettings = defaultWeatherAlertSettings;
-      await this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
-    }
+    // Settings
+    let storedSettings = await this.storage.get('weatherAlertSettings') || {};
+    this.weatherAlertSettings = defaultWeatherAlertSettings;
+    Object.keys(this.weatherAlertSettings).forEach(key => {
+      if (storedSettings[key] !== undefined) {
+        this.weatherAlertSettings[key] = storedSettings[key];
+      }
+    });
+    await this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
 
+    // Coming back from the settings page doesn't trigger any lifecycle methods
+    // so we are subscribing to a router event
     this.subscription = this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd && event.url === '/tabs/tab3') {
         this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
@@ -96,7 +103,8 @@ export class Tab3Page implements AfterViewInit {
     this.map = map;
     this.NWSFL.addTo(this.map);
     this.NWSFL.setWhere('0=1');
-    this.NWSFL.setStyle({ color: 'red', weight: 1 });
+    // this.NWSFL.setStyle({ color: 'red', weight: 1 });
+    this.NWSFL.setStyle(this.weatherEventFeatureFormat);
     this.NWSFL.bindPopup(WeatherAlertPopup);
     this.detectionAreasLayer.addTo(this.map);
     // Center map on user's location and start recurring update
@@ -186,6 +194,13 @@ export class Tab3Page implements AfterViewInit {
     // this.cRef.detectChanges();
   }
 
+  startDetectionAreaAtUsersLocation() {
+    this.workingDetectionArea = L.circle(this.userLocationMarker.getLatLng(), {
+      radius: this.maxDetectionRange / 2,
+      opacity: DetectionAreaOpacity,
+      weight: DetectionAreaWeight
+    });
+  }
 
   detectionClickHandler(evt) {
     if (this.workingDetectionArea) return;
@@ -219,7 +234,7 @@ export class Tab3Page implements AfterViewInit {
             console.log('Error with query: ' + error);
           } else if (results) {
             let enabledWeatherEvents = results.features.filter(event => {
-              return this.weatherAlertSettings[event.properties.prod_type];
+              return this.weatherAlertSettings[event.properties.prod_type] || this.weatherAlertSettings['all'];
             });
             area.activeWeatherEvents = enabledWeatherEvents;
             let objectIds = enabledWeatherEvents.map(event => event.properties.objectid);
@@ -286,6 +301,13 @@ export class Tab3Page implements AfterViewInit {
     });
   }
 
+
+  private weatherEventFeatureFormat(feature) {
+    return {
+      color: WeatherEventTypeColors[feature.properties.prod_type] || 'gray',
+      weight: 1
+    }
+  }
 
   /**
    * Handles changes to alert radius slider.
@@ -398,8 +420,8 @@ const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
 const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
 const WeatherServiceRadar = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/radar/radar_base_reflectivity_time/ImageServer';
-const GeocodingAppId: string = 'KvXYTuMn34EdpBkm';
-const GeocodingAppSecret: string = '778ae7ea03d347718ed3df4be9b7ef5d';
+const GeocodingAppId: string = 'D2yZZl1X9RcNEUSe';
+const GeocodingAppSecret: string = '76ecfaa3f366457d9a049d3a19dbb6f8';
 const GeocodingTokenGenURL: string = `https://www.arcgis.com/sharing/oauth2/token?client_id=${GeocodingAppId}&grant_type=client_credentials&client_secret=${GeocodingAppSecret}&expiration=20000&f=pjson`
 
 const LMapOptions: L.MapOptions = {
@@ -411,7 +433,7 @@ const LMapOptions: L.MapOptions = {
         attribution: 'Map data © OpenStreetMap contributors'
       }
     ),
-    new esri.ImageMapLayer({ url: WeatherServiceRadar, opacity: 0.65 })
+    new esri.ImageMapLayer({ url: WeatherServiceRadar, opacity: 0.5 })
   ],
   maxBounds: DefaultMaxBounds,
   zoom: 6,
@@ -458,5 +480,136 @@ const defaultWeatherAlertSettings = {
   "Flash Flood Watch": true,
   "Flash Flood Warning": true,
   "Severe Thunderstorm Watch": true,
-  "Severe Thunderstorm Warning": true
+  "Severe Thunderstorm Warning": true,
+  "all": false
+}
+
+const WeatherEventTypeColors = {
+  "Tsunami Warning": "#FD6347",
+  "Tornado Warning": "#FF0000",
+  "Extreme Wind Warning": "#FF8C00",
+  "Severe Thunderstorm Warning": "#FFA500",
+  "Flash Flood Warning": "#8B0000",
+  "Flash Flood Statement": "#8B0000",
+  "Severe Weather Statement": "#00FFFF",
+  "Shelter In Place Warning": "#FA8072",
+  "Evacuation Immediate": "#7FFF00",
+  "Civil Danger Warning": "#FFB6C1",
+  "Nuclear Power Plant Warning": "#4B0082",
+  "Radiological Hazard Warning": "#4B0082",
+  "Hazardous Materials Warning": "#4B0082",
+  "Fire Warning": "#A0522D",
+  "Civil Emergency Message": "#FFB6C1",
+  "Law Enforcement Warning": "#C0C0C0",
+  "Storm Surge Warning": "#B524F7",
+  "Hurricane Force Wind Warning": "#CD5C5C",
+  "Hurricane Warning": "#DC143C",
+  "Typhoon Warning": "#DC143C",
+  "Special Marine Warning": "#FFA500",
+  "Blizzard Warning": "#FF4500",
+  "Snow Squall Warning": "#C71585",
+  "Ice Storm Warning": "#8B008B",
+  "Winter Storm Warning": "#FF69B4",
+  "High Wind Warning": "#DAA520",
+  "Tropical Storm Warning": "#B22222",
+  "Storm Warning": "#9400D3",
+  "Tsunami Advisory": "#D2691E",
+  "Tsunami Watch": "#FF00FF",
+  "Avalanche Warning": "#1E90FF",
+  "Earthquake Warning": "#8B4513",
+  "Volcano Warning": "#2F4F4F",
+  "Ashfall Warning": "#A9A9A9",
+  "Coastal Flood Warning": "#228B22",
+  "Lakeshore Flood Warning": "#228B22",
+  "Flood Warning": "#00FF00",
+  "High Surf Warning": "#228B22",
+  "Dust Storm Warning": "#FFE4C4",
+  "Blowing Dust Warning": "#FFE4C4",
+  "Lake Effect Snow Warning": "#008B8B",
+  "Excessive Heat Warning": "#C71585",
+  "Tornado Watch": "#FFFF00",
+  "Severe Thunderstorm Watch": "#DB7093",
+  "Flash Flood Watch": "#2E8B57",
+  "Gale Warning": "#DDA0DD",
+  "Flood Statement": "#00FF00",
+  "Wind Chill Warning": "#B0C4DE",
+  "Extreme Cold Warning": "#0000FF",
+  "Hard Freeze Warning": "#9400D3",
+  "Freeze Warning": "#483D8B",
+  "Red Flag Warning": "#FF1493",
+  "Storm Surge Watch": "#DB7FF7",
+  "Hurricane Watch": "#FF00FF",
+  "Hurricane Force Wind Watch": "#9932CC",
+  "Typhoon Watch": "#FF00FF",
+  "Tropical Storm Watch": "#F08080",
+  "Storm Watch": "#FFE4B5",
+  "Hurricane Local Statement": "#FFE4B5",
+  "Typhoon Local Statement": "#FFE4B5",
+  "Tropical Storm Local Statement": "#FFE4B5",
+  "Tropical Depression Local Statement": "#FFE4B5",
+  "Avalanche Advisory": "#CD853F",
+  "Winter Weather Advisory": "#7B68EE",
+  "Wind Chill Advisory": "#AFEEEE",
+  "Heat Advisory": "#FF7F50",
+  "Urban and Small Stream Flood Advisory": "#00FF7F",
+  "Small Stream Flood Advisory": "#00FF7F",
+  "Arroyo and Small Stream Flood Advisory": "#00FF7F",
+  "Flood Advisory": "#00FF7F",
+  "Hydrologic Advisory": "#00FF7F",
+  "Lakeshore Flood Advisory": "#7CFC00",
+  "Coastal Flood Advisory": "#7CFC00",
+  "High Surf Advisory": "#BA55D3",
+  "Heavy Freezing Spray Warning": "#00BFFF",
+  "Dense Fog Advisory": "#708090",
+  "Dense Smoke Advisory": "#F0E68C",
+  "Small Craft Advisory For Hazardous Seas": "#D8BFD8",
+  "Small Craft Advisory for Rough Bar": "#D8BFD8",
+  "Small Craft Advisory for Winds": "#D8BFD8",
+  "Small Craft Advisory": "#D8BFD8",
+  "Brisk Wind Advisory": "#D8BFD8",
+  "Hazardous Seas Warning": "#D8BFD8",
+  "Dust Advisory": "#BDB76B",
+  "Blowing Dust Advisory": "#BDB76B",
+  "Lake Wind Advisory": "#D2B48C",
+  "Wind Advisory": "#D2B48C",
+  "Frost Advisory": "#6495ED",
+  "Ashfall Advisory": "#696969",
+  "Freezing Fog Advisory": "#8080",
+  "Freezing Spray Advisory": "#00BFFF",
+  "Low Water Advisory": "#A52A2A",
+  "Local Area Emergency": "#C0C0C0",
+  "Avalanche Watch": "#F4A460",
+  "Blizzard Watch": "#ADFF2F",
+  "Rip Current Statement": "#40E0D0",
+  "Beach Hazards Statement": "#40E0D0",
+  "Gale Watch": "#FFC0CB",
+  "Winter Storm Watch": "#4682B4",
+  "Hazardous Seas Watch": "#483D8B",
+  "Heavy Freezing Spray Watch": "#BC8F8F",
+  "Coastal Flood Watch": "#66CDAA",
+  "Lakeshore Flood Watch": "#66CDAA",
+  "Flood Watch": "#2E8B57",
+  "High Wind Watch": "#B8860B",
+  "Excessive Heat Watch": "#800000",
+  "Extreme Cold Watch": "#0000FF",
+  "Wind Chill Watch": "#5F9EA0",
+  "Lake Effect Snow Watch": "#87CEFA",
+  "Hard Freeze Watch": "#41690",
+  "Freeze Watch": "#00FFFF",
+  "Fire Weather Watch": "#FFDEAD",
+  "Extreme Fire Danger": "#E9967A",
+  "911 Telephone Outage": "#C0C0C0",
+  "Coastal Flood Statement": "#6B8E23",
+  "Lakeshore Flood Statement": "#6B8E23",
+  "Special Weather Statement": "#FFE4B5",
+  "Marine Weather Statement": "#FFDAB9",
+  "Air Quality Alert": "#808080",
+  "Air Stagnation Advisory": "#808080",
+  "Hazardous Weather Outlook": "#EEE8AA",
+  "Hydrologic Outlook": "#90EE90",
+  "Short Term Forecast": "#98FB98",
+  "Administrative Message": "#C0C0C0",
+  "Test": "#F0FFFF",
+  "Child Abduction Emergency": "#FFFFFF",
+  "Blue Alert": "#FFFFFF"
 }

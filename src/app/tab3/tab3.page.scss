@@ -26,3 +26,16 @@ ion-card-header {
 #instructions {
   border-top: 1px solid #555;
 }
+#instructions #close-btn-row {
+  height: 0;
+  justify-content: end;
+}
+#instructions #close-btn-row ion-button {
+  height: auto;
+  margin: 0;
+  --padding-end: 0;
+}
+#instructions #use-location-inst-row {
+  align-items: center;
+  justify-content: center;
+}
