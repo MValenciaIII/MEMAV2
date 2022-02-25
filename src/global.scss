@@ -26,7 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "~leaflet/dist/leaflet.css";
 
-ion-toolbar.mema-navy {
+.mema-navy {
   --background: #061e3d;
 }
 
@@ -45,4 +45,20 @@ ion-toolbar.mema-navy {
   background: #061e3d ;
   background-position: 50% center;
   background-repeat: no-repeat;
+}
+.iconButton:active {
+  background: #274162;
+}
+
+ion-nav-link ion-icon:active {
+  color: #555;
+}
+
+ion-fab-button,
+ion-fab ion-button,
+.mema-navy-button {
+  --background: #061e3d;
+  --background-activated: #274162;
+  --background-focused: #274162;
+  --background-hover: #274162;
 }

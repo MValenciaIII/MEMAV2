@@ -98,5 +98,6 @@
     <ion-item><ion-label>Tornado Warning</ion-label><ion-checkbox checked="true" [(ngModel)]="settings.Tornado_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Tropical Storm Watch</ion-label><ion-checkbox checked="true" [(ngModel)]="settings.Tropical_Storm_Watch" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Tropical Storm Warning</ion-label><ion-checkbox checked="true" [(ngModel)]="settings.Tropical_Storm_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
+    <ion-item><ion-label>All (overwrites above settings)</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.all" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
   </ion-list>
 </ion-content>

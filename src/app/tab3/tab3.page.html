@@ -65,16 +65,46 @@
         </ion-col>
       </ion-row>
 
-      <ion-row [hidden]="workingDetectionArea" class="justify-content-center" id="instructions">
+      <ion-row
+        [hidden]="workingDetectionArea || !showInstructions"
+        class="justify-content-center"
+        id="instructions"
+      >
         <ion-col>
+          <ion-row id="close-btn-row">
+            <ion-button fill="clear" (click)="showInstructions=false">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-row>
           <ion-row class="justify-content-center">
             <img src="assets/tab3/tap.png" height="50" />
           </ion-row>
           <ion-row>
-            <span >Tap on a location within Mississippi to create a weather alert detection area...</span>
+            <span >Tap on a location within Mississippi to create a weather alert detection area or...</span>
+          </ion-row>
+          <ion-row id="use-location-inst-row">
+            <ion-button
+              class="mema-navy-button"
+              (click)="startDetectionAreaAtUsersLocation()"
+            >
+              Use your current location
+              &nbsp;
+              <ion-icon name="locate-outline"></ion-icon>
+            </ion-button>
           </ion-row>
         </ion-col>
       </ion-row>
 
   </ion-grid>
+
+  <ion-fab
+    [hidden]="workingDetectionArea || showInstructions"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+  >
+    <ion-fab-button color="light" size="small" (click)="showInstructions=true">
+      <ion-icon name="help-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
