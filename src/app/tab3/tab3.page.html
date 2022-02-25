@@ -43,7 +43,6 @@
                 min="1"
                 [max]="maxDetectionRange"
                 step="1000"
-                snaps="true"
                 (ionChange)="detectionRangeChange($event)"
               >
               </ion-range>
@@ -54,7 +53,7 @@
               <ion-button expand="block" fill="solid" color="light" (click)="cancelDetectionArea()">Cancel</ion-button>
             </ion-col>
             <ion-col>
-              <ion-button expand="block" fill="solid" (click)="saveDetectionArea()">Save</ion-button>
+              <ion-button class="mema-navy-button" expand="block" fill="solid" (click)="saveDetectionArea()">Save</ion-button>
             </ion-col>
           </ion-row>
           <ion-row>

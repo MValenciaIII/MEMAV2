@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 })
 
 export class Tab3Page implements AfterViewInit {
+  weatherAlertSettings = {};
   showInstructions = true;
   map: L.Map;
   mapOptions: L.MapOptions = LMapOptions;
@@ -33,7 +34,7 @@ export class Tab3Page implements AfterViewInit {
   detectionAreas: {[key: number]: DetectionArea} = {};
   detectionAreasLayer: L.FeatureGroup = new L.FeatureGroup();
   NWSFL: esri.FeatureLayer = new esri.FeatureLayer({ url: WeatherServiceUrl });
-  weatherAlertSettings = {};
+  NWSRadarFL: esri.ImageMapLayer = new esri.ImageMapLayer({ url: WeatherServiceRadar });
   // Static data
   maxDetectionRange = 643738; // meters ~= 400 Miles
   notificationTimeout = 60000; // miliseconds
@@ -65,6 +66,7 @@ export class Tab3Page implements AfterViewInit {
       }
     });
     await this.storage.set('weatherAlertSettings', this.weatherAlertSettings);
+    this.NWSRadarFL.setOpacity(this.weatherAlertSettings['radarOpacity']);
 
     // Coming back from the settings page doesn't trigger any lifecycle methods
     // so we are subscribing to a router event
@@ -72,6 +74,7 @@ export class Tab3Page implements AfterViewInit {
       if (event instanceof NavigationEnd && event.url === '/tabs/tab3') {
         this.weatherAlertSettings = await this.storage.get('weatherAlertSettings');
         this.checkForWeatherAlerts();
+        this.NWSRadarFL.setOpacity(this.weatherAlertSettings['radarOpacity']);
       }
     });
   }   
@@ -101,9 +104,9 @@ export class Tab3Page implements AfterViewInit {
 
   async onMapReady(map: L.Map) {
     this.map = map;
+    this.NWSRadarFL.addTo(this.map);
     this.NWSFL.addTo(this.map);
     this.NWSFL.setWhere('0=1');
-    // this.NWSFL.setStyle({ color: 'red', weight: 1 });
     this.NWSFL.setStyle(this.weatherEventFeatureFormat);
     this.NWSFL.bindPopup(WeatherAlertPopup);
     this.detectionAreasLayer.addTo(this.map);
@@ -415,7 +418,7 @@ interface DetectionArea {
 
 // Constants
 const DetectionAreaOpacity = 0.7;
-const DetectionAreaWeight = 2;
+const DetectionAreaWeight = 1;
 const DefaultMaxBounds = new L.LatLngBounds([ [37, -92], [27, -87] ]);
 const DetectionAreaCenterMaxBounds = new L.LatLngBounds([ [35, -91.655], [30.173943, -88.097888] ]);
 const WeatherServiceUrl = 'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1';
@@ -432,8 +435,7 @@ const LMapOptions: L.MapOptions = {
         maxZoom: 18,
         attribution: 'Map data © OpenStreetMap contributors'
       }
-    ),
-    new esri.ImageMapLayer({ url: WeatherServiceRadar, opacity: 0.5 })
+    )
   ],
   maxBounds: DefaultMaxBounds,
   zoom: 6,
@@ -471,6 +473,7 @@ const WeatherAlertPopup = function(layer) {
 }
 
 const defaultWeatherAlertSettings = {
+  "radarOpacity": 0.5,
   "Hurricane Warning": true,
   "Hurricane Watch": true,
   "Tornado Warning": true,

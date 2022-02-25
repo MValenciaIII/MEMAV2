@@ -17,6 +17,22 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-list-header><b>Turn On/Off Event Types</b></ion-list-header>
+    <ion-item>
+      <ion-grid>
+        <ion-row><ion-label>Radar Opacity</ion-label></ion-row>
+        <ion-row>
+          <ion-range
+            min="0"
+            max="1"
+            step="0.05"
+            [(ngModel)]="settings.radarOpacity"
+            (ionChange)="settingsChange()"
+          >
+          </ion-range>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-list-header><b>Turn On/Off Event Types</b></ion-list-header>
     <!-- <ion-item><ion-label>Air Stagnation Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Air_Stagnation_Advisory" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Ashfall Advisory</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Ashfall_Advisory" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
     <ion-item><ion-label>Ashfall Warning</ion-label><ion-checkbox checked="false" [(ngModel)]="settings.Ashfall_Warning" (ionChange)="settingsChange()"></ion-checkbox></ion-item>
