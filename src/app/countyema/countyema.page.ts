@@ -35,5 +35,11 @@ export class CountyemaPage implements OnInit {
 
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const browser = this.iab.create('https://www.msema.org/county-ema/', '_blank', this.options);
+
+    browser.on('exit').subscribe(event => {
+      this.router.navigate(["/tabs/"])
+    });
+  }
 }

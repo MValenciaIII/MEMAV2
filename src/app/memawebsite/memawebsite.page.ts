@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { InAppBrowser, InAppBrowserOptions, InAppBrowserObject } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Router } from "@angular/router";
 import { Platform } from '@ionic/angular';
 
@@ -9,6 +9,7 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./memawebsite.page.scss'],
 })
 export class MemawebsitePage implements OnInit {
+  browser: InAppBrowserObject;
   options: InAppBrowserOptions = {
     location : 'yes',//Or 'no' 
     hidden : 'no', //Or  'yes'
@@ -36,10 +37,10 @@ export class MemawebsitePage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    // const browser = this.iab.create('https://msema.org', '_blank', this.options);
+    this.browser = this.iab.create('https://msema.org', '_blank', this.options);
 
-    // browser.on('exit').subscribe(event => {
-    //   this.router.navigate(["/tabs/"])
-    // });
+    this.browser.on('exit').subscribe(event => {
+      this.router.navigate(["/tabs/"])
+    });
   }
 }

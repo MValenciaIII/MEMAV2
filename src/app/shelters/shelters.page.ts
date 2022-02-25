@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.page.html',
-  styleUrls: ['./news.page.scss'],
+  selector: 'app-shelters',
+  templateUrl: './shelters.page.html',
+  styleUrls: ['./shelters.page.scss'],
 })
-export class NewsPage implements OnInit {
+export class SheltersPage implements OnInit {
+  subscription: Subscription;
   options: InAppBrowserOptions = {
     location : 'yes',//Or 'no' 
     hidden : 'no', //Or  'yes'
@@ -36,10 +38,11 @@ export class NewsPage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://www.msema.org/news/', '_blank', this.options);
+    const browser = this.iab.create('https://www.msema.org/shelters-and-safe-rooms/', '_blank', this.options);
 
     browser.on('exit').subscribe(event => {
       this.router.navigate(["/tabs/"])
     });
   }
 }
+

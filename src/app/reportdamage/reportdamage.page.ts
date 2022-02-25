@@ -4,11 +4,11 @@ import { Router } from "@angular/router";
 import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.page.html',
-  styleUrls: ['./news.page.scss'],
+  selector: 'app-reportdamage',
+  templateUrl: './reportdamage.page.html',
+  styleUrls: ['./reportdamage.page.scss'],
 })
-export class NewsPage implements OnInit {
+export class ReportdamagePage implements OnInit {
   options: InAppBrowserOptions = {
     location : 'yes',//Or 'no' 
     hidden : 'no', //Or  'yes'
@@ -36,10 +36,11 @@ export class NewsPage implements OnInit {
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
   ngOnInit() {
-    const browser = this.iab.create('https://www.msema.org/news/', '_blank', this.options);
+    const browser = this.iab.create('https://www.msema.org/contact/crisistrack/', '_blank', this.options);
 
     browser.on('exit').subscribe(event => {
       this.router.navigate(["/tabs/"])
     });
   }
 }
+

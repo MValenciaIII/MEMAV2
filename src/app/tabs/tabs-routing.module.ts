@@ -25,12 +25,12 @@ const routes: Routes = [
       {
         path: "tab4",
         loadChildren: () =>
-          import("../tab4/tab4.module").then((m) => m.Tab4PageModule),
+          import("../shelters/shelters.module").then((m) => m.SheltersPageModule),
       },
       {
         path: "tab5",
         loadChildren: () =>
-          import("../tab5/tab5.module").then((m) => m.Tab5PageModule),
+          import("../reportdamage/reportdamage.module").then((m) => m.ReportdamagePageModule),
       },
       {
         path: "",

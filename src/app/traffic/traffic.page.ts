@@ -35,5 +35,11 @@ export class TrafficPage implements OnInit {
 
   constructor(private iab: InAppBrowser, private router: Router, private platform: Platform) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const browser = this.iab.create('https://www.mdottraffic.com/default.aspx?showMain=true', '_blank', this.options);
+
+    browser.on('exit').subscribe(event => {
+      this.router.navigate(["/tabs/"])
+    });
+  }
 }

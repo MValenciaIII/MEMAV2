@@ -22,9 +22,9 @@ export class TabsPage {
     this.navCtrl.navigateRoot("tabs/tab3");
   }
   tab4() {
-    this.navCtrl.navigateRoot("tabs/tab4");
+    this.navCtrl.navigateRoot("shelters");
   }
   tab5() {
-    this.navCtrl.navigateRoot("tabs/tab5");
+    this.navCtrl.navigateRoot("reportdamage");
   }
 }
