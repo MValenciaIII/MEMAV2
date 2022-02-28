@@ -30,7 +30,10 @@ ion-card-header {
   background-color: white;
   z-index: 1000000;
 }
-#instructions #close-inst-btn {
+#instructions #close-inst-col {
+  padding-top: 0;
+}
+#instructions #close-inst-col ion-button {
   height: auto;
   margin: 0;
 }
