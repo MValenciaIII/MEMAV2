@@ -63,37 +63,6 @@
           </ion-row>
         </ion-col>
       </ion-row>
-
-      <ion-row
-        [hidden]="workingDetectionArea || !showInstructions"
-        class="justify-content-center"
-        id="instructions"
-      >
-        <ion-col>
-          <ion-row id="close-btn-row">
-            <ion-button fill="clear" (click)="showInstructions=false">
-              <ion-icon name="close-outline"></ion-icon>
-            </ion-button>
-          </ion-row>
-          <ion-row class="justify-content-center">
-            <img src="assets/tab3/tap.png" height="50" />
-          </ion-row>
-          <ion-row>
-            <span >Tap on a location within Mississippi to create a weather alert detection area or...</span>
-          </ion-row>
-          <ion-row id="use-location-inst-row">
-            <ion-button
-              class="mema-navy-button"
-              (click)="startDetectionAreaAtUsersLocation()"
-            >
-              Use your current location
-              &nbsp;
-              <ion-icon name="locate-outline"></ion-icon>
-            </ion-button>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-
   </ion-grid>
 
   <ion-fab
@@ -106,4 +75,40 @@
       <ion-icon name="help-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <div
+    [hidden]="workingDetectionArea || !showInstructions"
+    class="justify-content-center"
+    id="instructions"
+  >
+    <ion-grid>
+      <!-- <ion-row id="close-btn-row">
+      </ion-row> -->
+      <ion-row class="justify-content-center">
+        <ion-col size="2"></ion-col>
+        <ion-col size="8" id="touch-icon-col">
+          <img src="assets/tab3/tap.png" height="50" />
+        </ion-col>
+        <ion-col size="2">
+          <ion-button fill="clear" (click)="showInstructions=false" id="close-inst-btn">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row id="text-inst-row">
+        <span >Tap on a location within Mississippi to create a weather alert detection area or...</span>
+      </ion-row>
+      <ion-row id="use-location-btn-row">
+        <ion-button
+          class="mema-navy-button"
+          (click)="startDetectionAreaAtUsersLocation()"
+        >
+          Use your current location
+          &nbsp;
+          <ion-icon name="locate-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+  </div>
+
 </ion-content>

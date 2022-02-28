@@ -24,18 +24,24 @@ ion-card-header {
 }
 
 #instructions {
+  position: fixed;
+  bottom: 0;
   border-top: 1px solid #555;
+  background-color: white;
+  z-index: 1000000;
 }
-#instructions #close-btn-row {
-  height: 0;
-  justify-content: end;
-}
-#instructions #close-btn-row ion-button {
+#instructions #close-inst-btn {
   height: auto;
   margin: 0;
-  --padding-end: 0;
 }
-#instructions #use-location-inst-row {
+#instructions #text-inst-row {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+#instructions #touch-icon-col {
+  text-align: center;
+}
+#instructions #use-location-btn-row {
   align-items: center;
   justify-content: center;
 }
